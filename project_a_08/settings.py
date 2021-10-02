@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'group-a-08-website.herokuapp.com']
 
 INSTALLED_APPS = [
     'main_app',
+    'bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
