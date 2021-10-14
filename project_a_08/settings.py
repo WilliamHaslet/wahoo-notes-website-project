@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL')
+        default=config('postgres://wrpjonobdwlgzq:b8ac0910fea41d721a566d921cb2a04f249e657df93625af41976b4babe62d10@ec2-44-197-94-126.compute-1.amazonaws.com:5432/d5ei91gb65r5dm')
     )
 }
 
