@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
+from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -83,14 +85,9 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd5ei91gb65r5dm',
-        'USER': 'wrpjonobdwlgzq',
-        'PASSWORD': 'b8ac0910fea41d721a566d921cb2a04f249e657df93625af41976b4babe62d10',
-        'HOST': 'ec2-44-197-94-126.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
 
 
