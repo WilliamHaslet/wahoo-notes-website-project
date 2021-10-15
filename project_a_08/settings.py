@@ -94,11 +94,7 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
         'PORT':  '5432',
     }
 }'''
-DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
-}
+DATABASES = {'default': dj_database_url.config()}
 
 
 # Password validation
