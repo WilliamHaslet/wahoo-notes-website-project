@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'd5ei91gb65r5dm',
@@ -92,7 +92,10 @@ DATABASES = {
         'HOST': 'ec2-44-197-94-126.compute-1.amazonaws.com',
         'PORT':  '5432',
     }
-}
+}'''
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
