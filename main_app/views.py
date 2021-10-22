@@ -5,7 +5,7 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib import messages
 
-from .models import Choice, Question, Deepthought
+from .models import Choice, Question, UVAClass
 
 
 class IndexView(generic.ListView):
@@ -36,19 +36,19 @@ class ResultsView(generic.DetailView):
     model = Question
     template_name = 'main_app/results.html'
 
-class DeepthoughtView(generic.ListView):
-    model = Deepthought
-    template_name = 'main_app/deepthoughts.html'
+class UVAClassView(generic.ListView):
+    model = UVAClass
+    template_name = 'main_app/uvaclass.html'
 
-class DeepthoughtListView(generic.ListView):
-    model = Deepthought
+class UVAClassListView(generic.ListView):
+    model = UVAClass
     template_name = 'main_app/list.html'
-    context_object_name = 'curr_thoughts'
-    def get_thoughts(self):
+    context_object_name = 'curr_classes'
+    def get_classes(self):
         """
-        Return all thoughts.
+        Return all classes.
         """
-        return Deepthought
+        return UVAClass
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -70,12 +70,15 @@ def vote(request, question_id):
 
 def express(request):
     if request.method=='POST':
-        if request.POST.get('deepthoughts') and request.POST.get('deepthoughts_title'):
-            new_thought = Deepthought()
-            new_thought.thought_text=request.POST.get('deepthoughts')
-            new_thought.title_text=request.POST.get('deepthoughts_title')
-            new_thought.save()
+        if request.POST.get('uvaclass_id') and request.POST.get('uvaclass_yr'):
+            new_class = UVAClass()
+            new_class.id_text=request.POST.get('uvaclass_id')
+            new_class.studentyr_text=request.POST.get('uvaclass_yr')
+            new_class.classname_text=request.POST.get('uvaclass_cc')
+            new_class.classtime_text=request.POST.get('uvaclass_time')
+            new_class.classinst_text=request.POST.get('uvaclass_inst')
+            new_class.save()
             messages.success(request, "Successfully Submitted!")
         else:
-            messages.error(request, "Blank Submission! You must submit both a title and thought.")
-    return render(request, 'main_app/deepthoughts.html')
+            messages.error(request, "Blank Submission! You must fill out the entire form.")
+    return render(request, 'main_app/uvaclass.html')

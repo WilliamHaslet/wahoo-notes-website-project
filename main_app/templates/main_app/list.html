@@ -1,6 +1,6 @@
 {% load static %}
 <head>
-    <title>All Thoughts</title>
+    <title>All Classes</title>
     <link rel="stylesheet" type="text/css" href="{% static 'main_app/style.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
@@ -13,32 +13,35 @@
                     <a class="nav-link" href="{% url 'main_app:index'%}">main_app</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'main_app:deepthoughts'%}">Add a Thought</a>
+                    <a class="nav-link" href="{% url 'main_app:uvaclass'%}">Add a Class</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'main_app:list'%}">All Thoughts</a>
+                    <a class="nav-link" href="{% url 'main_app:list'%}">All Classes</a>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="container">
         <div class="d-flex justify-content-center">
-            <h1 class="mt-5"> All Deep Thoughts </h1>
+            <h1 class="mt-5"> All Classes </h1>
         </div>
         {% csrf_token %}
         <div class="d-flex justify-content-center">
-            {% if curr_thoughts %}
+            {% if curr_classes %}
             <ol>
-                {% for deepthought in curr_thoughts %}
-                <li><strong>{{deepthought.title_text}}</strong> - {{ deepthought.thought_text }}</li>
+                {% for uvaclass in curr_classes %}
+                <li><strong>{{uvaclass.id_text}} - {{uvaclass.studentyr_text}}</strong></li>
+                <blockquote>{{uvaclass.classname_text}}</blockquote>
+                <blockquote>{{uvaclass.classtime_text}}</blockquote>
+                <blockquote>{{uvaclass.classinst_text}}</blockquote>
                 {% endfor %}
             </ol>
             {% else %}
-            <p>No deep thoughts have been submitted.</p>
+            <p>You don't have any classes yet.</p>
             {% endif %}
         </div>
         <div class="d-flex justify-content-center">
-            <a href="{% url 'main_app:deepthoughts'%}">Add a new thought?</a>
+            <a href="{% url 'main_app:uvaclass'%}">Add a new class?</a>
         </div>
     </div>
     <footer class="bg-light text-center text-lg-start">

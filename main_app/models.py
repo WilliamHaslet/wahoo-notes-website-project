@@ -39,8 +39,11 @@ class Choice(models.Model):
     def __str__(self):
         return self.choice_text
 
-class Deepthought(models.Model):
-    title_text = models.CharField(max_length=200)
-    thought_text = models.CharField(max_length=200)
+class UVAClass(models.Model):
+    id_text = models.CharField(max_length=200)
+    studentyr_text = models.CharField(max_length=200)
+    classname_text = models.CharField(max_length=200)
+    classtime_text = models.CharField(max_length=200)
+    classinst_text = models.CharField(max_length=200)
     def __str__(self):
-        return self.thought_text
+        return self.classname_text

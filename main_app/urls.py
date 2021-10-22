@@ -9,7 +9,7 @@ urlpatterns = [
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
     path('<int:question_id>/vote/', views.vote, name='vote'),
-    path('deepthoughts/', views.DeepthoughtView.as_view(), name='deepthoughts'),
-    path('deepthoughts/express', views.express, name='express'),
-    path('deepthoughts/list', views.DeepthoughtListView.as_view(), name='list'),
+    path('uvaclass/', views.UVAClassView.as_view(), name='uvaclass'),
+    path('uvaclass/express', views.express, name='express'),
+    path('uvaclass/list', views.UVAClassListView.as_view(), name='list'),
 ]

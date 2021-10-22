@@ -1,6 +1,6 @@
 {% load static %}
 <head>
-    <title>Express Thoughts</title>
+    <title>Classes</title>
     <!-- CSS only -->
     <link rel="stylesheet" type="text/css" href="{% static 'main_app/style.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -14,25 +14,28 @@
                     <a class="nav-link" href="{% url 'main_app:index'%}">main_app</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'main_app:deepthoughts'%}">Add a Thought</a>
+                    <a class="nav-link" href="{% url 'main_app:uvaclass'%}">Add a Class</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'main_app:list'%}">All Thoughts</a>
+                    <a class="nav-link" href="{% url 'main_app:list'%}">All Classes</a>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="container">
         <div class="d-flex justify-content-center">
-            <h1 class="mt-5">Deep Thoughts</h1>
+            <h1 class="mt-5">Add Class</h1>
         </div>
         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
         <form action="{% url 'main_app:express' %}" method="post">
             {% csrf_token %}
             <div class="form-group">
-                <label>What deep thoughts do you have?</label>
-                <input type="text" placeholder="Enter Thought title here" name="deepthoughts_title" class="form-control">
-                <input type="text" placeholder="Enter Thought here" name="deepthoughts" class="form-control">
+                <label>Add a class to your schedule</label>
+                <input type="text" placeholder="Your Computing ID" name="uvaclass_id" class="form-control">
+                <input type="text" placeholder="Graduation Class Year" name="uvaclass_yr" class="form-control">
+                <input type="text" placeholder="Course Code" name="uvaclass_cc" class="form-control">
+                <input type="text" placeholder="Course Time" name="uvaclass_time" class="form-control">
+                <input type="text" placeholder="Course Instructor" name="uvaclass_inst" class="form-control">
             </div>
             <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
             {% if messages %}
@@ -42,7 +45,7 @@
             {% endif %}
         </form>
 
-        <a href="{% url 'main_app:list' %}">See all thoughts?</a>
+        <a href="{% url 'main_app:list' %}">See all classes?</a>
         <br><br>
         <a href="{% url 'main_app:index' %}">Return to index?</a>
     </div>
