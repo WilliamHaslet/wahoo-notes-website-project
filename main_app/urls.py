@@ -1,6 +1,6 @@
-from django.urls import path
-
+from django.urls import path, include
 from . import views
+from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 
 app_name = 'main_app'
@@ -13,5 +13,6 @@ urlpatterns = [
     path('uvaclass/', views.UVAClassView.as_view(), name='uvaclass'),
     path('uvaclass/express', views.express, name='express'),
     path('uvaclass/list', views.UVAClassListView.as_view(), name='list'),
+    path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view(), name="logout"),
 ]
