@@ -23,7 +23,9 @@
   <h1>Group A-08</h1>
   {% if user.is_authenticated %}
   <p>Welcome, You are logged in as {{ user.username }}</p>
-  <img src="https://mail.google.com/mail/u/0/?logout&hl=en" />
+  <form action="https://mail.google.com/mail/u/0/?logout&hl=en?continue=https://group-a-08-website.herokuapp.com/">
+    <input type="submit" value="Log out" />
+  </form>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
