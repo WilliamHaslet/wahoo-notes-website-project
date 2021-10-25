@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.auth import logout
 
 from .models import Choice, Question, UVAClass
 
@@ -82,3 +83,7 @@ def express(request):
         else:
             messages.error(request, "Blank Submission! You must fill out the entire form.")
     return render(request, 'main_app/uvaclass.html')
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'main_app/index.html')
