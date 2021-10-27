@@ -10,7 +10,7 @@ from .models import Choice, Question, UVAClass
 
 
 class IndexView(generic.ListView):
-    template_name = 'main_app/index.html'
+    template_name = 'main_app/login.html' #changed index to login
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):
