@@ -84,6 +84,15 @@ def express(request):
             messages.error(request, "Blank Submission! You must fill out the entire form.")
     return render(request, 'main_app/uvaclass.html')
 
+class CalendarView(generic.ListView):
+    template_name = 'main_app/calendar.html'
+
 def logout_view(request):
     logout(request)
     return render(request, 'main_app/index.html')
+
+def login(request):
+    if request.user.is_authenticated:
+        return render(request, 'main_app/calendar.html')
+    else:
+        return render(request, 'main_app/index.html')
