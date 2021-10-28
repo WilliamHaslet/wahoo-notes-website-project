@@ -86,35 +86,28 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# '''DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'd5ei91gb65r5dm',
-#         'USER': 'wrpjonobdwlgzq',
-#         'PASSWORD': 'b8ac0910fea41d721a566d921cb2a04f249e657df93625af41976b4babe62d10',
-#         'HOST': 'ec2-44-197-94-126.compute-1.amazonaws.com',
-#         'PORT':  '5432',
-#     }
-# }'''
+'''DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd5ei91gb65r5dm',
+        'USER': 'wrpjonobdwlgzq',
+        'PASSWORD': 'b8ac0910fea41d721a566d921cb2a04f249e657df93625af41976b4babe62d10',
+        'HOST': 'ec2-44-197-94-126.compute-1.amazonaws.com',
+        'PORT':  '5432',
+    }
+}'''
 
 DATABASES = {'default': dj_database_url.config()}
 
 if 'test' in sys.argv:
-     DATABASES['default'] = {
-         'ENGINE': 'django.db.backends.sqlite3',
-         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-     }
-
-'''DATABASES['default'] = {
-     'ENGINE': 'django.db.backends.sqlite3',
-     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
- }
-
-DATABASES = {
-    'default': {
+    DATABASES['default'] = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+
+'''DATABASES['default'] = {
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 }'''
 
 # Password validation
@@ -187,7 +180,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 5
+SITE_ID = 4
 
-LOGIN_REDIRECT_URL = '/calendar'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
