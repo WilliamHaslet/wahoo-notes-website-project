@@ -45,6 +45,10 @@ class StudentView(generic.ListView):
     model = Student
     template_name = 'main_app/editprofile.html'
 
+class EditStudentView(generic.ListView):
+    model = Student
+    template_name = 'main_app/editstudent.html'
+    
 class UVAClassListView(generic.ListView):
     model = UVAClass
     template_name = 'main_app/list.html'
