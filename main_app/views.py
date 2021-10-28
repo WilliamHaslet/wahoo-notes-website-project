@@ -6,21 +6,13 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth import logout
 
-from .models import Choice, Question, UVAClass
+from .models import Choice, Question, UVAClass, Student
 
 
 class IndexView(generic.ListView):
+    model = Student
     template_name = 'main_app/index.html'
-    context_object_name = 'latest_question_list'
-
-    def get_queryset(self):
-        """
-        Return the last five published questions (not including those set to be
-        published in the future).
-        """
-        return Question.objects.filter(
-            pub_date__lte=timezone.now()
-        ).order_by('-pub_date')[:5]
+    context_object_name = 'profile'
 
 
 class DetailView(generic.DetailView):
@@ -44,6 +36,11 @@ class UVAClassView(generic.ListView):
 class StudentView(generic.ListView):
     model = Student
     template_name = 'main_app/editprofile.html'
+
+class EditStudentView(generic.ListView):
+    model = Student
+    template_name = 'main_app/editstudent.html'
+    context_object_name = 'profile'
 
 class UVAClassListView(generic.ListView):
     model = UVAClass
@@ -87,6 +84,20 @@ def addClass(request):
         else:
             messages.error(request, "Blank Submission! You must fill out the entire form.")
     return render(request, 'main_app/uvaclass.html')
+
+def submitEditedStudent(request):
+    if request.method=='POST':
+        if request.POST.get('studentName') and request.POST.get('studentComputingID') and request.POST.get('studentYear'):
+            newStudent = Student()
+            newStudent.name=request.POST.get('studentName')
+            newStudent.computing_id=request.POST.get('studentComputingID')
+            newStudent.year = request.POST.get('studentYear')
+            newStudent.email = newStudent.computing_id + "@virginia.edu"
+            newStudent.save()
+            messages.success(request, "Successfully Submitted!")
+        else:
+            messages.error(request, "Blank Submission! You must submit all fields.")
+    return render(request, 'main_app/editstudent.html')
 
 def logout_view(request):
     logout(request)
