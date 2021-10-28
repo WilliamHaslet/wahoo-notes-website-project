@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth import logout
 
-from .models import Choice, Question, UVAClass
+from .models import Choice, Question, UVAClass, Student
 
 
 class IndexView(generic.ListView):
@@ -48,7 +48,7 @@ class StudentView(generic.ListView):
 class EditStudentView(generic.ListView):
     model = Student
     template_name = 'main_app/editstudent.html'
-    
+
 class UVAClassListView(generic.ListView):
     model = UVAClass
     template_name = 'main_app/list.html'
