@@ -92,6 +92,20 @@ def addClass(request):
             messages.error(request, "Blank Submission! You must fill out the entire form.")
     return render(request, 'main_app/uvaclass.html')
 
+def submitEditedStudent(request):
+    if request.method=='POST':
+        if request.POST.get('studentName') and request.POST.get('studentComputingID') and request.POST.get('studentYear'):
+            newStudent = Student()
+            newStudent.name=request.POST.get('studentName')
+            newStudent.computing_id=request.POST.get('studentComputingID')
+            newStudent.year = request.POST.get('studentYear')
+            newStudent.email = newStudent.computing_id + "@virginia.edu"
+            newStudent.save()
+            messages.success(request, "Successfully Submitted!")
+        else:
+            messages.error(request, "Blank Submission! You must submit all fields.")
+    return render(request, 'main_app/editstudent.html')
+    
 def logout_view(request):
     logout(request)
     return render(request, 'main_app/index.html')
