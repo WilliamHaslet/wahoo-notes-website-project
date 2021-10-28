@@ -14,6 +14,7 @@ urlpatterns = [
     path('uvaclass/', views.UVAClassView.as_view(), name='uvaclass'),
     path('uvaclass/addClass', views.addClass, name='addClass'),
     path('uvaclass/list', views.UVAClassListView.as_view(), name='list'),
+    path('uvaclass/submitEditedStudent', views.submitEditedStudent, name='submitEditedStudent')
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view(), name="logout"),
 ]
