@@ -10,17 +10,9 @@ from .models import Choice, Question, UVAClass, Student
 
 
 class IndexView(generic.ListView):
+    model = Student
     template_name = 'main_app/index.html'
-    context_object_name = 'latest_question_list'
-
-    def get_queryset(self):
-        """
-        Return the last five published questions (not including those set to be
-        published in the future).
-        """
-        return Question.objects.filter(
-            pub_date__lte=timezone.now()
-        ).order_by('-pub_date')[:5]
+    context_object_name = 'profile'
 
 
 class DetailView(generic.DetailView):
