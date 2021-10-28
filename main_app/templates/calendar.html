@@ -1,0 +1,54 @@
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% load socialaccount %}
+
+<head>
+  <title>main_app</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'main_app/style.css' %}">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+  <h1>Group A-08</h1>
+  {% if user.is_authenticated %}
+  <p>Welcome, You are logged in as {{ user.username }}</p>
+  <a href="{% url 'main_app:logout' %}">Logout</a>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'main_app:uvaclass'%}">Add a Class</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'main_app:list'%}">All Classes</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="d-flex justify-content-center">
+      <a href="{% url 'main_app:uvaclass'%}">Click here to add a class</a>
+    </div>
+  </div>
+  <footer class="bg-light text-center text-lg-start">
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
+      Copyright © 2021 Jerry Liu
+    </div>
+  </footer>
+  {% else %}
+  <h1>Login using Google to use our app! </h1>
+  <a href="{% provider_login_url 'google' %}">Login With Google</a>
+  {% endif %}
+
+</body>
