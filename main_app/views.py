@@ -41,6 +41,10 @@ class UVAClassView(generic.ListView):
     model = UVAClass
     template_name = 'main_app/uvaclass.html'
 
+class StudentView(generic.ListView):
+    model = Student
+    template_name = 'main_app/editprofile.html'
+
 class UVAClassListView(generic.ListView):
     model = UVAClass
     template_name = 'main_app/list.html'
@@ -69,7 +73,7 @@ def vote(request, question_id):
         # user hits the Back button.
         return HttpResponseRedirect(reverse('main_app:results', args=(question.id,)))
 
-def express(request):
+def addClass(request):
     if request.method=='POST':
         if request.POST.get('uvaclass_id') and request.POST.get('uvaclass_yr'):
             new_class = UVAClass()

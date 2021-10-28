@@ -11,7 +11,7 @@ urlpatterns = [
     path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
     path('<int:question_id>/vote/', views.vote, name='vote'),
     path('uvaclass/', views.UVAClassView.as_view(), name='uvaclass'),
-    path('uvaclass/express', views.express, name='express'),
+    path('uvaclass/addClass', views.addClass, name='addClass'),
     path('uvaclass/list', views.UVAClassListView.as_view(), name='list'),
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view(), name="logout"),
