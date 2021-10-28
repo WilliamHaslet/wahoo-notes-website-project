@@ -48,6 +48,7 @@ class StudentView(generic.ListView):
 class EditStudentView(generic.ListView):
     model = Student
     template_name = 'main_app/editstudent.html'
+    context_object_name = 'profile'
 
 class UVAClassListView(generic.ListView):
     model = UVAClass
@@ -105,7 +106,7 @@ def submitEditedStudent(request):
         else:
             messages.error(request, "Blank Submission! You must submit all fields.")
     return render(request, 'main_app/editstudent.html')
-    
+
 def logout_view(request):
     logout(request)
     return render(request, 'main_app/index.html')

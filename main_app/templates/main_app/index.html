@@ -44,12 +44,12 @@
       <h1 class="mt-5">Profile</h1>
     </div>
     <div class="d-flex justify-content-center">
-      {% if latest_question_list %}
+      {% if profile %}
       <ul>
-        <li>Name: {{ latest_question_list.first.name }}</li>
-        <li>Computing ID: {{ latest_question_list.first.computing_id }}</li>
-        <li>Email: {{ latest_question_list.first.email }}</li>
-        <li>Year: {{ latest_question_list.first.year }}</li>
+        <li>Name: {{ profile.first.name }}</li>
+        <li>Computing ID: {{ profile.first.computing_id }}</li>
+        <li>Email: {{ profile.first.email }}</li>
+        <li>Year: {{ profile.first.year }}</li>
       </ul>
       {% else %}
       <p>No students are available.</p>
