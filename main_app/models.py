@@ -3,6 +3,7 @@ import datetime
 from django.db import models
 from django.utils import timezone
 from django.contrib import admin
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Student(models.Model):
@@ -40,6 +41,7 @@ class Choice(models.Model):
         return self.choice_text
 
 class UVAClass(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     id_text = models.CharField(max_length=200)
     studentyr_text = models.CharField(max_length=200)
     classname_text = models.CharField(max_length=200)

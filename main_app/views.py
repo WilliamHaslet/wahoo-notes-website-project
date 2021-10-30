@@ -5,6 +5,7 @@ from django.views import generic
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth import logout
+from django.contrib.auth.models import User
 
 from .models import Choice, Question, UVAClass, Student
 
@@ -46,11 +47,11 @@ class UVAClassListView(generic.ListView):
     model = UVAClass
     template_name = 'main_app/list.html'
     context_object_name = 'curr_classes'
-    def get_classes(self):
+    def get_queryset(self):
         """
-        Return all classes.
+        Filters classes by user
         """
-        return UVAClass
+        return UVAClass.objects.filter(user=self.request.user)
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -74,6 +75,7 @@ def addClass(request):
     if request.method=='POST':
         if request.POST.get('uvaclass_id') and request.POST.get('uvaclass_yr'):
             new_class = UVAClass()
+            new_class.user = request.user
             new_class.id_text=request.POST.get('uvaclass_id')
             new_class.studentyr_text=request.POST.get('uvaclass_yr')
             new_class.classname_text=request.POST.get('uvaclass_cc')
