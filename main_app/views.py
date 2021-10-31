@@ -6,7 +6,8 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth import logout
 
-from .models import Choice, Question, UVAClass
+from .forms import DocumentForm
+from .models import Choice, Question, UVAClass, Document
 
 
 class IndexView(generic.ListView):
@@ -50,6 +51,39 @@ class UVAClassListView(generic.ListView):
         Return all classes.
         """
         return UVAClass
+
+class DocumentsView(generic.ListView):
+    model = Document
+    template_name = 'main_app/documents.html'
+'''
+#Website views for file uploads
+def model_form_upload(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            newdoc = Document(docfile = request.FILES['docfile'])
+            newdoc.save()
+            return redirect('home')
+    else:
+        form = DocumentForm()
+    return render(request, 'main_app/documents.html', {
+        'form': form
+    })
+#Class for document managment page
+'''
+
+#Django upload files
+def upload_file(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            # file is saved
+            newdoc = Document(docfile = request.FILES['docfile'])
+            newdoc.save()
+            return HttpResponseRedirect('/index/')
+    else:
+        form = DocumentForm()
+    return render(request, 'documents.html', {'form': form})
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)

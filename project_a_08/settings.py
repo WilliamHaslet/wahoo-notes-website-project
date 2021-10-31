@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-'''DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'd5ei91gb65r5dm',
@@ -95,8 +95,8 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
         'HOST': 'ec2-44-197-94-126.compute-1.amazonaws.com',
         'PORT':  '5432',
     }
-}'''
-
+}
+'''
 DATABASES = {'default': dj_database_url.config()}
 
 if 'test' in sys.argv:
@@ -104,7 +104,7 @@ if 'test' in sys.argv:
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-
+'''
 '''DATABASES['default'] = {
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
@@ -184,3 +184,7 @@ SITE_ID = 4
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+#File upload
+MEDIA_URL='/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')

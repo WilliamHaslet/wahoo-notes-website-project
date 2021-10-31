@@ -47,3 +47,9 @@ class UVAClass(models.Model):
     classinst_text = models.CharField(max_length=200)
     def __str__(self):
         return self.classname_text
+
+#Model upload
+class Document(models.Model):
+    description = models.CharField(max_length=255, blank=True)
+    document = models.FileField(upload_to='documents/%Y/%m/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
