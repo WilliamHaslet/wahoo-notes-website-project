@@ -8,24 +8,32 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
+<br><center><h1> Wahoo Notes </h1></center><br>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'main_app:index'%}">main_app</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'main_app:editstudent'%}">Edit student</a>
+                    <a class="nav-link" href="{% url 'main_app:index'%}"> Home </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'main_app:uvaclass'%}">Add a Class</a>
+                    <a class="nav-link active" href="{% url 'main_app:uvaclass'%}">Add Class</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main_app:editstudent'%}">Edit Student</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'main_app:list'%}">All Classes</a>
                 </li>
             </ul>
         </div>
+        <div class="navbar navbar-expand-lg navbar-light bg-light">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main_app:logout' %}""> Log Out </a>
+                </li>
+            </ul>
+          </div>
     </nav>
     <div class="container">
         <div class="d-flex justify-content-center">
@@ -50,13 +58,12 @@
             {% endif %}
         </form>
 
+        <br>
         <a href="{% url 'main_app:list' %}">See all classes?</a>
-        <br><br>
-        <a href="{% url 'main_app:index' %}">Return to index?</a>
     </div>
     <footer class="bg-light text-center text-lg-start">
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
-            Copyright © 2021 Jerry Liu
+            Copyright © 2021 Group A-08
         </div>
     </footer>
 </body>

@@ -18,24 +18,32 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
-
+  
 <body>
-  <h1>Group A-08</h1>
   {% if user.is_authenticated %}
-  <p>Welcome, You are logged in as {{ user.username }}</p>
-  <a href="{% url 'main_app:logout' %}">Logout</a>
+  <br><center><h1> Wahoo Notes </h1></center><br>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'main_app:uvaclass'%}">Add a Class</a>
+          <a class="nav-link active" href="{% url 'main_app:index'%}"> Home </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'main_app:editstudent'%}">Edit student</a>
+          <a class="nav-link" href="{% url 'main_app:uvaclass'%}">Add Class</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'main_app:editstudent'%}">Edit Student</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'main_app:list'%}">All Classes</a>
         </li>
+      </ul>
+    </div>
+    <div class="navbar navbar-expand-lg navbar-light bg-light">
+      <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'main_app:logout' %}"> Log Out </a>
+          </li>
       </ul>
     </div>
   </nav>
@@ -61,12 +69,13 @@
   </div>
   <footer class="bg-light text-center text-lg-start">
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
-      Copyright © 2021 Jerry Liu
+      Copyright © 2021 Group A-08
     </div>
   </footer>
   {% else %}
-  <h1>Login using Google to use our app! </h1>
-  <a href="{% provider_login_url 'google' %}">Login With Google</a>
+  <center><h1>Welcome to Wahoo Notes</h1>
+  <h1>Login using Google to use our app! </h1><br>
+  <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Log In</a></body></center>
   {% endif %}
 
 </body>
