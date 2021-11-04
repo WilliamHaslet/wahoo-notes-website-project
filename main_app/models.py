@@ -24,6 +24,6 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     computing_id = models.CharField(max_length=30, default='NULL')
     year = models.IntegerField(default=0)
-    classes = models.ManyToManyField(Class)
+    classes = models.ManyToManyField('Class', related_name='profiles')
     def __str__(self):
         return f'{self.user.username} Profile'
