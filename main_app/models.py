@@ -14,10 +14,15 @@ class Profile(models.Model):
         return f'{self.user.username} Profile'
 
 class Class(models.Model):
-    name = models.CharField(max_length=30)
-    professor = models.CharField(max_length=30)
-    time = models.CharField(max_length=30)
-    semester = models.CharField(max_length=30)
+    id = models.IntegerField(default=0, primary_key=True)
+    department = models.CharField(max_length=30, default="None")
+    code = models.CharField(max_length=30, default="None")
+    section = models.CharField(max_length=30, default="None")
+    professor = models.CharField(max_length=30, default="None")
+    size = models.IntegerField(default=0)
+    start_time = models.TimeField(default="00:00:00")
+    end_time = models.TimeField(default="00:00:00")
+    semester = models.CharField(max_length=30, default="None")
 
 class UVAClass(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
