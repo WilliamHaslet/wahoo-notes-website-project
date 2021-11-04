@@ -6,9 +6,31 @@ from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 from .models import Choice, Question, UVAClass, Student
+from .forms import UserUpdateForm, ProfileUpdateForm
 
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
+
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated')
+            return redirect('editstudent')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'main_app/editstudent.html')
 
 class IndexView(generic.ListView):
     model = Student
@@ -89,13 +111,10 @@ def addClass(request):
 
 def submitEditedStudent(request):
     if request.method=='POST':
-        if request.POST.get('studentName') and request.POST.get('studentComputingID') and request.POST.get('studentYear'):
-            newStudent = Student()
-            newStudent.name=request.POST.get('studentName')
-            newStudent.computing_id=request.POST.get('studentComputingID')
-            newStudent.year = request.POST.get('studentYear')
-            newStudent.email = newStudent.computing_id + "@virginia.edu"
-            newStudent.save()
+        if request.POST.get('studentComputingID') and request.POST.get('studentYear'):
+            request.user.profile.computing_id=request.POST.get('studentComputingID')
+            request.user.profile.year=request.POST.get('studentYear')
+            request.user.profile.save()
             messages.success(request, "Successfully Submitted!")
         else:
             messages.error(request, "Blank Submission! You must submit all fields.")
