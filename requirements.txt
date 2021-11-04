@@ -7,3 +7,4 @@ psycopg2
 whitenoise
 dj-database-url
 python-decouple
+django-crispy-forms
