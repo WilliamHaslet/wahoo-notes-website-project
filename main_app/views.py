@@ -103,7 +103,7 @@ def classTestView(request):
             numbers.append(number)
 
         professor = fallClasses[i][ClassData.instructor]
-        if not professor in professors:
+        if (not professor in professors) and professor != "":
             professors.append(professor)
 
         startTime = fallClasses[i][ClassData.meetingTimeStart]
