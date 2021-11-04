@@ -52,16 +52,12 @@
       <h1 class="mt-5">Profile</h1>
     </div>
     <div class="d-flex justify-content-center">
-      {% if profile %}
       <ul>
-        <li>Name: {{ profile.first.name }}</li>
-        <li>Computing ID: {{ profile.first.computing_id }}</li>
-        <li>Email: {{ profile.first.email }}</li>
-        <li>Year: {{ profile.first.year }}</li>
+        <li>Name: {{ user.username }}</li>
+      <li>Computing ID: {{ user.profile.computing_id }}</li>
+        <li>Email: {{ user.email }}</li>
+        <li>Year: {{ user.profile.year }}</li>
       </ul>
-      {% else %}
-      <p>No students are available.</p>
-      {% endif %}
     </div>
     <div class="d-flex justify-content-center">
       <a href="{% url 'main_app:uvaclass'%}">Click here to add a class</a>

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Choice, Question, UVAClass
+from .models import Choice, Question, UVAClass, Profile
 
 
 class ChoiceInline(admin.TabularInline):
@@ -21,3 +21,4 @@ class QuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(UVAClass)
+admin.site.register(Profile)

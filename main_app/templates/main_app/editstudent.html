@@ -1,7 +1,7 @@
 {% load static %}
 
 <head>
-    <title>Edit Student</title>
+    <title>Edit your Profile</title>
     <!-- CSS only -->
     <link rel="stylesheet" type="text/css" href="{% static 'main_app/style.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -43,10 +43,9 @@
         <form action="{% url 'main_app:submitEditedStudent' %}" method="post">
             {% csrf_token %}
             <div class="form-group">
-                <input type="text" placeholder="Enter student name" name="studentName" class="form-control mt-3">
-                <input type="text" placeholder="Enter student computing ID" name="studentComputingID"
+                <input type="text" placeholder="Enter computing ID" name="studentComputingID"
                     class="form-control mt-3">
-                <input type="text" placeholder="Enter student year" name="studentYear" class="form-control mt-3">
+                <input type="text" placeholder="Enter year" name="studentYear" class="form-control mt-3">
             </div>
             <button type="submit" value="Submit" class="btn btn-primary mt-3">Submit</button>
             {% if messages %}

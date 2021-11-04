@@ -6,6 +6,13 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 # Create your models here.
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    computing_id = models.CharField(max_length=30, default='NULL')
+    year = models.IntegerField(default=0)
+    def __str__(self):
+        return f'{self.user.username} Profile'
+    
 class Student(models.Model):
     computing_id = models.CharField(max_length=30)
     name = models.CharField(max_length=30)
