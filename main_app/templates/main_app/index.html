@@ -29,13 +29,10 @@
           <a class="nav-link active" href="{% url 'main_app:index'%}"> Home </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'main_app:uvaclass'%}">Add Class</a>
+          <a class="nav-link" href="{% url 'main_app:editprofile'%}">Edit Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'main_app:editstudent'%}">Edit Student</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'main_app:list'%}">All Classes</a>
+          <a class="nav-link" href="{% url 'main_app:addclasses'%}">Add Class</a>
         </li>
       </ul>
     </div>
@@ -52,19 +49,12 @@
       <h1 class="mt-5">Profile</h1>
     </div>
     <div class="d-flex justify-content-center">
-      {% if profile %}
       <ul>
-        <li>Name: {{ profile.first.name }}</li>
-        <li>Computing ID: {{ profile.first.computing_id }}</li>
-        <li>Email: {{ profile.first.email }}</li>
-        <li>Year: {{ profile.first.year }}</li>
+        <li>Name: {{ user.username }}</li>
+      <li>Computing ID: {{ user.profile.computing_id }}</li>
+        <li>Email: {{ user.email }}</li>
+        <li>Year: {{ user.profile.year }}</li>
       </ul>
-      {% else %}
-      <p>No students are available.</p>
-      {% endif %}
-    </div>
-    <div class="d-flex justify-content-center">
-      <a href="{% url 'main_app:uvaclass'%}">Click here to add a class</a>
     </div>
   </div>
   <footer class="bg-light text-center text-lg-start">
