@@ -104,3 +104,63 @@ def submitEditedStudent(request):
 def logout_view(request):
     logout(request)
     return render(request, 'main_app/index.html')
+
+from django.http import HttpResponse
+import requests
+import json
+from pprint import pprint
+from enum import IntEnum
+from django.template import loader
+
+class ClassData(IntEnum):
+    subject = 0
+    catalogNumber = 1
+    classSection = 2
+    classNumber = 3
+    classTitle = 4
+    classTopicFormalDesc = 5
+    instructor = 6
+    enrollmentCapacity = 7
+    meetingDays = 8
+    meetingTimeStart = 9
+    meetingTimeEnd = 10
+    term = 11
+    year = 12
+
+def classTestView(request):
+    fallClasses = json.load(open("fallClasses.txt"))
+
+    fallClassCount = len(fallClasses)
+    subjects = []
+    numbers = []
+    professors = []
+    startTimes = []
+
+    for i in range(fallClassCount):
+        subject = fallClasses[i][ClassData.subject]
+        if not subject in subjects:
+            subjects.append(subject)
+            
+        number = fallClasses[i][ClassData.catalogNumber]
+        if not number in numbers:
+            numbers.append(number)
+
+        professor = fallClasses[i][ClassData.instructor]
+        if not professor in professors:
+            professors.append(professor)
+
+        startTime = fallClasses[i][ClassData.meetingTimeStart]
+        if not startTime in startTimes:
+            startTimes.append(startTime)
+
+    template = loader.get_template('main_app/classTest.html')
+    context = {
+        'displayData': [
+            ("Subject", subjects),
+            ("Class Number", numbers),
+            ("Professor", professors),
+            ("Start Time", startTimes)
+        ]
+    }
+
+    return HttpResponse(template.render(context, request))
