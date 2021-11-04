@@ -18,11 +18,14 @@ class Class(models.Model):
     department = models.CharField(max_length=30, default="None")
     code = models.CharField(max_length=30, default="None")
     section = models.CharField(max_length=30, default="None")
+    name = models.CharField(max_length=30, default="None")
     professor = models.CharField(max_length=30, default="None")
     size = models.IntegerField(default=0)
     start_time = models.TimeField(default="00:00:00")
     end_time = models.TimeField(default="00:00:00")
     semester = models.CharField(max_length=30, default="None")
+    def __str__(self):
+        return f"{self.department} {self.code}, section {self.section}"
 
 class UVAClass(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)

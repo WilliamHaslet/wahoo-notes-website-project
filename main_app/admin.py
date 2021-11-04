@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import UVAClass, Profile
+from .models import Class, Profile
 
-admin.site.register(UVAClass)
+admin.site.register(Class)
 admin.site.register(Profile)

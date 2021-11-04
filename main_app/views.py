@@ -8,7 +8,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from .models import UVAClass, Profile
+from .models import Class, Profile
 from .forms import UserUpdateForm, ProfileUpdateForm
 
 @login_required
@@ -37,40 +37,15 @@ class IndexView(generic.ListView):
     template_name = 'main_app/index.html'
     context_object_name = 'profile'
 
-class UVAClassView(generic.ListView):
-    model = UVAClass
-    template_name = 'main_app/uvaclass.html'
-
 class EditProfileView(generic.ListView):
     model = Profile
     template_name = 'main_app/editprofile.html'
     context_object_name = 'profile'
 
-class UVAClassListView(generic.ListView):
-    model = UVAClass
-    template_name = 'main_app/list.html'
-    context_object_name = 'curr_classes'
-    def get_queryset(self):
-        """
-        Filters classes by user
-        """
-        return UVAClass.objects.filter(user=self.request.user)
-
-def addClass(request):
-    if request.method=='POST':
-        if request.POST.get('uvaclass_id') and request.POST.get('uvaclass_yr'):
-            new_class = UVAClass()
-            new_class.user = request.user
-            new_class.id_text=request.POST.get('uvaclass_id')
-            new_class.studentyr_text=request.POST.get('uvaclass_yr')
-            new_class.classname_text=request.POST.get('uvaclass_cc')
-            new_class.classtime_text=request.POST.get('uvaclass_time')
-            new_class.classinst_text=request.POST.get('uvaclass_inst')
-            new_class.save()
-            messages.success(request, "Successfully Submitted!")
-        else:
-            messages.error(request, "Blank Submission! You must fill out the entire form.")
-    return render(request, 'main_app/uvaclass.html')
+class AddClassesView(generic.ListView):
+    model = Class
+    template_name = 'main_app/addclasses.html'
+    context_object_name = 'all_classes'
 
 def submitEditedProfile(request):
     if request.method=='POST':
