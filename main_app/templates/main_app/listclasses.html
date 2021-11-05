@@ -40,7 +40,8 @@
             <h1 class="mt-5">Add Class</h1>
         </div>
         <ul>
-            {% for class in all_classes %}
+            <h4>{{user.profile.computing_id}}</h4>
+            {% for class in user.profile.classes.all %}
             <li><strong>{{class.subject}} {{class.code}}</strong></li>
             <blockquote>{{class.name}}</blockquote>
             {% endfor %}

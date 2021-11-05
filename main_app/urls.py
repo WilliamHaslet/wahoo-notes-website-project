@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('editprofile/', views.EditProfileView.as_view(), name='editprofile'),
     path('addClasses', views.AddClassesView.as_view(), name='addclasses'),
+    path('listClasses', views.ListClassesView.as_view(), name='listclasses'),
     path('submitEditedProfile', views.submitEditedProfile, name='submitEditedProfile'),
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view(), name="logout"),

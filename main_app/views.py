@@ -47,6 +47,11 @@ class AddClassesView(generic.ListView):
     template_name = 'main_app/addclasses.html'
     context_object_name = 'all_classes'
 
+class ListClassesView(generic.ListView):
+    model = Profile
+    template_name = 'main_app/listclasses.html'
+    context_object_name = 'my_classes'
+
 def submitEditedProfile(request):
     if request.method=='POST':
         if request.POST.get('studentComputingID') and request.POST.get('studentYear'):
