@@ -60,8 +60,7 @@
                                 <form method="POST" action="{% url 'main_app:removeCourse' course.id %}" style="display: inline;">
                                     {% csrf_token %}
                                     <button>remove course</button>
-                                    <strong>{{course.subject}} {{course.code}} -
-                                        {{course.name}}</strong>
+                                    <strong><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}} {{course.code}}</a> - {{course.name}}</strong>
                                 </form>
 
                             </li>

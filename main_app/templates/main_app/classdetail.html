@@ -1,4 +1,12 @@
 {% load static %}
+{% load bootstrap5 %}
+
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
 
 <head>
     <title>Classes</title>
@@ -40,20 +48,25 @@
           </div>
     </nav>
     <div class=" container">
-                        <div class="d-flex justify-content-center">
-                            <h1 class="mt-5">My Classes</h1>
-                        </div>
-                        <ul>
-                            <h4>{{user.profile.computing_id}}</h4>
-                            {% for course in user.profile.classes.all %}
-                            <li><strong>{{course.subject}} {{course.code}} -
-                                    {{course.name}}</strong></li>
-                            {% endfor %}
-                        </ul>
+        <h3 class="mt-5" style="display: inline;">{{class_detail.subject}} {{class_detail.code}}</h3> <strong>- {{class_detail.name}}</strong></br></br>
+        <h4>Course Information:</h4>
+        <p>section: {{class_detail.section}}</p>
+        <p>professor: {{class_detail.professor}}</p>
+        <p>size: {{class_detail.size}}</p>
+        <p>meeting days: {{class_detail.day}}</p>
+        <p>start time: {{class_detail.start_time}}</p>
+        <p>end time: {{class_detail.end_time}}</p>
+        <h4>Students:</h4>
+        <ol>
+            {% for student in class_detail.profiles.all %}
+                <li>{{student.computing_id}} - {{student.user.username}}</li>
+            {% endfor %}
+        </ol>
+        <a href="/addClasses">Return to Class Selection</a>
+    </div>
+    <footer class="bg-light text-center text-lg-start">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
+            Copyright © 2021 Group A-08
         </div>
-        <footer class="bg-light text-center text-lg-start">
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
-                Copyright © 2021 Group A-08
-            </div>
-        </footer>
+    </footer>
 </body>

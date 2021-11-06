@@ -35,7 +35,7 @@ def profile(request):
 class IndexView(generic.ListView):
     model = Profile
     template_name = 'main_app/index.html'
-    context_object_name = 'profile'
+    context_object_name = 'index'
 
 class EditProfileView(generic.ListView):
     model = Profile
@@ -51,6 +51,11 @@ class ListClassesView(generic.ListView):
     model = Profile
     template_name = 'main_app/listclasses.html'
     context_object_name = 'my_classes'
+
+class ClassDetailView(generic.DetailView):
+    model = Class
+    template_name = 'main_app/classdetail.html'
+    context_object_name = 'class_detail'
 
 def submitEditedProfile(request):
     if request.method=='POST':
