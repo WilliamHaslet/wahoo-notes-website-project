@@ -63,6 +63,13 @@ def submitEditedProfile(request):
             messages.error(request, "Blank Submission! You must submit all fields.")
     return render(request, 'main_app/editprofile.html')
 
+def addClass(request):
+    if request.method=='POST':
+        request.user.profile.classes.add(request.POST.get('studentComputingID'))
+        request.user.profile.save()
+        messages.success(request, "Class added!")
+    return render(request, 'main_app/editprofile.html')
+
 def logout_view(request):
     logout(request)
     return render(request, 'main_app/index.html')
