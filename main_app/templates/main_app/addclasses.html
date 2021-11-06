@@ -1,5 +1,12 @@
 {% load static %}
+{% load bootstrap5 %}
 
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
 <head>
     <title>Classes</title>
     <!-- CSS only -->
@@ -44,11 +51,21 @@
                             <h1 class="mt-5">Add Class</h1>
                         </div>
                         <ul>
-                            {% for class in all_classes %}
-                            <form method="POST" action="{% url 'class' class.pk %}">
-                                <li><button>add class</button><strong>{{class.subject}} {{class.code}} -
-                                        {{class.name}}</strong></li>
-                            </form>
+                            {% for course in all_classes %}
+                            <li>
+                                <form method="POST" action="{% url 'main_app:addCourse' course.id %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button>add course</button>
+                                </form>
+                                <form method="POST" action="{% url 'main_app:removeCourse' course.id %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button>remove course</button>
+                                    <strong>{{course.subject}} {{course.code}} -
+                                        {{course.name}}</strong>
+                                </form>
+
+                            </li>
+
                             {% endfor %}
                         </ul>
         </div>

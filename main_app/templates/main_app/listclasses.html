@@ -8,7 +8,11 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
-<br><center><h1> Wahoo Notes </h1></center><br>
+<br>
+<center>
+    <h1> Wahoo Notes </h1>
+</center><br>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -18,7 +22,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'main_app:editprofile'%}">Edit Profile</a>
-                  </li>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link active" href="{% url 'main_app:addclasses'%}">Add Class</a>
                 </li>
@@ -35,21 +39,21 @@
             </ul>
           </div>
     </nav>
-    <div class="container">
-        <div class="d-flex justify-content-center">
-            <h1 class="mt-5">Add Class</h1>
+    <div class=" container">
+                        <div class="d-flex justify-content-center">
+                            <h1 class="mt-5">Add Class</h1>
+                        </div>
+                        <ul>
+                            <h4>{{user.profile.computing_id}}</h4>
+                            {% for course in user.profile.classes.all %}
+                            <li><strong>{{course.subject}} {{course.code}} -
+                                    {{course.name}}</strong></li>
+                            {% endfor %}
+                        </ul>
         </div>
-        <ul>
-            <h4>{{user.profile.computing_id}}</h4>
-            {% for class in user.profile.classes.all %}
-            <li><strong>{{class.subject}} {{class.code}}</strong></li>
-            <blockquote>{{class.name}}</blockquote>
-            {% endfor %}
-        </ul>
-    </div>
-    <footer class="bg-light text-center text-lg-start">
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
-            Copyright © 2021 Group A-08
-        </div>
-    </footer>
+        <footer class="bg-light text-center text-lg-start">
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
+                Copyright © 2021 Group A-08
+            </div>
+        </footer>
 </body>
