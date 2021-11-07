@@ -58,7 +58,7 @@ class ClassDetailView(generic.DetailView):
     context_object_name = 'class_detail'
 
 def submitEditedProfile(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         if request.POST.get('studentComputingID') and request.POST.get('studentYear'):
             request.user.profile.computing_id=request.POST.get('studentComputingID')
             request.user.profile.year=request.POST.get('studentYear')
@@ -66,7 +66,15 @@ def submitEditedProfile(request):
             messages.success(request, "Successfully Submitted!")
         else:
             messages.error(request, "Blank Submission! You must submit all fields.")
-    return render(request, 'main_app/editprofile.html')
+    return HttpResponseRedirect('/editprofile')
+
+def filterByName(request):
+    template_name = 'main_app/filterclasses.html'
+    courses = Class.objects
+    if request.method == 'POST':
+        searched = request.POST.get('course_name')
+        courses = Class.objects.filter(name__contains=searched)
+    return render(request, template_name, {'courses':courses})
 
 def addCourse(request, pk):
     if request.method == 'POST':

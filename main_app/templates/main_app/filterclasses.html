@@ -49,7 +49,7 @@
     </nav>
     <div class=" container">
                         <div class="d-flex justify-content-center">
-                            <h1 class="mt-5">Add or Remove Class</h1>
+                            <h1 class="mt-5">Add Class</h1>
                         </div>
                         <form action="{% url 'main_app:filterclasses' %}" method="post">
                             {% csrf_token %}
@@ -58,7 +58,7 @@
                             <button type="submit" value="Submit" class="btn btn-primary mt-3">Filter</button>
                         </form>
                         <ul>
-                            {% for course in all_classes %}
+                            {% for course in courses %}
                             <li>
                                 <form method="POST" action="{% url 'main_app:addCourse' course.id %}"
                                     style="display: inline;">
