@@ -61,8 +61,9 @@
     </div>
   </div>
   <center><h2 class="mt-5">Your Classes</h1>
-  {% for class in user.profile.classes.all %}
-    <li>{{class.code}} - {{class.name}}</li>
+  {% for course in user.profile.classes.all %}
+    <li><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}
+      {{course.code}}: {{course.section}}</a> - {{course.name}}</li>
   {% endfor %}
   </center>
   <footer class="bg-light text-center text-lg-start">
