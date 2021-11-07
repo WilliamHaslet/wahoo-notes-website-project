@@ -28,3 +28,4 @@ class Profile(models.Model):
     classes = models.ManyToManyField('Class', related_name='profiles')
     def __str__(self):
         return f'{self.user.username} Profile'
+        

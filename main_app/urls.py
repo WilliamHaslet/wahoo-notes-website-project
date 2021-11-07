@@ -16,4 +16,5 @@ urlpatterns = [
     path('removeCourse/<int:pk>/', views.removeCourse, name="removeCourse"),
     path('accounts/', include('allauth.urls')),
     path('logout/', LogoutView.as_view(), name="logout"),
+    path('classTest', views.classTestView, name="classTest"),
 ]
