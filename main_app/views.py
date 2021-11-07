@@ -73,7 +73,7 @@ def filterByName(request):
     courses = Class.objects
     if request.method == 'POST':
         searched = request.POST.get('course_name')
-        courses = Class.objects.filter(name__contains=searched)
+        courses = Class.objects.filter(name__icontains=searched)
     return render(request, template_name, {'courses':courses})
 
 def addCourse(request, pk):
