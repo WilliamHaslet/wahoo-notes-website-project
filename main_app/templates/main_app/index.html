@@ -60,6 +60,11 @@
       </ul>
     </div>
   </div>
+  <center><h2 class="mt-5">Your Classes</h1>
+  {% for class in user.profile.classes.all %}
+    <li>{{class.code}} - {{class.name}}</li>
+  {% endfor %}
+  </center>
   <footer class="bg-light text-center text-lg-start">
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
       Copyright © 2021 Group A-08
