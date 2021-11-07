@@ -8,6 +8,21 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!--  This file has been downloaded from bootdey.com @bootdey on twitter -->
+    <!--  All snippets are MIT license http://bootdey.com/license -->
+    <title>Event Schedule list - Bootdey.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
 <br>
 <center>
     <h1> Wahoo Notes </h1>
@@ -39,65 +54,584 @@
             </ul>
           </div>
     </nav>
-    <div class=" container">
-                        <div class="d-flex justify-content-center">
-                            <h1 class="mt-5">My Classes</h1>
+    <center><h1 class="mt-5">My Schedule</h1></center>
+    </body>
+
+
+<div class="event-schedule-area-two bg-color pad100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="nav custom-tab" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active show" id="mon-tab" data-toggle="tab" href="#mon" role="tab" aria-controls="mon" aria-selected="true">Monday</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tue-tab" data-toggle="tab" href="#tue" role="tab" aria-controls="tue" aria-selected="false">Tuesday</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="wed-tab" data-toggle="tab" href="#wed" role="tab" aria-controls="wed" aria-selected="false">Wednesday</a>
+                    </li>
+                    <li class="nav-item d-none d-lg-block">
+                        <a class="nav-link" id="thu-tab" data-toggle="tab" href="#thu" role="tab" aria-controls="thu" aria-selected="false">Thursday</a>
+                    </li>
+                    <li class="nav-item mr-0 d-none d-lg-block">
+                        <a class="nav-link" id="fri-tab" data-toggle="tab" href="#fri" role="tab" aria-controls="fri" aria-selected="false">Friday</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade active show" id="mon" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" scope="col">Time</th>
+                                        <th scope="col">Days</th>
+                                        <th scope="col">Class</th>
+                                        <th scope="col">Room</th>
+                                        <th class="text-center" scope="col">Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for course in user.profile.classes.all %}
+                                        {% if course in Mon %}
+                                            <tr class="inner-box">
+                                                <th scope="row">
+                                                    <div class="event-date">
+                                                        {{course.start_time}} to {{course.end_time}}
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="event-date">
+                                                        {{course.day}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="event-wrap">
+                                                        {{course.subject}}<br>
+                                                        {{course.name}}<br><br>
+                                                        <h3>{{course.code}}</h3>
+                                                           <div class="meta">
+                                                            <div class="organizers">
+                                                                {{course.professor}}
+                                                            </div>
+                                                            <br>
+                                                            <div class="categories">
+                                                                {{course.semester}} - Section {{course.section}} </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                       <div class="r-no">
+                                                        <span>(Class location goes here)</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="primary-btn">
+                                                        <a class="btn btn-primary" href="{% url 'main_app:classdetail' course.id %}">More info</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                      {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
-                        <ul>
-                            <h4>Monday</h4>
-                            {% for course in user.profile.classes.all %}
-                                {% if course in Mon %}
-                                <li><strong>{{course.subject}} {{course.code}} -
-                                        {{course.name}}</strong></li>
-                                        {{course.start_time}} - {{course.end_time}}
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                        <ul>
-                            <h4>Tuesday</h4>
-                            {% for course in user.profile.classes.all %}
-                                {% if course in Tue %}
-                                <li><strong>{{course.subject}} {{course.code}} -
-                                        {{course.name}}</strong></li>
-                                        {{course.start_time}} - {{course.end_time}}
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                        <ul>
-                            <h4>Wednesday</h4>
-                            {% for course in user.profile.classes.all %}
-                                {% if course in Wed %}
-                                <li><strong>{{course.subject}} {{course.code}} -
-                                        {{course.name}}</strong></li>
-                                        {{course.start_time}} - {{course.end_time}}
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                        <ul>
-                            <h4>Thursday</h4>
-                            {% for course in user.profile.classes.all %}
-                                {% if course in Thu %}
-                                <li><strong>{{course.subject}} {{course.code}} -
-                                        {{course.name}}</strong></li>
-                                        {{course.start_time}} - {{course.end_time}}
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                        <ul>
-                            <h4>Friday</h4>
-                            {% for course in user.profile.classes.all %}
-                                {% if course in Fri %}
-                                <li><strong>{{course.subject}} {{course.code}} -
-                                        {{course.name}}</strong></li>
-                                        {{course.start_time}} - {{course.end_time}}
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-        </div>
-        <br><br><br><br>
-        <footer class="bg-light text-center text-lg-start">
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
-                Copyright © 2021 Group A-08
+                    </div>
+                    <div class="tab-pane fade" id="tue" role="tabpanel" aria-labelledby="tue-tab">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" scope="col">Time</th>
+                                        <th scope="col">Days</th>
+                                        <th scope="col">Class</th>
+                                        <th scope="col">Room</th>
+                                        <th class="text-center" scope="col">Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for course in user.profile.classes.all %}
+                                        {% if course in Tue %}
+                                            <tr class="inner-box">
+                                                <th scope="row">
+                                                    <div class="event-date">
+                                                        {{course.start_time}} to {{course.end_time}}
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="event-date">
+                                                        {{course.day}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="event-wrap">
+                                                        {{course.subject}}<br>
+                                                        {{course.name}}<br><br>
+                                                        <h3>{{course.code}}</h3>
+                                                           <div class="meta">
+                                                            <div class="organizers">
+                                                                {{course.professor}}
+                                                            </div>
+                                                            <br>
+                                                            <div class="categories">
+                                                                {{course.semester}} - Section {{course.section}} </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                       <div class="r-no">
+                                                        <span>(Class location goes here)</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="primary-btn">
+                                                        <a class="btn btn-primary" href="{% url 'main_app:classdetail' course.id %}">More info</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                      {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="wed" role="tabpanel" aria-labelledby="wed-tab">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" scope="col">Time</th>
+                                        <th scope="col">Days</th>
+                                        <th scope="col">Class</th>
+                                        <th scope="col">Room</th>
+                                        <th class="text-center" scope="col">Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for course in user.profile.classes.all %}
+                                        {% if course in Wed %}
+                                            <tr class="inner-box">
+                                                <th scope="row">
+                                                    <div class="event-date">
+                                                        {{course.start_time}} to {{course.end_time}}
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="event-date">
+                                                        {{course.day}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="event-wrap">
+                                                        {{course.subject}}<br>
+                                                        {{course.name}}<br><br>
+                                                        <h3>{{course.code}}</h3>
+                                                           <div class="meta">
+                                                            <div class="organizers">
+                                                                {{course.professor}}
+                                                            </div>
+                                                            <br>
+                                                            <div class="categories">
+                                                                {{course.semester}} - Section {{course.section}} </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                       <div class="r-no">
+                                                        <span>(Class location goes here)</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="primary-btn">
+                                                        <a class="btn btn-primary" href="{% url 'main_app:classdetail' course.id %}">More info</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                      {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="thu" role="tabpanel" aria-labelledby="thu-tab">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" scope="col">Time</th>
+                                        <th scope="col">Days</th>
+                                        <th scope="col">Class</th>
+                                        <th scope="col">Room</th>
+                                        <th class="text-center" scope="col">Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for course in user.profile.classes.all %}
+                                        {% if course in Thu %}
+                                            <tr class="inner-box">
+                                                <th scope="row">
+                                                    <div class="event-date">
+                                                        {{course.start_time}} to {{course.end_time}}
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="event-date">
+                                                        {{course.day}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="event-wrap">
+                                                        {{course.subject}}<br>
+                                                        {{course.name}}<br><br>
+                                                        <h3>{{course.code}}</h3>
+                                                           <div class="meta">
+                                                            <div class="organizers">
+                                                                {{course.professor}}
+                                                            </div>
+                                                            <br>
+                                                            <div class="categories">
+                                                                {{course.semester}} - Section {{course.section}} </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                       <div class="r-no">
+                                                        <span>(Class location goes here)</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="primary-btn">
+                                                        <a class="btn btn-primary" href="{% url 'main_app:classdetail' course.id %}">More info</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                      {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="fri" role="tabpanel" aria-labelledby="fri-tab">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" scope="col">Time</th>
+                                        <th scope="col">Days</th>
+                                        <th scope="col">Class</th>
+                                        <th scope="col">Room</th>
+                                        <th class="text-center" scope="col">Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for course in user.profile.classes.all %}
+                                        {% if course in Fri %}
+                                            <tr class="inner-box">
+                                                <th scope="row">
+                                                    <div class="event-date">
+                                                        {{course.start_time}} to {{course.end_time}}
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="event-date">
+                                                        {{course.day}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="event-wrap">
+                                                        {{course.subject}}<br>
+                                                        {{course.name}}<br><br>
+                                                        <h3>{{course.code}}</h3>
+                                                           <div class="meta">
+                                                            <div class="organizers">
+                                                                {{course.professor}}
+                                                            </div>
+                                                            <br>
+                                                            <div class="categories">
+                                                                {{course.semester}} - Section {{course.section}} </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                       <div class="r-no">
+                                                        <span>(Class location goes here)</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="primary-btn">
+                                                        <a class="btn btn-primary" href="{% url 'main_app:classdetail' course.id %}">More info</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                      {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </footer>
+            <!-- /col end-->
+        </div>
+        <!-- /row end-->
+    </div>
+</div>
+<br><br><br><br><br>
+<footer class="bg-light text-center text-lg-start">
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
+        Copyright © 2021 Group A-08
+    </div>
+</footer>
+
+
+<style type="text/css">
+body{margin-top:20px;}
+.event-schedule-area .section-title .title-text {
+    margin-bottom: 50px;
+}
+
+.event-schedule-area .tab-area .nav-tabs {
+    border-bottom: inherit;
+}
+
+.event-schedule-area .tab-area .nav {
+    border-bottom: inherit;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin-top: 80px;
+}
+
+.event-schedule-area .tab-area .nav-item {
+    margin-bottom: 75px;
+}
+.event-schedule-area .tab-area .nav-item .nav-link {
+    text-align: center;
+    font-size: 22px;
+    color: #333;
+    font-weight: 600;
+    border-radius: inherit;
+    border: inherit;
+    padding: 0px;
+    text-transform: capitalize !important;
+}
+.event-schedule-area .tab-area .nav-item .nav-link.active {
+    color: #4125dd;
+    background-color: transparent;
+}
+
+.event-schedule-area .tab-area .tab-content .table {
+    margin-bottom: 0;
+    width: 80%;
+}
+.event-schedule-area .tab-area .tab-content .table thead td,
+.event-schedule-area .tab-area .tab-content .table thead th {
+    border-bottom-width: 1px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #252525;
+}
+.event-schedule-area .tab-area .tab-content .table td,
+.event-schedule-area .tab-area .tab-content .table th {
+    border: 1px solid #b7b7b7;
+    padding-left: 30px;
+}
+.event-schedule-area .tab-area .tab-content .table tbody th .heading,
+.event-schedule-area .tab-area .tab-content .table tbody td .heading {
+    font-size: 16px;
+    text-transform: capitalize;
+    margin-bottom: 16px;
+    font-weight: 500;
+    color: #252525;
+    margin-bottom: 6px;
+}
+.event-schedule-area .tab-area .tab-content .table tbody th span,
+.event-schedule-area .tab-area .tab-content .table tbody td span {
+    color: #4125dd;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    display: block;
+}
+.event-schedule-area .tab-area .tab-content .table tbody th span.date,
+.event-schedule-area .tab-area .tab-content .table tbody td span.date {
+    color: #656565;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 15px;
+}
+.event-schedule-area .tab-area .tab-content .table tbody th p {
+    font-size: 14px;
+    margin: 0;
+    font-weight: normal;
+}
+
+.event-schedule-area-two .section-title .title-text h2 {
+    margin: 0px 0 15px;
+}
+
+.event-schedule-area-two ul.custom-tab {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 30px;
+}
+.event-schedule-area-two ul.custom-tab li {
+    margin-right: 70px;
+    position: relative;
+}
+.event-schedule-area-two ul.custom-tab li a {
+    color: #252525;
+    font-size: 25px;
+    line-height: 25px;
+    font-weight: 600;
+    text-transform: capitalize;
+    padding: 35px 0;
+    position: relative;
+}
+.event-schedule-area-two ul.custom-tab li a:hover:before {
+    width: 100%;
+}
+.event-schedule-area-two ul.custom-tab li a:before {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    content: "";
+    background: #4125dd;
+    width: 0;
+    height: 2px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+.event-schedule-area-two ul.custom-tab li a.active {
+    color: #4125dd;
+}
+
+.event-schedule-area-two .primary-btn {
+    margin-top: 40px;
+}
+
+.event-schedule-area-two .tab-content .table {
+    -webkit-box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0;
+}
+.event-schedule-area-two .tab-content .table thead {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 20px;
+}
+.event-schedule-area-two .tab-content .table thead tr th {
+    padding: 20px;
+    border: 0;
+}
+.event-schedule-area-two .tab-content .table tbody {
+    background: #fff;
+}
+.event-schedule-area-two .tab-content .table tbody tr.inner-box {
+    border-bottom: 1px solid #dee2e6;
+}
+.event-schedule-area-two .tab-content .table tbody tr th {
+    border: 0;
+    padding: 30px 20px;
+    vertical-align: middle;
+}
+.event-schedule-area-two .tab-content .table tbody tr th .event-date {
+    color: #252525;
+    text-align: center;
+}
+.event-schedule-area-two .tab-content .table tbody tr th .event-date span {
+    font-size: 50px;
+    line-height: 50px;
+    font-weight: normal;
+}
+.event-schedule-area-two .tab-content .table tbody tr td {
+    padding: 30px 20px;
+    vertical-align: middle;
+}
+.event-schedule-area-two .tab-content .table tbody tr td .r-no span {
+    color: #252525;
+}
+.event-schedule-area-two .tab-content .table tbody tr td .event-wrap h3 a {
+    font-size: 20px;
+    line-height: 20px;
+    color: #cf057c;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+.event-schedule-area-two .tab-content .table tbody tr td .event-wrap h3 a:hover {
+    color: #4125dd;
+}
+.event-schedule-area-two .tab-content .table tbody tr td .event-wrap .categories {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin: 10px 0;
+}
+.event-schedule-area-two .tab-content .table tbody tr td .event-wrap .categories a {
+    color: #252525;
+    font-size: 16px;
+    margin-left: 10px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+.event-schedule-area-two .tab-content .table tbody tr td .event-wrap .categories a:before {
+    content: "\f07b";
+    font-family: fontawesome;
+    padding-right: 5px;
+}
+.event-schedule-area-two .tab-content .table tbody tr td .event-wrap .time span {
+    color: #252525;
+}
+.event-schedule-area-two .tab-content .table tbody tr td .event-wrap .organizers {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin: 10px 0;
+}
+.event-schedule-area-two .tab-content .table tbody tr td .event-wrap .organizers a {
+    color: #4125dd;
+    font-size: 16px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+}
+.event-schedule-area-two .tab-content .table tbody tr td .event-wrap .organizers a:hover {
+    color: #4125dd;
+}
+.event-schedule-area-two .tab-content .table tbody tr td .event-wrap .organizers a:before {
+    content: "\f007";
+    font-family: fontawesome;
+    padding-right: 5px;
+}
+.event-schedule-area-two .tab-content .table tbody tr td .primary-btn {
+    margin-top: 0;
+    text-align: center;
+}
+.event-schedule-area-two .tab-content .table tbody tr td .event-img img {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+}
+
+</style>
+
+<script type="text/javascript">
+
+</script>
 </body>
+</html>
