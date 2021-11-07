@@ -53,30 +53,10 @@
                         </div>
                         <form action="{% url 'main_app:filterclasses' %}" method="post">
                             {% csrf_token %}
-                            <input type="text" placeholder="Filter classes by name" name="course_name"
+                            <input type="text" placeholder="Search classes by name" name="course_name"
                                 class="form-control">
                             <button type="submit" value="Submit" class="btn btn-primary mt-3">Filter</button>
                         </form>
-                        <ul>
-                            {% for course in all_classes %}
-                            <li>
-                                <form method="POST" action="{% url 'main_app:addCourse' course.id %}"
-                                    style="display: inline;">
-                                    {% csrf_token %}
-                                    <button>add course</button>
-                                </form>
-                                <form method="POST" action="{% url 'main_app:removeCourse' course.id %}"
-                                    style="display: inline;">
-                                    {% csrf_token %}
-                                    <button>remove course</button>
-                                    <strong><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}
-                                        {{course.code}}</a> - {{course.name}}: {{course.section}}, {{course.professor}}</strong>
-                                </form>
-
-                            </li>
-
-                            {% endfor %}
-                        </ul>
         </div>
         <footer class="bg-light text-center text-lg-start">
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
