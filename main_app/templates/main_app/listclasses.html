@@ -44,13 +44,57 @@
                             <h1 class="mt-5">My Classes</h1>
                         </div>
                         <ul>
-                            <h4>{{user.profile.computing_id}}</h4>
+                            <h4>Monday</h4>
                             {% for course in user.profile.classes.all %}
-                            <li><strong>{{course.subject}} {{course.code}} -
-                                    {{course.name}}</strong></li>
+                                {% if course in Mon %}
+                                <li><strong>{{course.subject}} {{course.code}} -
+                                        {{course.name}}</strong></li>
+                                        {{course.start_time}} - {{course.end_time}}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                        <ul>
+                            <h4>Tuesday</h4>
+                            {% for course in user.profile.classes.all %}
+                                {% if course in Tue %}
+                                <li><strong>{{course.subject}} {{course.code}} -
+                                        {{course.name}}</strong></li>
+                                        {{course.start_time}} - {{course.end_time}}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                        <ul>
+                            <h4>Wednesday</h4>
+                            {% for course in user.profile.classes.all %}
+                                {% if course in Wed %}
+                                <li><strong>{{course.subject}} {{course.code}} -
+                                        {{course.name}}</strong></li>
+                                        {{course.start_time}} - {{course.end_time}}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                        <ul>
+                            <h4>Thursday</h4>
+                            {% for course in user.profile.classes.all %}
+                                {% if course in Thu %}
+                                <li><strong>{{course.subject}} {{course.code}} -
+                                        {{course.name}}</strong></li>
+                                        {{course.start_time}} - {{course.end_time}}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                        <ul>
+                            <h4>Friday</h4>
+                            {% for course in user.profile.classes.all %}
+                                {% if course in Fri %}
+                                <li><strong>{{course.subject}} {{course.code}} -
+                                        {{course.name}}</strong></li>
+                                        {{course.start_time}} - {{course.end_time}}
+                                {% endif %}
                             {% endfor %}
                         </ul>
         </div>
+        <br><br><br><br>
         <footer class="bg-light text-center text-lg-start">
             <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
                 Copyright © 2021 Group A-08
