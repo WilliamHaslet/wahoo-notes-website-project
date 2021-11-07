@@ -1,12 +1,5 @@
 {% load static %}
-{% load bootstrap5 %}
 
-
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
 <head>
     <title>Classes</title>
     <!-- CSS only -->
@@ -48,23 +41,13 @@
     </nav>
     <div class=" container">
                         <div class="d-flex justify-content-center">
-                            <h1 class="mt-5">Add Class</h1>
+                            <h1 class="mt-5">My Classes</h1>
                         </div>
                         <ul>
-                            {% for course in all_classes %}
-                            <li>
-                                <form method="POST" action="{% url 'main_app:addCourse' course.id %}" style="display: inline;">
-                                    {% csrf_token %}
-                                    <button>add course</button>
-                                </form>
-                                <form method="POST" action="{% url 'main_app:removeCourse' course.id %}" style="display: inline;">
-                                    {% csrf_token %}
-                                    <button>remove course</button>
-                                    <strong><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}} {{course.code}}</a> - {{course.name}}</strong>
-                                </form>
-
-                            </li>
-
+                            <h4>{{user.profile.computing_id}}</h4>
+                            {% for course in user.profile.classes.all %}
+                            <li><strong>{{course.subject}} {{course.code}} -
+                                    {{course.name}}</strong></li>
                             {% endfor %}
                         </ul>
         </div>

@@ -35,7 +35,7 @@ def profile(request):
 class IndexView(generic.ListView):
     model = Profile
     template_name = 'main_app/index.html'
-    context_object_name = 'profile'
+    context_object_name = 'index'
 
 class EditProfileView(generic.ListView):
     model = Profile
@@ -47,6 +47,16 @@ class AddClassesView(generic.ListView):
     template_name = 'main_app/addclasses.html'
     context_object_name = 'all_classes'
 
+class ListClassesView(generic.ListView):
+    model = Profile
+    template_name = 'main_app/listclasses.html'
+    context_object_name = 'my_classes'
+
+class ClassDetailView(generic.DetailView):
+    model = Class
+    template_name = 'main_app/classdetail.html'
+    context_object_name = 'class_detail'
+
 def submitEditedProfile(request):
     if request.method=='POST':
         if request.POST.get('studentComputingID') and request.POST.get('studentYear'):
@@ -57,6 +67,22 @@ def submitEditedProfile(request):
         else:
             messages.error(request, "Blank Submission! You must submit all fields.")
     return render(request, 'main_app/editprofile.html')
+
+def addCourse(request, pk):
+    if request.method == 'POST':
+        course = Class.objects.get(id=pk)
+        request.user.profile.classes.add(course)
+        request.user.profile.save()
+        messages.success(request, f"{course.subject} {course.code} added!")
+    return HttpResponseRedirect('/addClasses')
+
+def removeCourse(request, pk):
+    if request.method == 'POST':
+        course = Class.objects.get(id=pk)
+        request.user.profile.classes.remove(course)
+        request.user.profile.save()
+        messages.success(request, f"{course.subject} {course.code} removed!")
+    return HttpResponseRedirect('/addClasses')
 
 def logout_view(request):
     logout(request)
