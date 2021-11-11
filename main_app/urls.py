@@ -23,4 +23,3 @@ urlpatterns = [
     path('documents/upload', views.document_upload, name='document_upload'),
     path('documents/<int:pk>', views.document_delete, name='document_delete')
 ]
-#urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

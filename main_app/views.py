@@ -57,8 +57,6 @@ class UVAClassListView(generic.ListView):
 
 def document_list(request):
     documents = Document.objects.all()
-    #if request.method == 'GET':
-
     return render(request, 'main_app/documents.html', {'documents': documents})
 
 def document_upload(request):

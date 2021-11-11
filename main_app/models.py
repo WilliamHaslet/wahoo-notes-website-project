@@ -52,3 +52,4 @@ class UVAClass(models.Model):
 class Document(models.Model):
     title = models.CharField(max_length=50, blank=True)
     document = models.FileField(upload_to='documents/')
+    

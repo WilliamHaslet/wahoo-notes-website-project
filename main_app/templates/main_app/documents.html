@@ -42,63 +42,16 @@
         <p>No documents.</p>
     {% endif %}
     
-    <a href="{% url 'main_app:document_upload'%}" class="btn btn-primary btn-sm" >{{"Upload Documents Here"}}</a>
+    <a href="{% url 'main_app:document_upload'%}" class="btn btn-primary btn-sm" >{{"Upload Documents Here"}}</a>  
 
-    
-    <!-- <div class="container">
-        <div class="d-flex justify-content-center">
-          <a href="{% url 'main_app:uvaclass'%}">Click here to add a class</a>
-        </div>
-    </div>
-        
-
-    Trial 1
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Upload</button>
-        </form>
-        
-        <p><a href="{% url 'main_app:index' %}">Return to home</a></p>
-     
-
-     {% if documents %}
-        <ul>
-        {% for document in documents %}
-            <li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No documents.</p>
-    {% endif %}
-
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Upload</button>
-        </form>
-    
-        <p><a href="{% url 'main_app:index' %}">Return to home</a></p>
-
-    
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{form}}
-            <input type="file" name="myfile">
-            <button type="submit">Upload</button>
-        </form>
-        
-        {% if uploaded_file_url %}
-            <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-        {% endif %}
-
-        <p><a href="{% url 'main_app:index' %}">Return to home</a></p>
-    
+    <br>
+    <br>
+    <br>
+    <br>
 
     <footer class="bg-light text-center text-lg-start">
       <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
         Copyright © 2021 Jerry Liu
       </div>
     </footer>
--->
 </body>
