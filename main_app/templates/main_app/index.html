@@ -77,8 +77,12 @@ ul.no-bullets {
   
 <body>
   {% if user.is_authenticated %}
-  <br><center><h1 style = "font-family:'Georgia', Arial, Serif; display:inline; font-size:50px; color:#000000; text-shadow:1px 3px #a9afc7"> Wahoo Notes</h1></center><br>
-  
+  <!--nav bar-->
+  <div class= "container">
+    <a class= "navbar-brand" href="#">
+      <img src="/main_app/static/main_app/images/Wahoo-Notes.png" alt="" width= "30" height="24">
+    </a>
+  </div>
     <div class="navbar" style= "font-family:'Verdana'">
           <a class="nav-link active rounded"  href="{% url 'main_app:index'%}">Home </a>
           <a class="nav-link rounded" href="{% url 'main_app:editprofile'%}">Edit Profile</a>
@@ -100,7 +104,7 @@ ul.no-bullets {
         </ul>
       </div>
       <!--classes display-->
-      <div class= "col-6" class= "no-bullets">
+      <div class= "col-6 no-bullets">
         <h2 class="mt-5" style="font-family:'Verdana', font-size: 40px">Your Classes</h1>
           {% for course in user.profile.classes.all %}
           <ul class= "no-bullets" style= "font-family:'Verdana'">
