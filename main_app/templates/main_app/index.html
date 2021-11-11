@@ -11,6 +11,62 @@
 
 {% load socialaccount %}
 
+<style type="text/css">
+.container p-5 my-5 text-black rounded border border-warning {
+  color: rgb(37, 22, 119);
+}
+.btn-primary {
+    color: #fff;
+    background-color: #466197;
+    border-color: #f69350;
+}
+.btn-primary:hover {
+    background-color: #5374b6;
+}
+
+  * {box-sizing: border-box}
+@media screen and (max-width: 500px) {
+  .navbar a {
+    float: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+.navbar {
+  width: 100%;
+  background-color: rgb(75, 166, 218);
+  overflow: auto;
+}
+
+.navbar a {
+  float: left;
+  padding: 12px;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 16px;
+  width: 20%; /* 5 links of equal widths */
+  text-align: center;
+}
+
+.navbar a:hover {
+  background-color: #eb9422; /*rgb(69, 180, 245)*/
+  background-image: var(--bs-gradient);
+  color: #080e14;
+}
+
+.navbar a.active {
+  background-color: #eb9422;
+  background-image: var(--bs-gradient);
+}
+
+ul.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+</style>
+
 <head>
   <title>main_app</title>
   <link rel="stylesheet" type="text/css" href="{% static 'main_app/style.css' %}">
@@ -21,60 +77,71 @@
   
 <body>
   {% if user.is_authenticated %}
-  <br><center><h1> Wahoo Notes </h1></center><br>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="{% url 'main_app:index'%}">Home </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'main_app:editprofile'%}">Edit Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'main_app:addclasses'%}">Add Class</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link active" href="{% url 'main_app:listclasses'%}">Schedule</a>
-      </li>
-      </ul>
+  <br><center><h1 style = "font-family:'Georgia', Arial, Serif; display:inline; font-size:50px; color:#000000; text-shadow:1px 3px #a9afc7"> Wahoo Notes</h1></center><br>
+  
+    <div class="navbar" style= "font-family:'Verdana'">
+          <a class="nav-link active rounded"  href="{% url 'main_app:index'%}">Home </a>
+          <a class="nav-link rounded" href="{% url 'main_app:editprofile'%}">Edit Profile</a>
+          <a class="nav-link rounded" href="{% url 'main_app:addclasses'%}">Add Class</a>
+          <a class="nav-link rounded" href="{% url 'main_app:listclasses'%}">Schedule</a>
+          <a class="nav-link rounded" href="{% url 'main_app:logout' %}"> Log Out </a>
     </div>
-    <div class="navbar navbar-expand-lg navbar-light bg-light">
-      <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-              <a class="nav-link" href="{% url 'main_app:logout' %}"> Log Out </a>
-          </li>
-      </ul>
-    </div>
-  </nav>
+
   <div class="container">
-    <div class="d-flex justify-content-center">
-      <h1 class="mt-5">Profile</h1>
-    </div>
-    <div class="d-flex justify-content-center">
-      <ul>
-        <li>Name: {{ user.username }}</li>
-      <li>Computing ID: {{ user.profile.computing_id }}</li>
-        <li>Email: {{ user.email }}</li>
-        <li>Year: {{ user.profile.year }}</li>
-      </ul>
+    <div class= "row">
+      <!--profile-->
+      <div class= "col">
+        <h2 class="mt-5" style= "font-family:'Verdana', font-size: 40px">Profile</h2>
+        <ul class= "no-bullets" style= "font-family:'Verdana'">
+          <li>Name: {{ user.username }}</li>
+          <li>Computing ID: {{ user.profile.computing_id }}</li>
+          <li>Email: {{ user.email }}</li>
+          <li>Year: {{ user.profile.year }}</li>
+        </ul>
+      </div>
+      <!--classes display-->
+      <div class= "col-6" class= "no-bullets">
+        <h2 class="mt-5" style="font-family:'Verdana', font-size: 40px">Your Classes</h1>
+          {% for course in user.profile.classes.all %}
+          <ul class= "no-bullets" style= "font-family:'Verdana'">
+            <li><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}
+              {{course.code}}: {{course.section}}</a> - {{course.name}}
+            </li>
+          </ul>
+          {% endfor %}
+      </div>
     </div>
   </div>
-  <center><h2 class="mt-5">Your Classes</h1>
-  {% for course in user.profile.classes.all %}
-    <li><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}
-      {{course.code}}: {{course.section}}</a> - {{course.name}}</li>
-  {% endfor %}
-  </center>
   <footer class="bg-light text-center text-lg-start">
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
       Copyright © 2021 Group A-08
     </div>
   </footer>
-  {% else %}
-  <center><h1>Welcome to Wahoo Notes</h1>
-  <h1>Login using Google to use our app! </h1><br>
-  <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Log In</a></body></center>
-  {% endif %}
 
+  
+  {% else %}
+  <login_bg>
+    <login_text>
+      <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#f4f5fa" class="bi bi-pencil-square" viewBox="0 0 16 16">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+      </svg>
+      <!-- Some backup fonts in case the first isn't available -->
+      <p style = "font-family:'Lucida Handwriting', Arial, Serif; display:inline; font-size:24px; color:#f4f5fa; text-shadow:1px 1px #a9afc7"><b>Insert logo here?</b></p>
+      <div class="container p-5 my-4 shadow-lg rounded border border-warning" style="background-color: rgba(35, 45, 75, 0.85); color: #E57200">
+        <h1><p style = "font-family: 'Nunito Sans', Arial, Serif">Welcome</p></h1>
+        <h3><p style = "font-family: 'Roboto', Arial, Serif">Create your UVA schedule and share course <br> notes with other students!</p></h3>
+        <br>
+        <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Log in with Google</a>
+      </div>
+      Social media/contact info?
+    </login_text>
+
+    <footer class="bg-light text-center text-lg-start">
+      <div class="text-center p-3" style="background-color: rgba(35, 45, 75, 0.85)">
+        Copyright © 2021 Group A-08
+      </div>
+    </footer>
+  </login_bg>
+{% endif %}
 </body>
