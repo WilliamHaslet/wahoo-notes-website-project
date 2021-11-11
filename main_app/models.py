@@ -50,6 +50,5 @@ class UVAClass(models.Model):
 
 #Model upload
 class Document(models.Model):
-    description = models.CharField(max_length=255, blank=True)
-    document = models.FileField(upload_to='documents/%Y/%m/')
-    uploaded_at = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=50, blank=True)
+    document = models.FileField(upload_to='documents/')

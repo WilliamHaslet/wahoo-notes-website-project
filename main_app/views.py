@@ -10,6 +10,7 @@ from .forms import DocumentForm
 from .models import Choice, Question, UVAClass, Document
 
 
+
 class IndexView(generic.ListView):
     template_name = 'main_app/index.html'
     context_object_name = 'latest_question_list'
@@ -52,38 +53,26 @@ class UVAClassListView(generic.ListView):
         """
         return UVAClass
 
-class DocumentsView(generic.ListView):
-    model = Document
-    template_name = 'main_app/documents.html'
-'''
-#Website views for file uploads
-def model_form_upload(request):
+    #Django upload files
+def document_upload(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            newdoc = Document(docfile = request.FILES['docfile'])
-            newdoc.save()
-            return redirect('home')
+            form.save()
+            #for property, value in vars(form).items():
+             #   print(property, ":", value)
+            return HttpResponseRedirect('/documents')
     else:
         form = DocumentForm()
-    return render(request, 'main_app/documents.html', {
-        'form': form
-    })
-#Class for document managment page
-'''
+    documents = Document.objects.all()
+    return render(request, 'main_app/documents.html', {'documents': documents, 'form': form})
 
-#Django upload files
-def upload_file(request):
+def document_delete(request, pk):
     if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            # file is saved
-            newdoc = Document(docfile = request.FILES['docfile'])
-            newdoc.save()
-            return HttpResponseRedirect('/index/')
-    else:
-        form = DocumentForm()
-    return render(request, 'documents.html', {'form': form})
+        form = Document.objects.get(pk=pk)
+        form.delete()
+    return render(request, 'main_app/documents.html')
+
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
