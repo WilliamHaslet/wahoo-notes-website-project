@@ -8,7 +8,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from .models import Class, Profile
+from .models import Class, Profile, Assignment
 from .forms import UserUpdateForm, ProfileUpdateForm
 
 @login_required
@@ -67,6 +67,32 @@ class ClassDetailView(generic.DetailView):
     model = Class
     template_name = 'main_app/classdetail.html'
     context_object_name = 'class_detail'
+
+class AssignmentsView(generic.ListView):
+    template_name = 'main_app/assignments.html'
+    context_object_name = 'my_assignments'
+    def get_queryset(self):
+        return self.request.user.profile.assignments.all()
+
+def removeAssignment(request, pk):
+    if request.method == 'POST':
+        assignment = Assignment.objects.get(id=pk)
+        request.user.profile.assignments.remove(assignment)
+        request.user.profile.save()
+        assignment.delete()
+    return HttpResponseRedirect('/assignments')
+
+def addAssignment(request):
+    template_name = 'main_app/filterclasses.html'
+    if request.method == 'POST':
+        new_assignment = Assignment()
+        new_assignment.name = request.POST.get('assignment_name')
+        new_assignment.class_name = request.POST.get('class_name')
+        new_assignment.description = request.POST.get('description')
+        new_assignment.save()
+        request.user.profile.assignments.add(new_assignment)
+        request.user.profile.save()
+    return HttpResponseRedirect('/assignments')
 
 def submitEditedProfile(request):
     if request.method == 'POST':

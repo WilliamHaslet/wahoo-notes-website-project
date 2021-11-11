@@ -28,4 +28,16 @@ class Profile(models.Model):
     classes = models.ManyToManyField('Class', related_name='profiles')
     def __str__(self):
         return f'{self.user.username} Profile'
+
+class Assignment(models.Model):
+    profile = models.ForeignKey(Profile, related_name='assignments', on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=30, default='NULL')
+    description = models.CharField(max_length=30, default='NULL')
+    points = models.IntegerField(default=0)
+    class_name = models.CharField(max_length=30, default='NULL')
+    release_date = models.CharField(max_length=30, default='NULL')
+    due_date = models.CharField(max_length=30, default='NULL')
+    def __str__(self):
+        return f'{self.name}'
+
         
