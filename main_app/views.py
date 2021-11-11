@@ -55,12 +55,11 @@ class ListClassesView(generic.ListView):
         return Class.objects.order_by('id')
     def get_context_data(self, **kwargs):
         context = super(ListClassesView, self).get_context_data(**kwargs)
-        #Can't figure out how to filter a user's classes, but that would be more efficient
-        context['Mon'] = Class.objects.filter(day__icontains="M").order_by('start_time')
-        context['Tue'] = Class.objects.filter(day__icontains="T").order_by('start_time')
-        context['Wed'] = Class.objects.filter(day__icontains="W").order_by('start_time')
-        context['Thu'] = Class.objects.filter(day__icontains="R").order_by('start_time')
-        context['Fri'] = Class.objects.filter(day__icontains="F").order_by('start_time')
+        context['Mon'] = self.request.user.profile.classes.filter(day__icontains="M").order_by('start_time')
+        context['Tue'] = self.request.user.profile.classes.filter(day__icontains="T").order_by('start_time')
+        context['Wed'] = self.request.user.profile.classes.filter(day__icontains="W").order_by('start_time')
+        context['Thu'] = self.request.user.profile.classes.filter(day__icontains="R").order_by('start_time')
+        context['Fri'] = self.request.user.profile.classes.filter(day__icontains="F").order_by('start_time')
         return context
 
 class ClassDetailView(generic.DetailView):
