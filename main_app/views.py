@@ -70,6 +70,7 @@ def document_upload(request):
 def document_delete(request, pk):
     if request.method == 'POST':
         form = Document.objects.get(pk=pk)
+        form.document.delete()
         form.delete()
     return render(request, 'main_app/documents.html')
 
