@@ -54,25 +54,32 @@ class UVAClassListView(generic.ListView):
         return UVAClass
 
     #Django upload files
+
+def document_list(request):
+    documents = Document.objects.all()
+    #if request.method == 'GET':
+
+    return render(request, 'main_app/documents.html', {'documents': documents})
+
 def document_upload(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            #for property, value in vars(form).items():
-             #   print(property, ":", value)
             return HttpResponseRedirect('/documents')
     else:
         form = DocumentForm()
     documents = Document.objects.all()
-    return render(request, 'main_app/documents.html', {'documents': documents, 'form': form})
+    return render(request, 'main_app/document_upload.html', {'documents': documents, 'form': form})
 
 def document_delete(request, pk):
     if request.method == 'POST':
         form = Document.objects.get(pk=pk)
         form.document.delete()
         form.delete()
-    return render(request, 'main_app/documents.html')
+    documents = Document.objects.all()
+    form = DocumentForm()
+    return render(request, 'main_app/documents.html', {'documents': documents, 'form': form})
 
 
 def vote(request, question_id):

@@ -25,24 +25,18 @@
             </ul>
         </div>
     </nav>
-
-    {% if documents %}
-        <ul>
-            <p>Your Documents</p>
-            {% for document in documents %}
-                <li><a href="{{ document.document.url }}">{{ document.title }}</a></li>
-                <p><a href="{{ document.document.url }}" class="btn btn-primary btn-sm" download>{{"Download"}}</a>
-                <form method="post" action="{% url 'main_app:document_delete' document.pk %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                </form>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No documents.</p>
-    {% endif %}
     
-    <a href="{% url 'main_app:document_upload'%}" class="btn btn-primary btn-sm" >{{"Upload Documents Here"}}</a>
+    {% block content %}
+        <p>Upload Documents</p>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+    {% endblock %}
+
+    <a href="{% url 'main_app:documents'%}" class="btn btn-primary btn-sm" >{{"Return To Documents"}}</a>
+
 
     
     <!-- <div class="container">

@@ -19,8 +19,8 @@ urlpatterns = [
     path('uvaclass/list', views.UVAClassListView.as_view(), name='list'),
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view(), name="logout"),
-    path('documents/', views.document_upload, name='documents'),
+    path('documents/', views.document_list, name='documents'),
+    path('documents/upload', views.document_upload, name='document_upload'),
     path('documents/<int:pk>', views.document_delete, name='document_delete')
-    #path('documents/submit', views.upload_file, name='upload_file')
 ]
 #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
