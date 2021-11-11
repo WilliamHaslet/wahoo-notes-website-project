@@ -30,6 +30,7 @@ class Profile(models.Model):
         return f'{self.user.username} Profile'
 
 class Assignment(models.Model):
+    id = models.BigIntegerField(primary_key = True)
     profile = models.ForeignKey(Profile, related_name='assignments', on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=30, default='NULL')
     description = models.CharField(max_length=30, default='NULL')
