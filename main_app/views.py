@@ -46,6 +46,7 @@ class AddClassesView(generic.ListView):
     model = Class
     template_name = 'main_app/addclasses.html'
     context_object_name = 'all_classes'
+    courses = []
 
 class ListClassesView(generic.ListView):
     model = Profile
@@ -78,12 +79,19 @@ def submitEditedProfile(request):
             messages.error(request, "Blank Submission! You must submit all fields.")
     return HttpResponseRedirect('/editprofile')
 
-def filterByName(request):
+def filterClasses(request):
     template_name = 'main_app/filterclasses.html'
     courses = Class.objects
     if request.method == 'POST':
-        searched = request.POST.get('course_name')
-        courses = Class.objects.filter(name__icontains=searched)
+        searched = request.POST.get('query')
+        searchType = request.POST.get('queryType')
+        if searched == '': 
+            messages.error(request, "Blank query!")
+            return HttpResponseRedirect('/addClasses')
+        elif searchType == 'name': courses = Class.objects.filter(name__icontains=searched)
+        elif searchType == 'id': courses = Class.objects.filter(id__icontains=searched)
+        elif searchType == 'professor': courses = Class.objects.filter(professor__icontains=searched)
+        elif searchType == 'subject': courses = Class.objects.filter(subject__icontains=searched)
     return render(request, template_name, {'courses':courses})
 
 def addCourse(request, pk):

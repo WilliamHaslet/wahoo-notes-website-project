@@ -35,7 +35,7 @@
                     <a class="nav-link active" href="{% url 'main_app:addclasses'%}">Add Class</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link active" href="{% url 'main_app:listclasses'%}">View Classes</a>
+                    <a class="nav-link active" href="{% url 'main_app:listclasses'%}">Schedule</a>
                 </li>
             </ul>
         </div>
@@ -45,42 +45,48 @@
                     <a class="nav-link" href="{% url 'main_app:logout' %}"> Log Out </a>
                 </li>
             </ul>
-          </div>
+        </div>
     </nav>
     <div class=" container">
-                        <div class="d-flex justify-content-center">
-                            <h1 class="mt-5">Find Classes</h1>
-                        </div>
-                        <form action="{% url 'main_app:filterclasses' %}" method="post">
-                            {% csrf_token %}
-                            <input type="text" placeholder="Filter classes by name" name="course_name"
-                                class="form-control">
-                            <button type="submit" value="Submit" class="btn btn-primary mt-3">Filter</button>
-                        </form>
-                        <ul>
-                            {% for course in courses %}
-                            <li>
-                                <form method="POST" action="{% url 'main_app:addCourse' course.id %}"
-                                    style="display: inline;">
-                                    {% csrf_token %}
-                                    <button>add course</button>
-                                </form>
-                                <form method="POST" action="{% url 'main_app:removeCourse' course.id %}"
-                                    style="display: inline;">
-                                    {% csrf_token %}
-                                    <button>remove course</button>
-                                    <strong><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}
-                                            {{course.code}}</a> - {{course.name}}</strong>
-                                </form>
-
-                            </li>
-
-                            {% endfor %}
-                        </ul>
+        <div class="d-flex justify-content-center">
+            <h1 class="mt-5">Find Classes</h1>
         </div>
-        <footer class="bg-light text-center text-lg-start">
-            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
-                Copyright © 2021 Group A-08
-            </div>
-        </footer>
+        <form action="{% url 'main_app:filterclasses' %}" method="post">
+            {% csrf_token %}
+            <input type="text" placeholder="Search for classes" name="query" class="form-control">
+            <input type="radio" id="name" name="queryType" value="name" checked>
+            <label for="name">name</label>
+            <input type="radio" id="id" name="queryType" value="id">
+            <label for="id">id</label>
+            <input type="radio" id="professor" name="queryType" value="professor">
+            <label for="professor">professor</label>
+            <input type="radio" id="subject" name="queryType" value="subject">
+            <label for="subject">subject</label>
+            <br>
+            <button type="submit" value="Submit" class="btn btn-primary mt-3">Search</button>
+        </form>
+        <ul>
+            {% for course in courses %}
+            <li>
+                <form method="POST" action="{% url 'main_app:addCourse' course.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button>add course</button>
+                </form>
+                <form method="POST" action="{% url 'main_app:removeCourse' course.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button>remove course</button>
+                    <strong><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}
+                            {{course.code}}</a> - {{course.name}}: {{course.section}}, {{course.professor}}</strong>
+                </form>
+
+            </li>
+
+            {% endfor %}
+        </ul>
+    </div>
+    <footer class="bg-light text-center text-lg-start">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
+            Copyright © 2021 Group A-08
+        </div>
+    </footer>
 </body>
