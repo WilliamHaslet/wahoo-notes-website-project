@@ -23,8 +23,7 @@
 .btn-primary:hover {
     background-color: #5374b6;
 }
-
-  * {box-sizing: border-box}
+* {box-sizing: border-box}
 @media screen and (max-width: 500px) {
   .navbar a {
     float: none;
@@ -45,7 +44,7 @@
   color: rgb(255, 255, 255);
   text-decoration: none;
   font-size: 16px;
-  width: 20%; /* 5 links of equal widths */
+  width: 100%; /* 5 links of equal widths */
   text-align: center;
 }
 
@@ -58,6 +57,11 @@
 .navbar a.active {
   background-color: #eb9422;
   background-image: var(--bs-gradient);
+}
+.navbar a.logo {
+  background-color: rgb(75, 166, 218);
+  background-image: none;
+  color:rgb(255, 255, 255)
 }
 
 ul.no-bullets {
@@ -78,18 +82,36 @@ ul.no-bullets {
 <body>
   {% if user.is_authenticated %}
   <!--nav bar-->
-  <div class= "container">
-    <a class= "navbar-brand" href="#">
-      <img src="/main_app/static/main_app/images/Wahoo-Notes.png" alt="" width= "30" height="24">
-    </a>
-  </div>
-    <div class="navbar" style= "font-family:'Verdana'">
-          <a class="nav-link active rounded"  href="{% url 'main_app:index'%}">Home </a>
-          <a class="nav-link rounded" href="{% url 'main_app:editprofile'%}">Edit Profile</a>
-          <a class="nav-link rounded" href="{% url 'main_app:addclasses'%}">Add Class</a>
-          <a class="nav-link rounded" href="{% url 'main_app:listclasses'%}">Schedule</a>
-          <a class="nav-link rounded" href="{% url 'main_app:logout' %}"> Log Out </a>
+  <nav class="navbar navbar-expand-lg">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto no-bullets">
+        <li>
+          <a class= "navbar-brand logo " href="#" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 20px; color:rgb(236, 132, 47)">
+            Wahoo Notes
+          </a>
+        </li>
+      </ul>
     </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style= "font-family:'Verdana'">
+        <ul class="navbar-nav ms-auto" style="font-family:'Verdana'">
+          <li class="nav-item">
+            <a class="nav-link active rounded" href="{% url 'main_app:index'%}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link rounded" href="{% url 'main_app:editprofile'%}">Edit Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link rounded" href="{% url 'main_app:addclasses'%}">Add Class</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link rounded" href="{% url 'main_app:listclasses'%}">Schedule</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link rounded" href="{% url 'main_app:logout' %}"> Log Out </a>
+          </li>
+        </ul>  
+    </div>
+  </nav>
 
   <div class="container">
     <div class= "row">
@@ -116,6 +138,7 @@ ul.no-bullets {
       </div>
     </div>
   </div>
+  <br>
   <footer class="bg-light text-center text-lg-start">
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
       Copyright © 2021 Group A-08
