@@ -17,6 +17,7 @@ urlpatterns = [
     path('listClasses/', views.ListClassesView.as_view(), name='listclasses'),
     path('accounts/', include('allauth.urls')),
     path('logout/', LogoutView.as_view(), name="logout"),
+    path('studentSearch', views.studentSearchView, name="studentSearch"),
     path('classTest', views.classTestView, name="classTest"),
     path('classesDebug', views.classesDebugView, name="classesDebug"),
 ]

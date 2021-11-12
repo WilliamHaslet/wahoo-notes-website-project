@@ -114,6 +114,35 @@ def logout_view(request):
     logout(request)
     return render(request, 'main_app/index.html')
 
+def studentSearchView(request):
+    template = loader.get_template('main_app/studentSearch.html')
+
+    otherStudents = []
+
+    for c in request.user.profile.classes.all():
+        for stu in c.profiles.all():
+            if stu == request.user.profile:
+                continue
+            exists = False
+            for o in otherStudents:
+                if o['student'] == stu:
+                    exists = True
+                    break
+            if not exists:
+                otherStudents.append({
+                    'student': stu,
+                    'sharedClasses': []
+                })
+            for o in otherStudents:
+                if o['student'] == stu:
+                    o['sharedClasses'].append(c)
+                    break
+
+    context = {
+        'students': otherStudents
+    }
+    return HttpResponse(template.render(context, request))
+
 def classesDebugView(request):
     template = loader.get_template('main_app/classesDebug.html')
     context = {
