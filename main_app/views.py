@@ -77,8 +77,6 @@ class AssignmentsView(generic.ListView):
 def removeAssignment(request, pk):
     if request.method == 'POST':
         assignment = Assignment.objects.get(id=pk)
-        request.user.profile.assignments.remove(assignment)
-        request.user.profile.save()
         assignment.delete()
     return HttpResponseRedirect('/assignments')
 

@@ -30,13 +30,13 @@ class Profile(models.Model):
         return f'{self.user.username} Profile'
 
 class Assignment(models.Model):
-    profile = models.ForeignKey(Profile, related_name='assignments', on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=30, default='NULL')
-    description = models.CharField(max_length=30, default='NULL')
+    profile = models.ForeignKey(Profile, related_name='assignments', on_delete=models.CASCADE)
+    name = models.CharField(max_length=30, default='')
+    description = models.CharField(max_length=30, default='')
     points = models.IntegerField(default=0)
-    class_name = models.CharField(max_length=30, default='NULL')
-    release_date = models.CharField(max_length=30, default='NULL')
-    due_date = models.CharField(max_length=30, default='NULL')
+    class_name = models.CharField(max_length=30, default='')
+    release_date = models.CharField(max_length=30, default='')
+    due_date = models.CharField(max_length=30, default='')
     def __str__(self):
         return f'{self.name}'
 
