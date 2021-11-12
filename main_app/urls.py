@@ -20,5 +20,7 @@ urlpatterns = [
     path('addAssignment/', views.addAssignment, name="addAssignment"),
     path('accounts/', include('allauth.urls')),
     path('logout/', LogoutView.as_view(), name="logout"),
+    path('studentSearch', views.studentSearchView, name="studentSearch"),
     path('classTest', views.classTestView, name="classTest"),
+    path('classesDebug', views.classesDebugView, name="classesDebug"),
 ]

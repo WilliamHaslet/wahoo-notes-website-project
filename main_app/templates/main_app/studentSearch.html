@@ -1,0 +1,11 @@
+<h4>Students:</h4>
+<ol>
+    {% for student in students %}
+        <li>{{student.student.computing_id}} - {{student.student.user.username}}</li>
+        <ul>
+            {% for class in student.sharedClasses %}
+                <li>{{ class.name }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</ol>
