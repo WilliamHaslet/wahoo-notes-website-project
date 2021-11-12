@@ -190,7 +190,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 4
+SITE_ID = 5
 
 # #Needed for testing locally
 # SITE_ID = 5
