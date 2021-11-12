@@ -30,6 +30,7 @@ class Profile(models.Model):
         return f'{self.user.username} Profile'
 
 class Assignment(models.Model):
+    id = models.BigAutoField(primary_key=True, serialize=False, verbose_name='ID')
     profile = models.ForeignKey(Profile, related_name='assignments', on_delete=models.CASCADE)
     name = models.CharField(max_length=30, default='')
     description = models.CharField(max_length=30, default='')
