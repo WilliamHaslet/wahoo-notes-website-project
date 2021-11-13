@@ -1,0 +1,24 @@
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<p>Class count: {{ classCount }}</p>
+
+<ul>
+    {% for course in allClasses %}
+    <li>
+        <p> {{course.id}} <strong>{{course.subject}} {{course.code}}</strong>
+            {{course.section}} {{course.name}}
+            {{course.professor}} {{course.size}} {{course.day}}
+            {{course.start_time}} {{course.end_time}} {{course.semester}}
+        </p>
+    </li>
+    {% endfor %}
+</ul>

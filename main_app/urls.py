@@ -15,7 +15,12 @@ urlpatterns = [
     path('addCourse/<int:pk>/', views.addCourse, name="addCourse"),
     path('removeCourse/<int:pk>/', views.removeCourse, name="removeCourse"),
     path('listClasses/', views.ListClassesView.as_view(), name='listclasses'),
+    path('assignments/', views.AssignmentsView.as_view(), name='assignments'),
+    path('removeAssignment/<int:pk>/', views.removeAssignment, name="removeAssignment"),
+    path('addAssignment/', views.addAssignment, name="addAssignment"),
     path('accounts/', include('allauth.urls')),
     path('logout/', LogoutView.as_view(), name="logout"),
+    path('studentSearch', views.studentSearchView, name="studentSearch"),
     path('classTest', views.classTestView, name="classTest"),
+    path('classesDebug', views.classesDebugView, name="classesDebug"),
 ]

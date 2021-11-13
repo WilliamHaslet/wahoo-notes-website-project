@@ -8,7 +8,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from .models import Class, Profile
+from .models import Class, Profile, Assignment
 from .forms import UserUpdateForm, ProfileUpdateForm
 
 @login_required
@@ -68,6 +68,31 @@ class ClassDetailView(generic.DetailView):
     template_name = 'main_app/classdetail.html'
     context_object_name = 'class_detail'
 
+class AssignmentsView(generic.ListView):
+    template_name = 'main_app/assignments.html'
+    context_object_name = 'my_assignments'
+    def get_queryset(self):
+        return self.request.user.profile.assignments.all()
+
+def removeAssignment(request, pk):
+    if request.method == 'POST':
+        assignment = Assignment.objects.get(id=pk)
+        assignment.delete()
+    return HttpResponseRedirect('/assignments')
+
+def addAssignment(request):
+    template_name = 'main_app/filterclasses.html'
+    if request.method == 'POST':
+        new_assignment = Assignment()
+        new_assignment.name = request.POST.get('assignment_name')
+        new_assignment.class_name = request.POST.get('class_name')
+        new_assignment.description = request.POST.get('description')
+        new_assignment.profile = request.user.profile
+        new_assignment.save()
+        #request.user.profile.assignments.add(new_assignment)
+        #request.user.profile.save()
+    return HttpResponseRedirect('/assignments')
+
 def submitEditedProfile(request):
     if request.method == 'POST':
         if request.POST.get('studentComputingID') and request.POST.get('studentYear'):
@@ -114,6 +139,43 @@ def logout_view(request):
     logout(request)
     return render(request, 'main_app/index.html')
 
+def studentSearchView(request):
+    template = loader.get_template('main_app/studentSearch.html')
+
+    otherStudents = []
+
+    for c in request.user.profile.classes.all():
+        for stu in c.profiles.all():
+            if stu == request.user.profile:
+                continue
+            exists = False
+            for o in otherStudents:
+                if o['student'] == stu:
+                    exists = True
+                    break
+            if not exists:
+                otherStudents.append({
+                    'student': stu,
+                    'sharedClasses': []
+                })
+            for o in otherStudents:
+                if o['student'] == stu:
+                    o['sharedClasses'].append(c)
+                    break
+
+    context = {
+        'students': otherStudents
+    }
+    return HttpResponse(template.render(context, request))
+
+def classesDebugView(request):
+    template = loader.get_template('main_app/classesDebug.html')
+    context = {
+        'classCount': len(Class.objects.all()),
+        'allClasses': Class.objects.all()
+    }
+    return HttpResponse(template.render(context, request))
+
 from django.http import HttpResponse
 import requests
 import json
@@ -137,39 +199,12 @@ class ClassData(IntEnum):
     year = 12
 
 def classTestView(request):
-    fallClasses = json.load(open("fallClasses.txt"))
-
+    # Delete all classes with class number above 8000
+    '''fallClasses = json.load(open("fallClasses.txt"))
     fallClassCount = len(fallClasses)
-    subjects = []
-    numbers = []
-    professors = []
-    startTimes = []
 
     for i in range(fallClassCount):
-        subject = fallClasses[i][ClassData.subject]
-        if not subject in subjects:
-            subjects.append(subject)
-            
-        number = fallClasses[i][ClassData.catalogNumber]
-        if not number in numbers:
-            numbers.append(number)
-
-        professor = fallClasses[i][ClassData.instructor]
-        if (not professor in professors) and professor != "":
-            professors.append(professor)
-
-        startTime = fallClasses[i][ClassData.meetingTimeStart]
-        if not startTime in startTimes:
-            startTimes.append(startTime)
-
-    template = loader.get_template('main_app/classTest.html')
-    context = {
-        'displayData': [
-            ("Subject", subjects),
-            ("Class Number", numbers),
-            ("Professor", professors),
-            ("Start Time", startTimes)
-        ]
-    }
-
-    return HttpResponse(template.render(context, request))
+        newClass = Class.objects.get(id=fallClasses[i][ClassData.classNumber])
+        if int(newClass.code) >= 8000:
+            newClass.delete()'''
+    return None
