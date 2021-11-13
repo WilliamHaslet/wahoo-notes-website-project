@@ -237,12 +237,16 @@ ul.no-bullets {
         <div class="card-header" style="font-family: 'Nunito Sans'; font-size: 32px;"><b>My Classes</b></div>
         <div class="card-body">
           <div class= "col-6 no-bullets">
+            {% if not user.profile.classes.all %}
+              You currently have no classes.
+            {% else %}
               {% for course in user.profile.classes.all %}
-              <ul class= "no-bullets" style= "font-family:'Verdana'">
-                <li><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}{{course.code}}: {{course.section}} - {{course.name}}</a>
-                </li>
-              </ul>
+                <ul class= "no-bullets" style= "font-family:'Verdana'">
+                  <li><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}{{course.code}}: {{course.section}} - {{course.name}}</a>
+                  </li>
+                </ul>
               {% endfor %}
+            {% endif %}
           </div>
         </div>
     </div>
