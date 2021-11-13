@@ -11,6 +11,7 @@
 
 {% load socialaccount %}
 
+{% block content %}
 <head>
   <title>main_app</title>
   <link rel="stylesheet" type="text/css" href="{% static 'main_app/style.css' %}">
@@ -27,7 +28,7 @@
 
 <body>
   {% if user.is_authenticated %}
-  <br><center><h1> Wahoo Notes </h1></center><br>
+  <!-- <br><center><h1> Wahoo Notes </h1></center><br> -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
@@ -40,8 +41,8 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'main_app:addclasses'%}">Add Class</a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link active" href="{% url 'main_app:listclasses'%}">Schedule</a>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'main_app:listclasses'%}">View Schedule</a>
       </li>
       </ul>
     </div>
@@ -73,10 +74,11 @@
   {% endfor %}
   </center>
   <footer class="bg-light text-center text-lg-start">
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
+    <div class="text-center p-3" style="background-color: rgba(35, 45, 75, 0.85)">
       Copyright © 2021 Group A-08
     </div>
   </footer>
+
   {% else %}
     <login_bg>
       <login_text>
@@ -90,9 +92,15 @@
           <h1><p style = "font-family: 'Nunito Sans', Arial, Serif">Welcome</p></h1>
           <h3><p style = "font-family: 'Roboto', Arial, Serif">Create your UVA schedule and share course <br> notes with other students!</p></h3>
           <br>
-          <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Log in with Google</a>
+          <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Log in with Google</a><br><br>
+          <a class="small" href ="https://cs3240.cs.virginia.edu/index.html" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#fbb584" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path>
+              <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path>
+            </svg>
+            <small>&nbsp;Visit the CS3240 Fall 2021 Homepage</small>
+          </a.small>
         </div>
-        Social media/contact info?
       </login_text>
 
       <footer class="bg-light text-center text-lg-start">
@@ -102,7 +110,6 @@
       </footer>
     </login_bg>
   {% endif %}
-
 </body>
 
 <style type="text/css">
@@ -117,4 +124,20 @@
 .btn-primary:hover {
     background-color: #5374b6;
 }
+a.small:link {
+  color: rgb(213, 216, 247);
+  background-color: transparent;
+  text-decoration: none;
+}
+a.small:visited {
+  color: #fbb584;
+  background-color: transparent;
+  text-decoration: none;
+}
+a.small:hover {
+  color: #fbb584;
+  background-color: transparent;
+  text-decoration: underline;
+}
 </style>
+{% endblock %}
