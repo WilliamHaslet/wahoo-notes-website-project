@@ -102,7 +102,7 @@ def submitEditedProfile(request):
             messages.success(request, "Successfully Submitted!")
         else:
             messages.error(request, "Blank Submission! You must submit all fields.")
-    return HttpResponseRedirect('/editprofile')
+    return HttpResponseRedirect('/')
 
 def filterClasses(request):
     template_name = 'main_app/filterclasses.html'

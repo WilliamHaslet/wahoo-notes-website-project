@@ -95,20 +95,17 @@ ul.no-bullets {
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto no-bullets">
         <li>
-          <a class= "navbar-brand logo " href="{% url 'main_app:index'%}" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 24px; color:rgb(236, 132, 47); background-color: #232D4B">
+          <a class= "navbar-brand logo " href="{% url 'main_app:index'%}" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 28px; color:rgb(236, 132, 47); background-color: #232D4B">
             Wahoo
-            <p style = "position:relative; right:3px; bottom:1px; font-family:'Lucida Handwriting', Impact, Arial, Serif; display:inline; font-size:23px; color:white; text-shadow:1px 1px #a9afc7">Notes</p>
+            <p style = "position:relative; right:3px; bottom:1px; font-family:'Lucida Handwriting', Impact, Arial, Serif; display:inline; font-size:26px; color:white; text-shadow:1px 1px #a9afc7">Notes</p>
           </a>
         </li>
       </ul>
     </div>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent" style= "font-family:'Verdana'">
-        <ul class="navbar-nav ms-auto" style="font-family:'Verdana'">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style= "font-family:'Roboto', Arial">
+        <ul class="navbar-nav ms-auto" style="font-family:'Roboto', Arial; font-weight:bold">
           <li class="nav-item">
             <a {% if request.resolver_match.url_name == '' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:index'%}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a {% if request.resolver_match.url_name == 'editprofile' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:editprofile'%}">Edit Profile</a>
           </li>
           <li class="nav-item">
             <a {% if request.resolver_match.url_name == 'addclasses' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:addclasses'%}">Add Class</a>
@@ -139,8 +136,36 @@ ul.no-bullets {
           <li>Computing ID: {{ user.profile.computing_id }}</li>
           <li>Email: {{ user.email }}</li>
           <li>Year: {{ user.profile.year }}</li>
-        </ul>
-      </div>
+        </ul><br>
+
+        <p>
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Edit Profile
+          </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            <div class="container">
+              {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+              <form action="{% url 'main_app:submitEditedProfile' %}" method="post">
+                  {% csrf_token %}
+                  <div class="form-group">
+                      <input type="text" placeholder="Enter computing ID" name="studentComputingID"
+                          class="form-control mt-3">
+                      <input type="text" placeholder="Enter year" name="studentYear" class="form-control mt-3">
+                  </div>
+                  <button type="submit" value="Submit" class="btn btn-primary mt-3">Submit</button>
+                  {% if messages %}
+                  {% for message in messages %}
+                  <h5><strong>{{message}}</strong></h5>
+                  {% endfor %}
+                  {% endif %}
+              </form>
+            </div>
+          </div>
+        </div>
+        <br>
+
       <!--classes display-->
       <div class= "col-6 no-bullets">
         <h2 class="mt-5" style="font-family:'Verdana', font-size: 40px">Your Classes</h1>
@@ -160,6 +185,7 @@ ul.no-bullets {
       Copyright © 2021 Group A-08
     </div>
   </footer>
+  <br><br><br><br>
 
   {% else %}
     <login_bg>
@@ -192,20 +218,19 @@ ul.no-bullets {
 </body>
 
 <style type="text/css">
-  .container p-5 my-5 text-black rounded border border-warning {
-    color: rgb(37, 22, 119);
-  }
-
-  .btn-primary {
-    color: #fff;
-    background-color: #466197;
-    border-color: #f69350;
-  }
-
-  .btn-primary:hover {
-    background-color: #5374b6;
-
+.container p-5 my-5 text-black rounded border border-warning {
+  color: rgb(37, 22, 119);
 }
+
+.btn-primary {
+  color: #fff;
+  background-color: #466197;
+  border-color: #f69350;
+}
+.btn-primary:hover {
+  background-color: #5374b6;
+}
+
 a.small:link {
   color: rgb(213, 216, 247);
   background-color: transparent;
