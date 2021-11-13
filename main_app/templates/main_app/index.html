@@ -105,7 +105,7 @@ ul.no-bullets {
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style= "font-family:'Roboto', Arial">
         <ul class="navbar-nav ms-auto" style="font-family:'Roboto', Arial; font-weight:bold">
           <li class="nav-item">
-            <a {% if request.resolver_match.url_name == '' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:index'%}">Home</a>
+            <a class="nav-link active rounded" href="{% url 'main_app:index'%}">Home</a>
           </li>
           <li class="nav-item">
             <a {% if request.resolver_match.url_name == 'addclasses' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:addclasses'%}">Add Class</a>
