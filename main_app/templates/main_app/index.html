@@ -11,6 +11,68 @@
 
 {% load socialaccount %}
 
+<style type="text/css">
+.container p-5 my-5 text-black rounded border border-warning {
+  color: rgb(37, 22, 119);
+}
+.btn-primary {
+    color: #fff;
+    background-color: #466197;
+    border-color: #f69350;
+}
+.btn-primary:hover {
+    background-color: #5374b6;
+}
+* {box-sizing: border-box}
+@media screen and (max-width: 500px) {
+  .navbar a {
+    float: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+.navbar {
+  width: 100%;
+  height: 68px;
+  background-color: rgb(75, 166, 218);
+  overflow: hidden;
+}
+
+.navbar a {
+  float: left;
+  padding: 12px;
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+  font-size: 16px;
+  width: 100%; /* 5 links of equal widths */
+  text-align: center;
+}
+
+.navbar a:hover {
+  background-color: #eb9422; /*rgb(69, 180, 245)*/
+  background-image: var(--bs-gradient);
+  color: #080e14;
+}
+
+.navbar a.active {
+  background-color: #eb9422;
+  background-image: var(--bs-gradient);
+}
+.navbar a.logo {
+  background-color: rgb(75, 166, 218);
+  background-image: none;
+  color:rgb(255, 255, 255)
+}
+
+ul.no-bullets {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+</style>
+
+{% block content %}
 <head>
   <title>main_app</title>
   <link rel="stylesheet" type="text/css" href="{% static 'main_app/style.css' %}">
@@ -28,25 +90,32 @@
 
 <body>
   {% if user.is_authenticated %}
-  <br>
-  <center>
-    <h1> Wahoo Notes </h1>
-  </center><br>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!--nav bar-->
+  <nav class="navbar navbar-expand-lg" style="background-color: #232D4B">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link active" href="{% url 'main_app:index'%}">Home </a>
+      <ul class="navbar-nav mr-auto no-bullets">
+        <li>
+          <a class= "navbar-brand logo " href="#" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 24px; color:rgb(236, 132, 47); background-color: #232D4B">
+            Wahoo
+            <p style = "position:relative; right:3px; bottom:1px; font-family:'Lucida Handwriting', Impact, Arial, Serif; display:inline; font-size:23px; color:white; text-shadow:1px 1px #a9afc7">Notes</p>
+          </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'main_app:editprofile'%}">Edit Profile</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'main_app:addclasses'%}">Add Class</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link active" href="{% url 'main_app:listclasses'%}">Schedule</a>
-        </li>
+      </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style= "font-family:'Verdana'">
+        <ul class="navbar-nav ms-auto" style="font-family:'Verdana'">
+          <li class="nav-item">
+            <a class="nav-link active rounded" href="{% url 'main_app:index'%}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link rounded" href="{% url 'main_app:editprofile'%}">Edit Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link rounded" href="{% url 'main_app:addclasses'%}">Add Class</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link rounded" href="{% url 'main_app:listclasses'%}">View Schedule</a>
+          </li>
         <li class="nav-item active">
           <a class="nav-link active" href="{% url 'main_app:assignments'%}">Assignments</a>
         </li>
@@ -63,59 +132,59 @@
       </ul>
     </div>
   </nav>
+
   <div class="container">
-    <div class="d-flex justify-content-center">
-      <h1 class="mt-5">Profile</h1>
-    </div>
-    <div class="d-flex justify-content-center">
-      <ul>
-        <li>Name: {{ user.username }}</li>
-        <li>Computing ID: {{ user.profile.computing_id }}</li>
-        <li>Email: {{ user.email }}</li>
-        <li>Year: {{ user.profile.year }}</li>
-      </ul>
+    <div class= "row">
+      <!--profile-->
+      <div class= "col">
+        <h2 class="mt-5" style= "font-family:'Verdana', font-size: 40px">Profile</h2>
+        <ul class= "no-bullets" style= "font-family:'Verdana'">
+          <li>Name: {{ user.username }}</li>
+          <li>Computing ID: {{ user.profile.computing_id }}</li>
+          <li>Email: {{ user.email }}</li>
+          <li>Year: {{ user.profile.year }}</li>
+        </ul>
+      </div>
+      <!--classes display-->
+      <div class= "col-6 no-bullets">
+        <h2 class="mt-5" style="font-family:'Verdana', font-size: 40px">Your Classes</h1>
+          {% for course in user.profile.classes.all %}
+          <ul class= "no-bullets" style= "font-family:'Verdana'">
+            <li><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}
+              {{course.code}}: {{course.section}}</a> - {{course.name}}
+            </li>
+          </ul>
+          {% endfor %}
+      </div>
     </div>
   </div>
-  <center>
-    <h2 class="mt-5">Your Classes</h1>
-      {% for course in user.profile.classes.all %}
-      <li><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}
-          {{course.code}}: {{course.section}}</a> - {{course.name}}</li>
-      {% endfor %}
-  </center>
+  <br>
   <footer class="bg-light text-center text-lg-start">
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
+    <div class="text-center p-3" style="background-color: rgba(35, 45, 75, 0.85)">
       Copyright © 2021 Group A-08
     </div>
   </footer>
+
   {% else %}
-  <login_bg>
-    <login_text>
-      <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#f4f5fa" class="bi bi-pencil-square"
-        viewBox="0 0 16 16">
-        <path
-          d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-        <path fill-rule="evenodd"
-          d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-      </svg>
-      <!-- Some backup fonts in case the first isn't available -->
-      <p
-        style="font-family:'Lucida Handwriting', Arial, Serif; display:inline; font-size:24px; color:#f4f5fa; text-shadow:1px 1px #a9afc7">
-        <b>Insert logo here?</b></p>
-      <div class="container p-5 my-4 shadow-lg rounded border border-warning"
-        style="background-color: rgba(35, 45, 75, 0.85); color: #E57200">
-        <h1>
-          <p style="font-family: 'Nunito Sans', Arial, Serif">Welcome</p>
-        </h1>
-        <h3>
-          <p style="font-family: 'Roboto', Arial, Serif">Create your UVA schedule and share course <br> notes with other
-            students!</p>
-        </h3>
-        <br>
-        <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Log in with Google</a>
-      </div>
-      Social media/contact info?
-    </login_text>
+    <login_bg>
+      <login_text>
+        <!-- Some backup fonts in case the first isn't available -->
+        <p style = "font-family: 'Impact', Arial, Serif; display:inline; font-size:39px; color: rgba(243, 135, 12, 0.925); text-shadow:1px 1px #fcecdd">Wahoo</p>
+        <p style = "position:relative; right:3px; bottom:1px; font-family:'Lucida Handwriting', Impact, Arial, Serif; display:inline; font-size:36px; color: white; text-shadow:1px 1px #a9afc7">Notes</p>
+        <div class="container p-5 my-4 shadow-lg rounded border border-warning" style="background-color: rgba(35, 45, 75, 0.85); color: #E57200">
+          <h1><p style = "font-family: 'Nunito Sans', Arial, Serif">Welcome</p></h1>
+          <h3><p style = "font-family: 'Roboto', Arial, Serif">Create your UVA schedule and share course <br> notes with other students!</p></h3>
+          <br>
+          <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Log in with Google</a><br><br>
+          <a class="small" href ="https://cs3240.cs.virginia.edu/index.html" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#fbb584" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"></path>
+              <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"></path>
+            </svg>
+            <small>&nbsp;Visit the CS3240 Fall 2021 Homepage</small>
+          </a.small>
+        </div>
+      </login_text>
 
     <footer class="bg-light text-center text-lg-start">
       <div class="text-center p-3" style="background-color: rgba(35, 45, 75, 0.85)">
@@ -124,7 +193,6 @@
     </footer>
   </login_bg>
   {% endif %}
-
 </body>
 
 <style type="text/css">
@@ -140,5 +208,22 @@
 
   .btn-primary:hover {
     background-color: #5374b6;
-  }
+
+}
+a.small:link {
+  color: rgb(213, 216, 247);
+  background-color: transparent;
+  text-decoration: none;
+}
+a.small:visited {
+  color: #fbb584;
+  background-color: transparent;
+  text-decoration: none;
+}
+a.small:hover {
+  color: #fbb584;
+  background-color: transparent;
+  text-decoration: underline;
+}
 </style>
+{% endblock %}
