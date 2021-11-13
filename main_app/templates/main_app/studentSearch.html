@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
 <h4>Students:</h4>
 <ol>
     {% for student in students %}
@@ -9,3 +12,4 @@
         </ul>
     {% endfor %}
 </ol>
+{% endblock %}
