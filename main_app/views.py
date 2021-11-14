@@ -144,9 +144,27 @@ def studentSearchView(request):
 
     otherStudents = []
 
-    for c in request.user.profile.classes.all():
+    userProfile = request.user.profile
+    #userProfile = Profile.objects.all()[0]
+
+    for c in userProfile.classes.all():
+        classData = {
+            'students': [],
+            'class': c
+        }
+
+        for student in c.profiles.all():
+            if student != userProfile:
+                classData['students'].append(student)
+
+        otherStudents.append(classData)
+    context = {
+        'classes': otherStudents
+    }
+
+    '''for c in userProfile.classes.all():
         for stu in c.profiles.all():
-            if stu == request.user.profile:
+            if stu == userProfile:
                 continue
             exists = False
             for o in otherStudents:
@@ -165,7 +183,7 @@ def studentSearchView(request):
 
     context = {
         'students': otherStudents
-    }
+    }'''
     return HttpResponse(template.render(context, request))
 
 def classesDebugView(request):
@@ -207,4 +225,22 @@ def classTestView(request):
         newClass = Class.objects.get(id=fallClasses[i][ClassData.classNumber])
         if int(newClass.code) >= 8000:
             newClass.delete()'''
-    return None
+
+    # Add all classes with class number below 8000 from json to database
+    '''fallClasses = json.load(open("fallClasses.txt"))
+    fallClassCount = len(fallClasses)
+
+    for i in range(fallClassCount):
+        if int(fallClasses[i][ClassData.catalogNumber][:30]) < 8000:
+            newClass = Class.objects.create(id=fallClasses[i][ClassData.classNumber])
+            newClass.subject = fallClasses[i][ClassData.subject][:30]
+            newClass.code = fallClasses[i][ClassData.catalogNumber][:30]
+            newClass.section = fallClasses[i][ClassData.classSection][:30]
+            newClass.name = fallClasses[i][ClassData.classTitle][:30]
+            newClass.professor = fallClasses[i][ClassData.instructor][:30]
+            newClass.size = fallClasses[i][ClassData.enrollmentCapacity]
+            newClass.day = fallClasses[i][ClassData.meetingDays][:30]
+            newClass.start_time = fallClasses[i][ClassData.meetingTimeStart]
+            newClass.end_time = fallClasses[i][ClassData.meetingTimeEnd]
+            newClass.semester = fallClasses[i][ClassData.term][:30]
+            newClass.save()'''

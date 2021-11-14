@@ -193,9 +193,9 @@ SOCIALACCOUNT_PROVIDERS = {
 
 if 'runserver' in sys.argv:
     #Needed for testing locally
-    SITE_ID = 6
-else:
     SITE_ID = 5
+else:
+    SITE_ID = 4
 
 
 LOGIN_REDIRECT_URL = '/'
