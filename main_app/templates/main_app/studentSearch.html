@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h4>Students:</h4>
-<ol>
+<h4>Find students in your classes</h4>
+<!--<ol>
     {% for student in students %}
         <li>{{student.student.computing_id}} - {{student.student.user.username}}</li>
         <ul>
@@ -11,5 +11,17 @@
             {% endfor %}
         </ul>
     {% endfor %}
+</ol>-->
+
+<ol>
+    {% for class in classes %}
+        <li>{{ class.class.name }}</li>
+        <ul>
+            {% for student in class.students %}
+                <li>{{ student.user }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
 </ol>
+
 {% endblock %}

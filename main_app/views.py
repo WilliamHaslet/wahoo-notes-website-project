@@ -144,9 +144,27 @@ def studentSearchView(request):
 
     otherStudents = []
 
-    for c in request.user.profile.classes.all():
+    userProfile = request.user.profile
+    #userProfile = Profile.objects.all()[0]
+
+    for c in userProfile.classes.all():
+        classData = {
+            'students': [],
+            'class': c
+        }
+
+        for student in c.profiles.all():
+            if student != userProfile:
+                classData['students'].append(student)
+
+        otherStudents.append(classData)
+    context = {
+        'classes': otherStudents
+    }
+
+    '''for c in userProfile.classes.all():
         for stu in c.profiles.all():
-            if stu == request.user.profile:
+            if stu == userProfile:
                 continue
             exists = False
             for o in otherStudents:
@@ -165,7 +183,7 @@ def studentSearchView(request):
 
     context = {
         'students': otherStudents
-    }
+    }'''
     return HttpResponse(template.render(context, request))
 
 def classesDebugView(request):
