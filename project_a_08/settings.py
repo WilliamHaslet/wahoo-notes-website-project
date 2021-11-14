@@ -96,37 +96,29 @@ DATABASES = {
         'HOST': 'ec2-44-197-94-126.compute-1.amazonaws.com',
         'PORT':  '5432',
     }
-} 
-'''
-#Needed for testing locally
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-'''
-DATABASES = {'default': dj_database_url.config()}
+}'''
 
-if 'test' in sys.argv:
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if 'runserver' in sys.argv:
+    #Needed for testing locally
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-    '''
-'''
-DATABASES['default'] = {
+else: 
+    DATABASES = {'default': dj_database_url.config()}
+
+    if 'test' in sys.argv:
+        DATABASES['default'] = {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+
+'''DATABASES['default'] = {
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 }'''
-
-# #Needed for testing locally
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 
 
 # Password validation
@@ -199,10 +191,13 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 6
 
-# #Needed for testing locally
-# SITE_ID = 5
+if 'runserver' in sys.argv:
+    #Needed for testing locally
+    SITE_ID = 4
+else:
+    SITE_ID = 5
+
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -210,3 +205,4 @@ LOGOUT_REDIRECT_URL = '/'
 #File upload
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 MEDIA_URL='/media/'
+
