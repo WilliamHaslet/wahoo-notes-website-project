@@ -6,3 +6,4 @@ from .models import Class, Profile, Assignment
 admin.site.register(Class)
 admin.site.register(Profile)
 admin.site.register(Assignment)
+admin.site.register(Document)
