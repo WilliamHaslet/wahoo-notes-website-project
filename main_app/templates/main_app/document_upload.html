@@ -1,4 +1,13 @@
 {% load static %}
+{% load bootstrap5 %}
+
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
 <head>
     <h1>Group A-08</h1>
     <title>Documents</title>
@@ -11,17 +20,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'main_app:index'%}">main_app</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'main_app:uvaclass'%}">Add a Class</a>
+                    <a class="nav-link active" href="{% url 'main_app:index'%}">Home </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main_app:editprofile'%}">Edit Profile</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main_app:addclasses'%}">Add Class</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main_app:documents'%}">Documents</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link active" href="{% url 'main_app:listclasses'%}">Schedule</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'main_app:list'%}">All Classes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'main_app:documents'%}">Documents</a>
-                </li>
+                  <a class="nav-link active" href="{% url 'main_app:assignments'%}">Assignments</a>
+              </li>
             </ul>
         </div>
     </nav>
@@ -35,6 +50,8 @@
         </form>
     {% endblock %}
 
+    <br>
+    <br>
     <a href="{% url 'main_app:documents'%}" class="btn btn-primary btn-sm" >{{"Return To Documents"}}</a>  
 
     <footer class="bg-light text-center text-lg-start">

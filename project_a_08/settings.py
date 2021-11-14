@@ -96,6 +96,14 @@ DATABASES = {
         'HOST': 'ec2-44-197-94-126.compute-1.amazonaws.com',
         'PORT':  '5432',
     }
+} 
+'''
+#Needed for testing locally
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 '''
 DATABASES = {'default': dj_database_url.config()}
@@ -105,8 +113,9 @@ if 'test' in sys.argv:
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-
-'''DATABASES['default'] = {
+    '''
+'''
+DATABASES['default'] = {
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 }'''
@@ -190,7 +199,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 4
+SITE_ID = 6
 
 # #Needed for testing locally
 # SITE_ID = 5
