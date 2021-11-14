@@ -28,6 +28,6 @@ urlpatterns = [
     path('classTest', views.classTestView, name="classTest"),
     path('documents/', views.document_list, name='documents'),
     path('documents/upload', views.document_upload, name='document_upload'),
-    path('documents/<int:pk>', views.document_delete, name='document_delete')
-    path('classesDebug', views.classesDebugView, name="classesDebug"),
+    path('documents/<int:pk>', views.document_delete, name='document_delete'),
+    path('classesDebug', views.classesDebugView, name="classesDebug")
 ]
