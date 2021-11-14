@@ -98,26 +98,27 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
     }
 }'''
 
-DATABASES = {'default': dj_database_url.config()}
-
-if 'test' in sys.argv:
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if 'runserver' in sys.argv:
+    #Needed for testing locally
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
+else: 
+    DATABASES = {'default': dj_database_url.config()}
+
+    if 'test' in sys.argv:
+        DATABASES['default'] = {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
 
 '''DATABASES['default'] = {
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 }'''
-
-# #Needed for testing locally
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
 
 
 # Password validation
@@ -190,10 +191,12 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 4
+if 'runserver' in sys.argv:
+    #Needed for testing locally
+    SITE_ID = 5
+else:
+    SITE_ID = 4
 
-# #Needed for testing locally
-# SITE_ID = 5
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
