@@ -190,10 +190,10 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SITE_ID = 5
+SITE_ID = 4
 
 # #Needed for testing locally
-# SITE_ID = 6
+# SITE_ID = 5
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
