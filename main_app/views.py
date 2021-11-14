@@ -77,8 +77,6 @@ class AssignmentsView(generic.ListView):
 def removeAssignment(request, pk):
     if request.method == 'POST':
         assignment = Assignment.objects.get(id=pk)
-        request.user.profile.assignments.remove(assignment)
-        request.user.profile.save()
         assignment.delete()
     return HttpResponseRedirect('/assignments')
 
@@ -89,9 +87,10 @@ def addAssignment(request):
         new_assignment.name = request.POST.get('assignment_name')
         new_assignment.class_name = request.POST.get('class_name')
         new_assignment.description = request.POST.get('description')
+        new_assignment.profile = request.user.profile
         new_assignment.save()
-        request.user.profile.assignments.add(new_assignment)
-        request.user.profile.save()
+        #request.user.profile.assignments.add(new_assignment)
+        #request.user.profile.save()
     return HttpResponseRedirect('/assignments')
 
 def submitEditedProfile(request):
@@ -103,7 +102,7 @@ def submitEditedProfile(request):
             messages.success(request, "Successfully Submitted!")
         else:
             messages.error(request, "Blank Submission! You must submit all fields.")
-    return HttpResponseRedirect('/editprofile')
+    return HttpResponseRedirect('/')
 
 def filterClasses(request):
     template_name = 'main_app/filterclasses.html'
@@ -140,6 +139,61 @@ def logout_view(request):
     logout(request)
     return render(request, 'main_app/index.html')
 
+def studentSearchView(request):
+    template = loader.get_template('main_app/studentSearch.html')
+
+    otherStudents = []
+
+    userProfile = request.user.profile
+    #userProfile = Profile.objects.all()[0]
+
+    for c in userProfile.classes.all():
+        classData = {
+            'students': [],
+            'class': c
+        }
+
+        for student in c.profiles.all():
+            if student != userProfile:
+                classData['students'].append(student)
+
+        otherStudents.append(classData)
+    context = {
+        'classes': otherStudents
+    }
+
+    '''for c in userProfile.classes.all():
+        for stu in c.profiles.all():
+            if stu == userProfile:
+                continue
+            exists = False
+            for o in otherStudents:
+                if o['student'] == stu:
+                    exists = True
+                    break
+            if not exists:
+                otherStudents.append({
+                    'student': stu,
+                    'sharedClasses': []
+                })
+            for o in otherStudents:
+                if o['student'] == stu:
+                    o['sharedClasses'].append(c)
+                    break
+
+    context = {
+        'students': otherStudents
+    }'''
+    return HttpResponse(template.render(context, request))
+
+def classesDebugView(request):
+    template = loader.get_template('main_app/classesDebug.html')
+    context = {
+        'classCount': len(Class.objects.all()),
+        'allClasses': Class.objects.all()
+    }
+    return HttpResponse(template.render(context, request))
+
 from django.http import HttpResponse
 import requests
 import json
@@ -163,43 +217,34 @@ class ClassData(IntEnum):
     year = 12
 
 def classTestView(request):
-    fallClasses = json.load(open("fallClasses.txt"))
-
+    # Delete all classes with class number above 8000
+    '''fallClasses = json.load(open("fallClasses.txt"))
     fallClassCount = len(fallClasses)
-    subjects = []
-    numbers = []
-    professors = []
-    startTimes = []
 
     for i in range(fallClassCount):
-        subject = fallClasses[i][ClassData.subject]
-        if not subject in subjects:
-            subjects.append(subject)
-            
-        number = fallClasses[i][ClassData.catalogNumber]
-        if not number in numbers:
-            numbers.append(number)
+        newClass = Class.objects.get(id=fallClasses[i][ClassData.classNumber])
+        if int(newClass.code) >= 8000:
+            newClass.delete()'''
 
-        professor = fallClasses[i][ClassData.instructor]
-        if (not professor in professors) and professor != "":
-            professors.append(professor)
+    # Add all classes with class number below 8000 from json to database
+    '''fallClasses = json.load(open("fallClasses.txt"))
+    fallClassCount = len(fallClasses)
 
-        startTime = fallClasses[i][ClassData.meetingTimeStart]
-        if not startTime in startTimes:
-            startTimes.append(startTime)
+    for i in range(fallClassCount):
+        if int(fallClasses[i][ClassData.catalogNumber][:30]) < 8000:
+            newClass = Class.objects.create(id=fallClasses[i][ClassData.classNumber])
+            newClass.subject = fallClasses[i][ClassData.subject][:30]
+            newClass.code = fallClasses[i][ClassData.catalogNumber][:30]
+            newClass.section = fallClasses[i][ClassData.classSection][:30]
+            newClass.name = fallClasses[i][ClassData.classTitle][:30]
+            newClass.professor = fallClasses[i][ClassData.instructor][:30]
+            newClass.size = fallClasses[i][ClassData.enrollmentCapacity]
+            newClass.day = fallClasses[i][ClassData.meetingDays][:30]
+            newClass.start_time = fallClasses[i][ClassData.meetingTimeStart]
+            newClass.end_time = fallClasses[i][ClassData.meetingTimeEnd]
+            newClass.semester = fallClasses[i][ClassData.term][:30]
+            newClass.save()'''
 
-    template = loader.get_template('main_app/classTest.html')
-    context = {
-        'displayData': [
-            ("Subject", subjects),
-            ("Class Number", numbers),
-            ("Professor", professors),
-            ("Start Time", startTimes)
-        ]
-    }
-
-    return HttpResponse(template.render(context, request))
-  
 def document_list(request):
     documents = Document.objects.all()
     return render(request, 'main_app/documents.html', {'documents': documents})
