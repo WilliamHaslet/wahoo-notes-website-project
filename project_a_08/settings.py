@@ -98,7 +98,7 @@ DATABASES = {
     }
 }'''
 
-if 'runserver' in sys.argv:
+if 'runserver' in sys.argv or 'migrate' in sys.argv:
     #Needed for testing locally
     DATABASES = {
         'default': {

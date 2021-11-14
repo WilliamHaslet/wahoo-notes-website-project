@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+
 {% load static %}
 {% load bootstrap5 %}
 
@@ -8,55 +10,23 @@
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
 
+{% block content %}
 <head>
-    <h1>Group A-08</h1>
     <title>Documents</title>
     <link rel="stylesheet" type="text/css" href="{% static 'main_app/style.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'main_app:index'%}">Home </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'main_app:editprofile'%}">Edit Profile</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'main_app:addclasses'%}">Add Class</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'main_app:documents'%}">Documents</a>
-                  </li>
-                  <li class="nav-item active">
-                    <a class="nav-link active" href="{% url 'main_app:listclasses'%}">Schedule</a>
-                </li>
-                <li class="nav-item active">
-                  <a class="nav-link active" href="{% url 'main_app:assignments'%}">Assignments</a>
-              </li>
-            </ul>
-        </div>
-    </nav>
-    
-    {% block content %}
-        <p>Upload Documents</p>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Upload</button>
-        </form>
-    {% endblock %}
+<body><br>
+  <p>Upload Documents</p>
+  <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Upload</button>
+  </form>
 
-    <br>
-    <br>
-    <a href="{% url 'main_app:documents'%}" class="btn btn-primary btn-sm" >{{"Return To Documents"}}</a>  
-
-    <footer class="bg-light text-center text-lg-start">
-      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.1)">
-        Copyright © 2021 Jerry Liu
-      </div>
-    </footer>
+  <br>
+  <br>
+  <a href="{% url 'main_app:documents'%}" class="btn btn-primary btn-sm" >{{"Return To Documents"}}</a>  
 </body>
+{% endblock %}
