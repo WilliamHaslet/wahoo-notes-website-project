@@ -41,4 +41,6 @@ class Assignment(models.Model):
     def __str__(self):
         return f'{self.name}'
 
-        
+class Document(models.Model):
+    title = models.CharField(max_length=50, blank=True)
+    document = models.FileField(upload_to='documents/')

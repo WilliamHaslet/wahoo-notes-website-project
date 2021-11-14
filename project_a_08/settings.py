@@ -86,8 +86,8 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-'''DATABASES = {
+'''
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'd5ei91gb65r5dm',
@@ -191,6 +191,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+
 if 'runserver' in sys.argv:
     #Needed for testing locally
     SITE_ID = 4
@@ -200,3 +201,8 @@ else:
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+#File upload
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL='/media/'
+

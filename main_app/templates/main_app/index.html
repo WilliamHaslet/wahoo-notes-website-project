@@ -118,6 +118,9 @@ ul.no-bullets {
             <a {% if request.resolver_match.url_name == 'assignments' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:assignments'%}">Assignments</a>
           </li>
           <li class="nav-item">
+            <a {% if request.resolver_match.url_name == 'documents' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:documents'%}">Documents</a>
+          </li>
+          <li class="nav-item">
             <a {% if request.resolver_match.url_name == 'studentSearch' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:studentSearch'%}">Student Search</a>
           </li>
           <li class="nav-item">

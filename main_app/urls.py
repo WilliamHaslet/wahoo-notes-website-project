@@ -3,6 +3,10 @@ from . import views
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 
+#Added for file uploads
+from django.conf import settings
+from django.conf.urls.static import static
+
 app_name = 'main_app'
 
 urlpatterns = [
@@ -22,5 +26,8 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name="logout"),
     path('studentSearch', views.studentSearchView, name="studentSearch"),
     path('classTest', views.classTestView, name="classTest"),
-    path('classesDebug', views.classesDebugView, name="classesDebug"),
+    path('documents/', views.document_list, name='documents'),
+    path('documents/upload', views.document_upload, name='document_upload'),
+    path('documents/<int:pk>', views.document_delete, name='document_delete'),
+    path('classesDebug', views.classesDebugView, name="classesDebug")
 ]
