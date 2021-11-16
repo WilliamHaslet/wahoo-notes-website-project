@@ -12,13 +12,12 @@
 
 {% block content %}
 <body>
-    <center><div class="card border-light mb-3" style="width: 68rem; padding:0rem">
-        <div class="card-header" style="font-family: 'Nunito Sans'; font-size: 32px;"><b>Assignments</b></div>
+   <center><h1 class=" mt-5" style= "font-family:'Nunito Sans', Arial"><b>My Schedule</b></h1></center>
         <div class= "container border-0">
             <div class="row">
                 <div class="col-8">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body justify-content-start">
                             <ul class= "no-bullets">
                                 {% for assignment in my_assignments %}
                                 <li>
@@ -35,7 +34,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-4">
                 <div class="card">
                   <div class="card-body">
                     <form method="POST" action="{% url 'main_app:addAssignment' %}" style="display: inline;">
@@ -44,12 +43,12 @@
                         <input type="text" placeholder="Enter class name" name="class_name">
                         <br><br>
                         <textarea placeholder="Enter assignment description" name="description" rows="4" cols="40"></textarea>
+                        <br>
                         <button type="submit" value="Submit" class="btn btn-primary mt-3">Add Assignment</button>
                     </form>
                     </div>
                 </div>
             </div>  
         </div>
-    </div>
 </body>
 {% endblock %}
