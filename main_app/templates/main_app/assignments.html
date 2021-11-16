@@ -11,37 +11,31 @@
 {% bootstrap_messages %}
 
 {% block content %}
-<head>
-    <title>Assignments</title>
-</head>
-
 <body>
-    <div class=" container">
-        <div class="d-flex justify-content-center">
-            <h1 class="mt-5">Assignments</h1>
+    <center><div class="card border-light mb-3" style="width: 68rem; padding:0rem">
+        <div class="card-header" style="font-family: 'Nunito Sans'; font-size: 32px;"><b>Assignments</b></div>
+        <div class="card-body">
+            <ul>
+                {% for assignment in my_assignments %}
+                <li>
+                    <form method="POST" action="{% url 'main_app:removeAssignment' assignment.id %}"
+                        style="display: inline;">
+                        {% csrf_token %}
+                        <button>remove assignment</button>
+                        <p">{{asssignment.name}} - {{assignment.description}}</p>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+            <form method="POST" action="{% url 'main_app:addAssignment' %}" style="display: inline;">
+                {% csrf_token %}
+                <input type="text" placeholder="Enter assignment name" name="assignment_name">
+                <input type="text" placeholder="Enter class name" name="class_name">
+                <br>
+                <textarea placeholder="Enter assignment description" name="description" rows="4" cols="50"></textarea>
+                <button type="submit" value="Submit" class="btn btn-primary mt-3">Add Assignment</button>
+            </form>
         </div>
-        <ul>
-            {% for assignment in my_assignments %}
-            <li>
-                <form method="POST" action="{% url 'main_app:removeAssignment' assignment.id %}"
-                    style="display: inline;">
-                    {% csrf_token %}
-                    <button>remove assignment</button>
-                    <p">{{asssignment.name}} - {{assignment.description}}</p>
-                </form>
-            </li>
-
-            {% endfor %}
-        </ul>
-        <p>Add Assignment</p>
-        <form method="POST" action="{% url 'main_app:addAssignment' %}" style="display: inline;">
-            {% csrf_token %}
-            <input type="text" placeholder="Enter assignment name" name="assignment_name">
-            <input type="text" placeholder="Enter class name" name="class_name">
-            <br>
-            <textarea placeholder="Enter assignment description" name="description" rows="4" cols="50"></textarea>
-            <button type="submit" value="Submit" class="btn btn-primary mt-3">Add Assignment</button>
-        </form>
     </div>
 </body>
 {% endblock %}
