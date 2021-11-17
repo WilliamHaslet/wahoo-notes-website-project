@@ -16,7 +16,7 @@
     <br>
          <div class= "container">
              <div class="row justify-content-start">
-                 <div class="col-md-6">
+                 <div class="col-6">
                      <div class="card border-0">
                          <div class="card-body border-0">
                              <ul class= "no-bullets">
@@ -25,8 +25,8 @@
                                      <form method="POST" action="{% url 'main_app:removeAssignment' assignment.id %}"
                                          style="display: inline;">
                                          {% csrf_token %}
-                                         <button type="button" class="btn btn-secondary btn-sm">Assignment Completed</button>
-                                         <p">{{assignment.name}} - {{assignment.description}}</p>
+                                         <button type="button" class="btn btn-secondary btn-sm">Remove Assignment</button>
+                                         <p">{{assignment.class_name}}: {{assignment.name}} - {{assignment.description}}</p>
                                      </form>
                                  </li>
                                  {% endfor %}
@@ -35,7 +35,7 @@
                      </div>
                  </div>
              </div>
-             <div class="col-md-4">
+             <div class="col-4">
                  <div class="card border-0">
                    <div class="card-body border-0">
                      <form method="POST" action="{% url 'main_app:addAssignment' %}" style="display: inline;">
@@ -43,7 +43,7 @@
                          <input type="text" placeholder="Enter assignment name" name="assignment_name">
                          <input type="text" placeholder="Enter class name" name="class_name">
                          <br><br>
-                         <textarea placeholder="Enter assignment description" name="description" rows="4" cols="45"></textarea>
+                         <textarea placeholder="Enter assignment description" name="description" rows="4" cols="45" maxlength="200"></textarea>
                          <br>
                          <button type="submit" value="Submit" class="btn btn-primary mt-3 text-center">Add Assignment</button>
                      </form>

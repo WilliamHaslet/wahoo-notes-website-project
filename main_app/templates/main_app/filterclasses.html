@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <div class= "container no-bullets">
+    <div class= "container">
         <div class="d-flex justify-content-center">
             <h1 class="mt-5">Find Classes</h1>
         </div>
@@ -26,7 +26,7 @@
             <br>
             <button type="submit" value="Submit" class="btn btn-primary mt-3">Search</button>
         </form>
-        <ul>
+        <ul class="no-bullets">
             {% for course in courses %}
             <li>
                 <form method="POST" action="{% url 'main_app:addCourse' course.id %}" style="display: inline;">
@@ -37,7 +37,7 @@
                     {% csrf_token %}
                     <button type="button" class="btn btn-secondary btn-sm">remove course</button>
                     <strong><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}
-                            {{course.code}}</a> - {{course.name}}: {{course.section}}, {{course.professor}}</strong>
+                            {{course.code}}</a> - {{course.name}}: {{course.section}}, {{course.professor}}</strong><br>
                 </form>
 
             </li>
