@@ -26,11 +26,10 @@
         </div>
         <form action="{% url 'main_app:filterclasses' %}" method="post">
             {% csrf_token %}
-            <div class="form-group col-6">            
+            <div class="form-group col-md-6">            
                 <input type="text" placeholder="Search for classes" name="query" class="form-control">
             </div>
-            <button type="submit" value="Submit" class="btn btn-primary mt-3">Search</button>
-            <div class="form-group col-4">
+            <div class="form-group mb-2">
                 <input type="radio" id="name" name="queryType" value="name" checked>
                 <label for="name">Course Title</label>
                 <input type="radio" id="id" name="queryType" value="id">
@@ -40,6 +39,7 @@
                 <input type="radio" id="subject" name="queryType" value="subject">
                 <label for="subject">Subject</label>
             </div>
+            <button type="submit" value="Submit" class="btn btn-primary mt-3">Search</button>   
         </form>
     </div>
 </body>

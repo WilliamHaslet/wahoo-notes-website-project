@@ -25,7 +25,7 @@
                                      <form method="POST" action="{% url 'main_app:removeAssignment' assignment.id %}"
                                          style="display: inline;">
                                          {% csrf_token %}
-                                         <p">{{asssignment.name}} - {{assignment.description}}</p>
+                                         <p">{{assignment.name}} - {{assignment.description}}</p>
                                          <button type="button" class="btn btn-secondary">remove assignment</button>
                                      </form>
                                  </li>
