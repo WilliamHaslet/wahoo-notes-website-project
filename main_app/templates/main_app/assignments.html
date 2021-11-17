@@ -33,7 +33,7 @@
                  </div>
                  <!--Add Assignment (right)-->
                  <div class="col">
-                    <form method="POST" action="{% url 'main_app:addAssignment' %}" style="display: inline;">
+                    <form method="POST" action="{% url 'main_app:addAssignment' %}" style="display: inline;" class= "align-items-end">
                         {% csrf_token %}
                         <input type="text" placeholder="Enter assignment name" name="assignment_name">
                         <input type="text" placeholder="Enter class name" name="class_name">
@@ -45,5 +45,6 @@
                  </div>  
              </div>
          </div>
+         <br><br><br><br>
  </body>
 {% endblock %}
