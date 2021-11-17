@@ -31,11 +31,11 @@
             <li>
                 <form method="POST" action="{% url 'main_app:addCourse' course.id %}" style="display: inline;">
                     {% csrf_token %}
-                    <button class="btn btn-primary">add course</button>
+                    <button class="btn btn-primary btn-sm">add course</button>
                 </form>
                 <form method="POST" action="{% url 'main_app:removeCourse' course.id %}" style="display: inline;">
                     {% csrf_token %}
-                    <button type="button" class="btn btn-secondary">remove course</button>
+                    <button type="button" class="btn btn-secondary btn-sm">remove course</button>
                     <strong><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}
                             {{course.code}}</a> - {{course.name}}: {{course.section}}, {{course.professor}}</strong>
                 </form>
