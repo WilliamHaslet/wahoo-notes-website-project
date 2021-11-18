@@ -116,7 +116,11 @@
                 <a {% if request.resolver_match.url_name == '' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:index'%}">Home</a>
               </li>
               <li class="nav-item">
+<<<<<<< HEAD
                 <a {% if request.resolver_match.url_name == 'addclasses' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:addclasses'%}">Find Class</a>
+=======
+                <a {% if request.resolver_match.url_name == 'addclasses' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:addclasses'%}">Class Search</a>
+>>>>>>> 2ee7c46a6af9c9cd4af9bf5b99d4d67f4f5d9011
               </li>
               <li class="nav-item">
                 <a {% if request.resolver_match.url_name == 'listclasses' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:listclasses'%}">View Schedule</a>
