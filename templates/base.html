@@ -92,6 +92,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700&family=Roboto:wght@300&display=swap"
     rel="stylesheet">
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <!DOCTYPE html>
@@ -114,13 +116,16 @@
                 <a {% if request.resolver_match.url_name == '' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:index'%}">Home</a>
               </li>
               <li class="nav-item">
-                <a {% if request.resolver_match.url_name == 'addclasses' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:addclasses'%}">Add Class</a>
+                <a {% if request.resolver_match.url_name == 'addclasses' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:addclasses'%}">Class Search</a>
               </li>
               <li class="nav-item">
                 <a {% if request.resolver_match.url_name == 'listclasses' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:listclasses'%}">View Schedule</a>
               </li>
               <li class="nav-item">
                 <a {% if request.resolver_match.url_name == 'assignments' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:assignments'%}">Assignments</a>
+              </li>
+              <li class="nav-item">
+                <a {% if request.resolver_match.url_name == 'documents' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:documents'%}">Documents</a>
               </li>
               <li class="nav-item">
                 <a {% if request.resolver_match.url_name == 'studentSearch' %}class="nav-link active rounded"{% else %}class="nav-link rounded"{% endif %} href="{% url 'main_app:studentSearch'%}">Student Search</a>

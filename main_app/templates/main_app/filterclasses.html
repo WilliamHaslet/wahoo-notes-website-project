@@ -8,36 +8,42 @@
 </head>
 
 <body>
-    <div class=" container">
+    <div class= "container">
         <div class="d-flex justify-content-center">
             <h1 class="mt-5">Find Classes</h1>
         </div>
-        <form action="{% url 'main_app:filterclasses' %}" method="post">
+        <center><form action="{% url 'main_app:filterclasses' %}" method="post" class= "align-items-center">
             {% csrf_token %}
-            <input type="text" placeholder="Search for classes" name="query" class="form-control">
-            <input type="radio" id="name" name="queryType" value="name" checked>
-            <label for="name">name</label>
-            <input type="radio" id="id" name="queryType" value="id">
-            <label for="id">id</label>
-            <input type="radio" id="professor" name="queryType" value="professor">
-            <label for="professor">professor</label>
-            <input type="radio" id="subject" name="queryType" value="subject">
-            <label for="subject">subject</label>
-            <br>
-            <button type="submit" value="Submit" class="btn btn-primary mt-3">Search</button>
+            <div class="input-group mb-2 col-6">            
+                <input type="text" placeholder="Search for classes" name="query" class="form-control">
+                <div class= "input-group-append input-group-btn input-space">
+                    <button type="submit" value="Submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <input type="radio" id="name" name="queryType" value="name" checked>
+                <label for="name">Course Title</label>
+                <input type="radio" id="id" name="queryType" value="id">
+                <label for="id">ID</label>
+                <input type="radio" id="professor" name="queryType" value="professor">
+                <label for="professor">Professor</label>
+                <input type="radio" id="subject" name="queryType" value="subject">
+                <label for="subject">Subject</label>
+            </div>
         </form>
-        <ul>
+        </center>
+        <ul class="no-bullets ml-20">
             {% for course in courses %}
             <li>
                 <form method="POST" action="{% url 'main_app:addCourse' course.id %}" style="display: inline;">
                     {% csrf_token %}
-                    <button>add course</button>
+                    <button class="btn btn-primary btn-sm">add course</button>
                 </form>
                 <form method="POST" action="{% url 'main_app:removeCourse' course.id %}" style="display: inline;">
                     {% csrf_token %}
-                    <button>remove course</button>
-                    <strong><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}
-                            {{course.code}}</a> - {{course.name}}: {{course.section}}, {{course.professor}}</strong>
+                    <button type="button" class="btn btn-secondary btn-sm">remove course</button>
+                    <strong><a href="{% url 'main_app:classdetail' course.id %}" class="mt-2">{{course.subject}}
+                            {{course.code}}</a> - {{course.name}}: {{course.section}}, {{course.professor}}</strong><br>
                 </form>
 
             </li>
@@ -45,5 +51,6 @@
             {% endfor %}
         </ul>
     </div>
+    <br><br><br><br>
 </body>
 {% endblock %}

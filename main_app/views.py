@@ -8,8 +8,8 @@ from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from .models import Class, Profile, Assignment
-from .forms import UserUpdateForm, ProfileUpdateForm
+from .models import Class, Profile, Assignment, Document
+from .forms import UserUpdateForm, ProfileUpdateForm, DocumentForm
 
 @login_required
 def profile(request):
@@ -87,6 +87,7 @@ def addAssignment(request):
         new_assignment.name = request.POST.get('assignment_name')
         new_assignment.class_name = request.POST.get('class_name')
         new_assignment.description = request.POST.get('description')
+        new_assignment.due_date = request.POST.get('due_date')
         new_assignment.profile = request.user.profile
         new_assignment.save()
         #request.user.profile.assignments.add(new_assignment)
@@ -162,28 +163,6 @@ def studentSearchView(request):
         'classes': otherStudents
     }
     
-    '''for c in userProfile.classes.all():
-        for stu in c.profiles.all():
-            if stu == userProfile:
-                continue
-            exists = False
-            for o in otherStudents:
-                if o['student'] == stu:
-                    exists = True
-                    break
-            if not exists:
-                otherStudents.append({
-                    'student': stu,
-                    'sharedClasses': []
-                })
-            for o in otherStudents:
-                if o['student'] == stu:
-                    o['sharedClasses'].append(c)
-                    break
-
-    context = {
-        'students': otherStudents
-    }'''
     return HttpResponse(template.render(context, request))
 
 def classesDebugView(request):
@@ -244,3 +223,27 @@ def classTestView(request):
             newClass.end_time = fallClasses[i][ClassData.meetingTimeEnd]
             newClass.semester = fallClasses[i][ClassData.term][:30]
             newClass.save()'''
+
+def document_list(request):
+    documents = Document.objects.all()
+    return render(request, 'main_app/documents.html', {'documents': documents})
+
+def document_upload(request):
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/documents')
+    else:
+        form = DocumentForm()
+    documents = Document.objects.all()
+    return render(request, 'main_app/document_upload.html', {'documents': documents, 'form': form})
+
+def document_delete(request, pk):
+    if request.method == 'POST':
+        form = Document.objects.get(pk=pk)
+        form.document.delete()
+        form.delete()
+    documents = Document.objects.all()
+    form = DocumentForm()
+    return render(request, 'main_app/documents.html', {'documents': documents, 'form': form})
