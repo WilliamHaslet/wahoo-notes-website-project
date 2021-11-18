@@ -25,13 +25,22 @@
         <p>meeting days: {{class_detail.day}}</p>
         <p>start time: {{class_detail.start_time}}</p>
         <p>end time: {{class_detail.end_time}}</p>
+        <form method="POST" action="{% url 'main_app:addCourse' class_detail.id %}" style="display: inline;">
+            {% csrf_token %}
+            <button class="btn btn-primary btn-sm">Add Course</button>
+        </form>
+        <form method="POST" action="{% url 'main_app:removeCourse' class_detail.id %}" style="display: inline;">
+            {% csrf_token %}
+            <button class="btn btn-secondary btn-sm">Remove Course</button>
+        </form>
         <h4>Students:</h4>
         <ol>
             {% for student in class_detail.profiles.all %}
                 <li>{{student.computing_id}} - {{student.user.username}}</li>
             {% endfor %}
         </ol>
-        <a href="/addClasses">Return to Class Selection</a>
+        <a href="/">Go to Profile</a>
+        <a href="/addClasses">Go to Class Selection</a>
     </div>
 </body>
 {% endblock %}

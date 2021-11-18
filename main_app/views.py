@@ -126,7 +126,7 @@ def addCourse(request, pk):
         request.user.profile.classes.add(course)
         request.user.profile.save()
         messages.success(request, f"{course.subject} {course.code} added!")
-    return HttpResponseRedirect('/addClasses')
+    return HttpResponseRedirect(f'/course/{pk}/')
 
 def removeCourse(request, pk):
     if request.method == 'POST':
@@ -134,7 +134,7 @@ def removeCourse(request, pk):
         request.user.profile.classes.remove(course)
         request.user.profile.save()
         messages.success(request, f"{course.subject} {course.code} removed!")
-    return HttpResponseRedirect('/addClasses')
+    return HttpResponseRedirect(f'/course/{pk}/')
 
 def logout_view(request):
     logout(request)
