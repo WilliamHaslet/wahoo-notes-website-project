@@ -98,6 +98,7 @@ DATABASES = {
     }
 }'''
 
+
 if 'runserver' in sys.argv or 'migrate' in sys.argv:
     #Needed for testing locally
     DATABASES = {
@@ -115,10 +116,12 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
 
+
 '''DATABASES['default'] = {
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 }'''
+
 
 
 # Password validation

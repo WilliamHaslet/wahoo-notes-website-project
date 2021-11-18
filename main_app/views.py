@@ -225,7 +225,7 @@ def classTestView(request):
             newClass.save()'''
 
 def document_list(request):
-    documents = Document.objects.all()
+    documents = self.request.user.profile.documents.all()
     return render(request, 'main_app/documents.html', {'documents': documents})
 
 def document_upload(request):
