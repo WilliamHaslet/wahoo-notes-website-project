@@ -33,7 +33,7 @@ class Assignment(models.Model):
     id = models.BigAutoField(primary_key=True, serialize=False, verbose_name='ID')
     profile = models.ForeignKey(Profile, related_name='assignments', on_delete=models.CASCADE)
     name = models.CharField(max_length=30, default='')
-    description = models.CharField(max_length=30, default='')
+    description = models.CharField(max_length=200, default='')
     points = models.IntegerField(default=0)
     class_name = models.CharField(max_length=30, default='')
     release_date = models.CharField(max_length=30, default='')
