@@ -40,5 +40,4 @@ class Assignment(models.Model):
     due_date = models.CharField(max_length=30, default='')
     def __str__(self):
         return f'{self.name}'
-
         

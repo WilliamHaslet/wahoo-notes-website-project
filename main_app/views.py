@@ -161,7 +161,7 @@ def studentSearchView(request):
     context = {
         'classes': otherStudents
     }
-
+    
     '''for c in userProfile.classes.all():
         for stu in c.profiles.all():
             if stu == userProfile:
