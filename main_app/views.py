@@ -162,29 +162,7 @@ def studentSearchView(request):
     context = {
         'classes': otherStudents
     }
-
-    '''for c in userProfile.classes.all():
-        for stu in c.profiles.all():
-            if stu == userProfile:
-                continue
-            exists = False
-            for o in otherStudents:
-                if o['student'] == stu:
-                    exists = True
-                    break
-            if not exists:
-                otherStudents.append({
-                    'student': stu,
-                    'sharedClasses': []
-                })
-            for o in otherStudents:
-                if o['student'] == stu:
-                    o['sharedClasses'].append(c)
-                    break
-
-    context = {
-        'students': otherStudents
-    }'''
+    
     return HttpResponse(template.render(context, request))
 
 def classesDebugView(request):
