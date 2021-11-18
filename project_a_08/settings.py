@@ -194,7 +194,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 if 'runserver' in sys.argv:
     #Needed for testing locally
-    SITE_ID = 4
+    SITE_ID = 6
 else:
     SITE_ID = 5
 
