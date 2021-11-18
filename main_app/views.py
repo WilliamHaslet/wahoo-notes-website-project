@@ -87,6 +87,7 @@ def addAssignment(request):
         new_assignment.name = request.POST.get('assignment_name')
         new_assignment.class_name = request.POST.get('class_name')
         new_assignment.description = request.POST.get('description')
+        new_assignment.due_date = request.POST.get('due_date')
         new_assignment.profile = request.user.profile
         new_assignment.save()
         #request.user.profile.assignments.add(new_assignment)
