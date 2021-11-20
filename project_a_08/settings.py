@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -96,9 +96,9 @@ DATABASES = {
         'HOST': 'ec2-44-197-94-126.compute-1.amazonaws.com',
         'PORT':  '5432',
     }
-}'''
+}
 
-
+'''
 if 'runserver' in sys.argv or 'migrate' in sys.argv:
     #Needed for testing locally
     DATABASES = {
@@ -115,7 +115,7 @@ else:
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
-
+'''
 
 '''DATABASES['default'] = {
     'ENGINE': 'django.db.backends.sqlite3',
@@ -197,7 +197,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 if 'runserver' in sys.argv:
     #Needed for testing locally
-    SITE_ID = 6
+    SITE_ID = 5
 else:
     SITE_ID = 5
 
