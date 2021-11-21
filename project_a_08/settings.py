@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-ihv)^epo0-m@qp#6y_(f&_%$8e9o&*e))3%n34kk#()1jxm_p!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'group-a-08-website.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'wahoo-notes.herokuapp.com']
 
 
 # Application definition
@@ -118,6 +118,13 @@ else:
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 }'''
+DATABASES = {'default': dj_database_url.config()}
+
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 
 
 # Password validation

@@ -87,6 +87,7 @@ def addAssignment(request):
         new_assignment.name = request.POST.get('assignment_name')
         new_assignment.class_name = request.POST.get('class_name')
         new_assignment.description = request.POST.get('description')
+        new_assignment.due_date = request.POST.get('due_date')
         new_assignment.profile = request.user.profile
         new_assignment.save()
         #request.user.profile.assignments.add(new_assignment)
@@ -125,7 +126,7 @@ def addCourse(request, pk):
         request.user.profile.classes.add(course)
         request.user.profile.save()
         messages.success(request, f"{course.subject} {course.code} added!")
-    return HttpResponseRedirect('/addClasses')
+    return HttpResponseRedirect(f'/course/{pk}/')
 
 def removeCourse(request, pk):
     if request.method == 'POST':
@@ -133,7 +134,7 @@ def removeCourse(request, pk):
         request.user.profile.classes.remove(course)
         request.user.profile.save()
         messages.success(request, f"{course.subject} {course.code} removed!")
-    return HttpResponseRedirect('/addClasses')
+    return HttpResponseRedirect(f'/course/{pk}/')
 
 def logout_view(request):
     logout(request)
@@ -161,29 +162,7 @@ def studentSearchView(request):
     context = {
         'classes': otherStudents
     }
-
-    '''for c in userProfile.classes.all():
-        for stu in c.profiles.all():
-            if stu == userProfile:
-                continue
-            exists = False
-            for o in otherStudents:
-                if o['student'] == stu:
-                    exists = True
-                    break
-            if not exists:
-                otherStudents.append({
-                    'student': stu,
-                    'sharedClasses': []
-                })
-            for o in otherStudents:
-                if o['student'] == stu:
-                    o['sharedClasses'].append(c)
-                    break
-
-    context = {
-        'students': otherStudents
-    }'''
+    
     return HttpResponse(template.render(context, request))
 
 def classesDebugView(request):
