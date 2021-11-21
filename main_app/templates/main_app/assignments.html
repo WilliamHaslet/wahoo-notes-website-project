@@ -12,13 +12,13 @@
 
 {% block content %}
 
-<body>
+<body style= "background-color: #ebecf1;">
     <center>
         <h1 class=" mt-5" style="font-family:'Nunito Sans', Arial"><b>Assignments</b></h1>
     </center>
     <br>
          <div class= "container">
-             <div class="row justify-content-center">
+             <div class="row justify-content-center text-wrap">
                  <!--Assignments List (left)-->
                  <div class="col">
                     <form method="POST" action="{% url 'main_app:addAssignment' %}" style="display: inline;">
@@ -34,7 +34,7 @@
                  </div>
                  <!--Add Assignment (right)-->
                  <div class="col text-wrap">
-                    <ul class= "no-bullets">
+                    <ul class= "no-bullets text-wrap">
                         {% for assignment in my_assignments %}
                         <li>
                         <form method="POST" action="{% url 'main_app:removeAssignment' assignment.id %}"
@@ -51,10 +51,3 @@
          </div>
  </body>
 {% endblock %}
-<style>
-    body{
-        color: #1a202c;
-        text-align: left;
-        background-color: #ebecf1;    
-      }
-</style>
