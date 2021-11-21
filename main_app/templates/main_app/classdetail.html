@@ -15,9 +15,15 @@
 </head>
 
 <body>
-    <center><h1 class=" mt-5" style= "font-family:'Nunito Sans', Arial"><b>Class Info</b></h1>
-    <a href="/">Return to Profile</a>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/addClasses">Return to Class Selection</a></center>
+    <center><h1 class=" mt-5" style= "font-family:'Nunito Sans', Arial"><b>Class Info</b></h1><br>
+    <form method="POST" action="{% url 'main_app:addCourse' class_detail.id %}" style="display: inline;">
+        {% csrf_token %}
+        <button class="btn btn-primary btn-sm">Add Course</button>
+    </form>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <form method="POST" action="{% url 'main_app:removeCourse' class_detail.id %}" style="display: inline;">
+        {% csrf_token %}
+        <button class="btn btn-danger btn-sm">Remove Course</button>
+    </form></center>
     <div class=" container">
         <br>
         <center><div class="card" style="width: 40rem;">
@@ -54,6 +60,8 @@
                             <li>{{student.computing_id}} - {{student.user.username}}</li>
                         {% endfor %}
                         <br>
+                        <a href="/">Return to Profile</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/addClasses">Return to Class Selection</a>
                     </p>
                 </div>
         </div></center>
