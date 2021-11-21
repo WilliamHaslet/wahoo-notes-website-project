@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h4>Find students in your classes</h4>
+<center>
+<h1 class="mt-5">Find students in your classes</h1>
+</center>
 <!--<ol>
     {% for student in students %}
         <li>{{student.student.computing_id}} - {{student.student.user.username}}</li>
@@ -12,16 +14,36 @@
         </ul>
     {% endfor %}
 </ol>-->
-
-<ol>
+<body>
+<center>
+<ol class="no-bullets li">
     {% for class in classes %}
-        <li>{{ class.class.name }}</li>
-        <ul>
-            {% for student in class.students %}
-                <li>{{ student.user }}</li>
-            {% endfor %}
-        </ul>
+        <li>{{ class.class.name }} <button class= "btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">See Classmates</button></li>
+        <div class="collapse" id="collapseExample">
+            <div class="container">
+                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                <ol>
+                    {% for student in class.students %}
+                        <li>{{ student.user }}</li>
+                    {% endfor %}
+                </ol>
+            </div>           
+        </div>
     {% endfor %}
 </ol>
+</center>
+</body>
+
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 
 {% endblock %}
+<style>
+ol li{
+ list-style:none;
+ }
+body{
+    color: #1a202c;
+    text-align: left;
+    background-color: #ebecf1;    
+}
+</style>

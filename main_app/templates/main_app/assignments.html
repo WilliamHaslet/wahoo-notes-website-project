@@ -17,42 +17,44 @@
         <h1 class=" mt-5" style="font-family:'Nunito Sans', Arial"><b>Assignments</b></h1>
     </center>
     <br>
-    <div class="container">
-        <div class="row justify-content-center">
-            <!--Assignments List (left)-->
-            <div class="col">
-                <ul class="no-bullets">
-                    {% for assignment in my_assignments %}
-                    <li>
+         <div class= "container">
+             <div class="row justify-content-center">
+                 <!--Assignments List (left)-->
+                 <div class="col">
+                    <form method="POST" action="{% url 'main_app:addAssignment' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="text" placeholder="Enter class name" name="class_name">
+                        <input type="text" placeholder="Enter assignment name" name="assignment_name">
+                        <input type="text" placeholder="Enter due date" name="due_date">
+                        <br><br>
+                        <textarea placeholder="Enter assignment description (200 character limit)" name="description" rows="4" cols="75" maxlength="200"></textarea>
+                        <br>
+                        <button type="submit" value="Submit" class="btn btn-primary mt-3 text-center">Add Assignment</button>
+                    </form>
+                 </div>
+                 <!--Add Assignment (right)-->
+                 <div class="col">
+                    <ul class= "no-bullets">
+                        {% for assignment in my_assignments %}
+                        <li>
                         <form method="POST" action="{% url 'main_app:removeAssignment' assignment.id %}"
-                            style="display: inline;">
-                            {% csrf_token %}
-                            <button class="btn btn-secondary btn-sm">Remove Assignment</button>
-                            <p>{{assignment.class_name}}: {{assignment.name}}, Due date: {{assignment.due_date}}</p>
-                            <p>{{assignment.description}}</p>
-                        </form>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <!--Add Assignment (right)-->
-            <div class="col">
-                <form method="POST" action="{% url 'main_app:addAssignment' %}" style="display: inline;"
-                    class="align-items-end">
-                    {% csrf_token %}
-                    <input type="text" placeholder="Enter assignment name" name="assignment_name">
-                    <input type="text" placeholder="Enter class name" name="class_name">
-                    <input type="text" placeholder="Enter due date" name="due_date">
-                    <br><br>
-                    <textarea placeholder="Enter assignment description (200 character limit)" name="description"
-                        rows="4" cols="75" maxlength="200"></textarea>
-                    <br>
-                    <button type="submit" value="Submit" class="btn btn-primary mt-3 text-center">Add
-                        Assignment</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <br><br><br><br>
-</body>
+                             style="display: inline;">
+                             {% csrf_token %}
+                             <button class="btn btn-secondary btn-sm">Remove Assignment</button>
+                             <p">   {{assignment.class_name}}: {{assignment.name}} - {{assignment.description}}</p>
+                         </form>
+                         </li>
+                         {% endfor %}
+                     </ul>
+                 </div>  
+             </div>
+         </div>
+ </body>
 {% endblock %}
+<style>
+    body{
+        color: #1a202c;
+        text-align: left;
+        background-color: #ebecf1;    
+      }
+</style>
