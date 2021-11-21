@@ -43,7 +43,8 @@
                     {% csrf_token %}
                     <button type="button" class="btn btn-secondary btn-sm">remove course</button>
                     <strong><a href="{% url 'main_app:classdetail' course.id %}" class="mt-2">{{course.subject}}
-                            {{course.code}}</a> - {{course.name}}: {{course.section}}, {{course.professor}}</strong><br>
+                            {{course.code}}</a> - {{course.name}}: {{course.section}}, {{course.professor}}</strong>
+                    <br><br>
                 </form>
 
             </li>
@@ -54,3 +55,13 @@
     <br><br><br><br>
 </body>
 {% endblock %}
+<style>
+body{
+        color: #1a202c;
+        text-align: left;
+        background-color: #ebecf1;    
+      }
+.input-group-btn.input-space {
+  padding-left: 15px;
+}
+</style>
