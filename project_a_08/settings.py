@@ -19,7 +19,6 @@ import sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -29,7 +28,7 @@ SECRET_KEY = 'django-insecure-ihv)^epo0-m@qp#6y_(f&_%$8e9o&*e))3%n34kk#()1jxm_p!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'group-a-08-website.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'wahoo-notes.herokuapp.com']
 
 
 # Application definition
@@ -119,6 +118,13 @@ else:
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 }'''
+DATABASES = {'default': dj_database_url.config()}
+
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 
 
 # Password validation
@@ -194,7 +200,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 if 'runserver' in sys.argv:
     #Needed for testing locally
-    SITE_ID = 4
+    SITE_ID = 6
 else:
     SITE_ID = 5
 
