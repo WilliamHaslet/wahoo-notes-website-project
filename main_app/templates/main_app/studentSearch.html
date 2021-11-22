@@ -15,35 +15,32 @@
     {% endfor %}
 </ol>-->
 <body style= "background-color: #ebecf1;">
-<center>
-<ol class="no-bullets li">
+<div class="accordion" id="accordionExample">
     {% for class in classes %}
-        <li>{{ class.class.name }} <button class= "btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">See Classmates</button></li>
-        <div class="collapse" id="collapseExample">
-            <div class="container">
-                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-                <ol>
-                    {% for student in class.students %}
-                        <li>{{ student.user }}</li>
-                    {% endfor %}
-                </ol>
-            </div>           
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            {{ class.class.name }}
+          </button>
+        </h2>
+      </div>
+    </div>
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            <ol class="li">
+                {% for student in class.students %}
+                    <li>{{ student.user }}</li>
+                {% endfor %}
+            </ol>
         </div>
-    {% endfor %}
-</ol>
-</center>
+      </div>
+</div>
 </body>
-
-<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-
 {% endblock %}
 <style>
-ol li{
- list-style:none;
- }
-body{
-    color: #1a202c;
-    text-align: left;
-    background-color: #ebecf1;    
+li{
+ list-style-type:none;
 }
 </style>
