@@ -15,21 +15,20 @@
     {% endfor %}
 </ol>-->
 <body style= "background-color: #ebecf1;">
-    @{int i=0;}
 <center>
 <body style= "background-color: #ebecf1;">
-<div class="accordion" id="accordion_@i">
+<div class="accordion" id="accordionExample">
     {% for class in classes %}
     <div class="card">
-      <div class="card-header" id="headingOne">
+      <div class="card-header" id="heading{{ class.class.name }}">
         <h2 class="mb-0">
-          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_@i" aria-expanded="true" aria-controls="collapseOne">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ class.class.name }}" aria-expanded="true" aria-controls="collapse{{ class.class.name }}">
             {{ class.class.name }}
           </button>
         </h2>
       </div>
     </div>
-    <div id="collapse_@i" class="collapse" aria-labelledby="headingOne" data-parent="#accordion_@i">
+    <div id="collapse{{ class.class.name }}" class="collapse" aria-labelledby="heading{{ class.class.name }}" data-parent="#accordionExample">
         <div class="card-body">
             {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
             <ol class="li">
