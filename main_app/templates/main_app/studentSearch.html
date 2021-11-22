@@ -14,16 +14,16 @@
         </ul>
     {% endfor %}
 </ol>-->
-<body style= "background-color: #ebecf1;">
+<br><br><br>
 <center>
-<body style= "background-color: #ebecf1;">
+<body style= "background-color: #ebecf1; color: #1a202c;">
 <div class="accordion" id="accordionExample">
     {% for class in classes %}
     <div class="card">
       <div class="card-header" id="heading{{ class.class.id }}">
-        <h2 class="mb-0">
+        <h2 class="mb-3">
           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ class.class.id }}" aria-expanded="true" aria-controls="collapse{{ class.class.id }}">
-            {{ class.class.name }}
+            <strong>{{ class.class.name }}</strong>
           </button>
         </h2>
       </div>
@@ -39,11 +39,8 @@
         </div>
       </div>
     {% endfor %}
-    </div></center>
+    </div>
 </body>
+</center>
+    <br><br><br><br>
 {% endblock %}
-<style>
-li{
- list-style-type:none;
-}
-</style>
