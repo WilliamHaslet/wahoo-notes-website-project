@@ -31,11 +31,11 @@
     <div id="collapse{{ class.class.name }}" class="collapse" aria-labelledby="heading{{ class.class.name }}" data-parent="#accordionExample">
         <div class="card-body">
             {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-            <ol class="li">
+            <ul class="no-bullets">
                 {% for student in class.students %}
                     <li>{{ student.user }}</li>
                 {% endfor %}
-            </ol>
+            </ul>
         </div>
       </div>
     {% endfor %}
