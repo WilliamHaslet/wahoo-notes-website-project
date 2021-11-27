@@ -15,33 +15,57 @@
 </head>
 
 <body>
+    <center><h1 class=" mt-5" style= "font-family:'Nunito Sans', Arial"><b>Class Info</b></h1><br>
+    <form method="POST" action="{% url 'main_app:addCourse' class_detail.id %}" style="display: inline;">
+        {% csrf_token %}
+        <button class="btn btn-primary btn-sm">Add Course</button>
+    </form>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <form method="POST" action="{% url 'main_app:removeCourse' class_detail.id %}" style="display: inline;">
+        {% csrf_token %}
+        <button class="btn btn-danger btn-sm">Remove Course</button>
+    </form></center>
     <div class=" container">
-        <br><br>
-        <h3 class="mt-5" style="display: inline;">{{class_detail.subject}} {{class_detail.code}}</h3> <strong>- {{class_detail.name}}</strong></br></br>
-        <h4>Course Information:</h4>
-        <p>section: {{class_detail.section}}</p>
-        <p>professor: {{class_detail.professor}}</p>
-        <p>size: {{class_detail.size}}</p>
-        <p>meeting days: {{class_detail.day}}</p>
-        <p>start time: {{class_detail.start_time}}</p>
-        <p>end time: {{class_detail.end_time}}</p>
-        <form method="POST" action="{% url 'main_app:addCourse' class_detail.id %}" style="display: inline;">
-            {% csrf_token %}
-            <button class="btn btn-primary btn-sm">Add Course</button>
-        </form>
-        <form method="POST" action="{% url 'main_app:removeCourse' class_detail.id %}" style="display: inline;">
-            {% csrf_token %}
-            <button class="btn btn-secondary btn-sm">Remove Course</button>
-        </form>
-        <h4>Students:</h4>
-        <ol>
-            {% for student in class_detail.profiles.all %}
-                <li>{{student.computing_id}} - {{student.user.username}}</li>
-            {% endfor %}
-        </ol>
-        <a href="/">Go to Profile</a>
-        <a href="/addClasses">Go to Class Selection</a>
-    </div>
+        <br>
+        <center><div class="card" style="width: 40rem;">
+            <div class="card-header bg-light" style="font-family: 'Nunito Sans'; font-size: 32px;"><b>{{class_detail.subject}}{{class_detail.code}}</b></div>
+                <div class="card-body">
+                    <h3 class="card-title">{{class_detail.name}}</h3>
+                    <br>
+                    <h4 class="card-subtitle mb-2 text-muted">Course Information:</h4>
+                    <p class="card-text">
+                        <p>Professor: {{class_detail.professor}}</p>
+                        <p>Meeting days:
+                        {% if "M" in class_detail.day %}
+                        Mo
+                        {% endif %}
+                        {% if "T" in class_detail.day %}
+                        Tu
+                        {% endif %}
+                        {% if "W" in class_detail.day %}
+                        We
+                        {% endif %}
+                        {% if "R" in class_detail.day %}
+                        Th
+                        {% endif %}
+                        {% if "F" in class_detail.day %}
+                        Fr
+                        {% endif %} </p>
+                        <p>Start time: {{class_detail.start_time}}</p>
+                        <p>End time: {{class_detail.end_time}}</p>
+                        <p>Section: {{class_detail.section}}</p>
+                        <p>Size: {{class_detail.size}}</p>
+                        <br>
+                        <h4 class="card-subtitle mb-2 text-muted">Students:</h4>
+                        {% for student in class_detail.profiles.all %}
+                            <li>{{student.computing_id}} - {{student.user.username}}</li>
+                        {% endfor %}
+                        <br>
+                        <a href="/">Return to Profile</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/addClasses">Return to Class Selection</a>
+                    </p>
+                </div>
+        </div></center>
+    </div><br><br><br><br><br>
 </body>
 
 <style type="text/css">

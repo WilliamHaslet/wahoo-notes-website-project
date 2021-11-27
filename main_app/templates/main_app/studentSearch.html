@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h4>Find students in your classes</h4>
+<center>
+<h1 class="mt-5">Find students in your classes</h1>
+</center>
 <!--<ol>
     {% for student in students %}
         <li>{{student.student.computing_id}} - {{student.student.user.username}}</li>
@@ -12,16 +14,33 @@
         </ul>
     {% endfor %}
 </ol>-->
-
-<ol>
+<br>
+<center>
+<body style= "background-color: #ebecf1; color: #1a202c;">
+<div class="accordion px-5" id="accordionExample">
     {% for class in classes %}
-        <li>{{ class.class.name }}</li>
-        <ul>
-            {% for student in class.students %}
-                <li>{{ student.user }}</li>
-            {% endfor %}
-        </ul>
+    <div class="card">
+      <div class="card-header rounded" id="heading{{ class.class.id }}">
+        <h2 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ class.class.id }}" aria-expanded="true" aria-controls="collapse{{ class.class.id }}">
+            <strong>{{ class.class.name }}</strong>
+          </button>
+        </h2>
+      </div>
+    </div>
+    <div id="collapse{{ class.class.id }}" class="collapse" aria-labelledby="heading{{ class.class.id }}" data-parent="#accordionExample">
+        <div class="card-body">
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            <ul class="no-bullets">
+                {% for student in class.students %}
+                    <li>{{ student.user }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+      </div>
     {% endfor %}
-</ol>
-
+    </div>
+</body>
+</center>
+    <br><br><br><br>
 {% endblock %}
