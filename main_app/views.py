@@ -223,6 +223,7 @@ def classTestView(request):
             newClass.end_time = fallClasses[i][ClassData.meetingTimeEnd]
             newClass.semester = fallClasses[i][ClassData.term][:30]
             newClass.save()'''
+    return None
 
 def document_list(request):
     documents = Document.objects.all()
