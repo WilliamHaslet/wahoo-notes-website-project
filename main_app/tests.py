@@ -4,13 +4,6 @@ from django.urls import reverse
 
 from main_app.models import Class
 
-class DummyTestCase(TestCase):
-    def setUp(self):
-        x = 1
-    
-    def test_dummy_test_case(self):
-        self.assertEqual(1, 1)
-
 class LoginTest(TestCase):
 
     #Correctly Setup User
@@ -24,7 +17,7 @@ class LoginTest(TestCase):
         c = Client()
         logged_in = c.login(username='user', password='password')
         self.assertTrue(logged_in)
-            
+
 class LogoutTest(TestCase):
     def setUp(self):
         User = get_user_model()
@@ -41,7 +34,44 @@ class LogoutTest(TestCase):
         c.logout()
         self.assertFalse(user.is_anonymous)
 
-'''class AddClassTest(TestCase):
+import json
+from enum import IntEnum
+
+class ClassData(IntEnum):
+    subject = 0
+    catalogNumber = 1
+    classSection = 2
+    classNumber = 3
+    classTitle = 4
+    classTopicFormalDesc = 5
+    instructor = 6
+    enrollmentCapacity = 7
+    meetingDays = 8
+    meetingTimeStart = 9
+    meetingTimeEnd = 10
+    term = 11
+    year = 12
+
+def createClass(i):
+    # arguement i is the index of the class in the fallClass.txt json file
+    fallClasses = json.load(open("fallClasses.txt"))
+    fallClassCount = len(fallClasses)
+
+    newClass = Class.objects.create(id=fallClasses[i][ClassData.classNumber])
+    newClass.subject = fallClasses[i][ClassData.subject][:30]
+    newClass.code = fallClasses[i][ClassData.catalogNumber][:30]
+    newClass.section = fallClasses[i][ClassData.classSection][:30]
+    newClass.name = fallClasses[i][ClassData.classTitle][:30]
+    newClass.professor = fallClasses[i][ClassData.instructor][:30]
+    newClass.size = fallClasses[i][ClassData.enrollmentCapacity]
+    newClass.day = fallClasses[i][ClassData.meetingDays][:30]
+    newClass.start_time = fallClasses[i][ClassData.meetingTimeStart]
+    newClass.end_time = fallClasses[i][ClassData.meetingTimeEnd]
+    newClass.semester = fallClasses[i][ClassData.term][:30]
+    newClass.save()
+    return newClass
+
+class AddClassTest(TestCase):
     def setUp(self):
         User = get_user_model()
         user = User.objects.create(username='user1')
@@ -50,8 +80,13 @@ class LogoutTest(TestCase):
 
     def test_addclass(self):
         User = get_user_model()
-        user = User.objects.get(username='user1')
-        UVAClass.objects.create(user=user, id_text="tes7er", studentyr_text="2023", classname_text="CS3240", classtime_text="11:00AM", classinst_text="Sherriff" )
-        classentry = UVAClass.objects.get(user=user)
-        classentry_str = classentry.user.username + " " + classentry.id_text + " " + classentry.studentyr_text + " " + classentry.classname_text + " " + classentry.classtime_text + " " + classentry.classinst_text
-        self.assertEquals(classentry_str,"user1 tes7er 2023 CS3240 11:00AM Sherriff")'''
+        testUser = User.objects.get(username='user1')
+        
+        course = createClass(3000)
+        
+        testUser.profile.classes.add(course)
+        testUser.profile.save()
+        
+        c = testUser.profile.classes.get(id=course.id)
+        self.assertTrue(c.name == course.name)
+        self.assertTrue(Class.objects.get(name=course.name) == c)
