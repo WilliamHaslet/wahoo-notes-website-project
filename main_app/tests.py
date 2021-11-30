@@ -90,3 +90,30 @@ class AddClassTest(TestCase):
         c = testUser.profile.classes.get(id=course.id)
         self.assertTrue(c.name == course.name)
         self.assertTrue(Class.objects.get(name=course.name) == c)
+
+class RemoveClassTest2(TestCase):
+    def setUp(self):
+        User = get_user_model()
+        user = User.objects.create(username='user1')
+        user.set_password('password')
+        user.save()
+
+    def test_addclass(self):
+        User = get_user_model()
+        testUser = User.objects.get(username='user1')
+        
+        course = createClass(3000)
+        
+        testUser.profile.classes.add(course)
+        testUser.profile.save()
+        
+        c = testUser.profile.classes.get(id=course.id)
+        self.assertTrue(c.name == course.name)
+        self.assertTrue(Class.objects.get(name=course.name) == c)
+
+        testUser.profile.classes.remove(course)
+
+        c = testUser.profile.classes.filter(id=course.id)
+        self.assertTrue(len(c) == 0)
+
+
