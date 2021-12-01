@@ -117,3 +117,6 @@ GitHub.sublime-settings
 
 # Mac #
 .DS_Store
+
+# Convenience #
+autotest.py
