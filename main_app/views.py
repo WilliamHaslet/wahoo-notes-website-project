@@ -227,14 +227,17 @@ def classTestView(request):
     return None
 
 def document_list(request):
-    documents = Document.objects.all()
-    return render(request, 'main_app/documents.html', {'documents': documents})
+    alldocs = Document.objects.all()
+    userdocs = Document.objects.filter(profile=request.user.profile)
+    return render(request, 'main_app/documents.html', {'documents': userdocs})
 
 def document_upload(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            doc = form.save(commit=False)
+            doc.profile = request.user.profile
+            doc.save()
             return HttpResponseRedirect('/documents')
     else:
         form = DocumentForm()

@@ -86,45 +86,21 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-'''DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db8v7ufuhkthg1',
-        'USER': 'yztdwudtcmtldx',
-        'PASSWORD': '3c312affe2beb4ad1b0d9f8eba1cff9eece2a9d172e6702e0ceb2cae633dea9e',
-        'HOST': 'ec2-3-230-149-158.compute-1.amazonaws.com',
-        'PORT':  '5432',
-    }
-}'''
-
-if 'runserver' in sys.argv or 'migrate' in sys.argv:
-    #Needed for testing locally
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
-else: 
-    DATABASES = {'default': dj_database_url.config()}
-
-    if 'test' in sys.argv:
-        DATABASES['default'] = {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
 
 '''DATABASES['default'] = {
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-}'''
+}
+'''
 DATABASES = {'default': dj_database_url.config()}
+
 
 if 'test' in sys.argv:
     DATABASES['default'] = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+
 
 
 # Password validation
@@ -200,7 +176,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 if 'runserver' in sys.argv:
     #Needed for testing locally
-    SITE_ID = 6
+    SITE_ID = 5
 else:
     SITE_ID = 5
 
