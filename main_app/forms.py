@@ -17,6 +17,6 @@ class ProfileUpdateForm(forms.ModelForm):
 class DocumentForm(forms.ModelForm):
     class Meta:
         model = Document
-        fields = ('title', 'document')
+        fields = ('title', 'document', 'document_class', 'document_class_name')
         #document_class = forms.ModelChoiceField(queryset=Class.objects.all())
         exclude = ('profile',)
