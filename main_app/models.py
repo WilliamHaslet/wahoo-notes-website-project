@@ -44,5 +44,6 @@ class Assignment(models.Model):
 class Document(models.Model):
     title = models.CharField(max_length=50, blank=True)
     document = models.FileField(upload_to='documents/')
-    profile = models.ForeignKey(Profile, related_name='documents', on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, related_name='document_profile', on_delete=models.CASCADE, null=True)
+    document_class = models.ForeignKey(Class, related_name='document_class', on_delete=models.CASCADE, null=True)
 

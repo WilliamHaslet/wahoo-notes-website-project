@@ -225,11 +225,12 @@ def classTestView(request):
             newClass.save()'''
 
 def document_list(request):
-    documents = self.request.user.profile.documents.all()
+    documents = Document.objects.all()#select_related().filter(title__icontains='t')
     return render(request, 'main_app/documents.html', {'documents': documents})
 
 def document_upload(request):
     if request.method == 'POST':
+        #userProfile.classes.all()
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
