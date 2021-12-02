@@ -159,19 +159,10 @@ ul.no-bullets {
                       <div class="card-body">
                         <div class="row">
                           <div class="col-sm-3">
-                            <h6 class="mb-0">Name</h6>
+                            <h6 class="mb-0">Username</h6>
                           </div>
                           <div class="col-sm-9 text-secondary">
                             {{ user.username }}
-                          </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                          <div class="col-sm-3">
-                            <h6 class="mb-0">Computing ID</h6>
-                          </div>
-                          <div class="col-sm-9 text-secondary">
-                            {{ user.profile.computing_id }}
                           </div>
                         </div>
                         <hr>
@@ -181,6 +172,24 @@ ul.no-bullets {
                           </div>
                           <div class="col-sm-9 text-secondary">
                             {{ user.email }}
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0">Name</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            {{ user.profile.name }}
+                          </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <h6 class="mb-0">Computing ID</h6>
+                          </div>
+                          <div class="col-sm-9 text-secondary">
+                            {{ user.profile.computing_id }}
                           </div>
                         </div>
                         <hr>
@@ -211,6 +220,8 @@ ul.no-bullets {
                               <form action="{% url 'main_app:submitEditedProfile' %}" method="post">
                                   {% csrf_token %}
                                   <div class="form-group">
+                                      <input type="text" placeholder="Enter name" name="studentName"
+                                          class="form-control mt-3">
                                       <input type="text" placeholder="Enter computing ID" name="studentComputingID"
                                           class="form-control mt-3">
                                       <input type="text" placeholder="Enter year" name="studentYear" class="form-control mt-3">

@@ -96,8 +96,9 @@ def addAssignment(request):
 
 def submitEditedProfile(request):
     if request.method == 'POST':
-        if request.POST.get('studentComputingID') and request.POST.get('studentYear'):
+        if request.POST.get('studentName') and request.POST.get('studentComputingID') and request.POST.get('studentYear'):
             request.user.profile.computing_id=request.POST.get('studentComputingID')
+            request.user.profile.name=request.POST.get('studentName')
             request.user.profile.year=request.POST.get('studentYear')
             request.user.profile.save()
             messages.success(request, "Successfully Submitted!")
@@ -223,6 +224,7 @@ def classTestView(request):
             newClass.end_time = fallClasses[i][ClassData.meetingTimeEnd]
             newClass.semester = fallClasses[i][ClassData.term][:30]
             newClass.save()'''
+    return None
 
 def document_list(request):
     alldocs = Document.objects.all()

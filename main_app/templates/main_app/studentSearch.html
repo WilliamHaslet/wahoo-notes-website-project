@@ -33,7 +33,7 @@
             {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
             <ul class="no-bullets">
                 {% for student in class.students %}
-                    <li>{{ student.user }}</li>
+                    <li>{{student.computing_id}} - {{ student.user }}</li>
                 {% endfor %}
             </ul>
         </div>

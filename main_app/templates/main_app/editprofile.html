@@ -18,6 +18,8 @@
         <form action="{% url 'main_app:submitEditedProfile' %}" method="post">
             {% csrf_token %}
             <div class="form-group">
+                <input type="text" placeholder="Enter name" name="studentName"
+                    class="form-control mt-3">
                 <input type="text" placeholder="Enter computing ID" name="studentComputingID"
                     class="form-control mt-3">
                 <input type="text" placeholder="Enter year" name="studentYear" class="form-control mt-3">
