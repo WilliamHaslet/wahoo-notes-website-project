@@ -96,8 +96,9 @@ def addAssignment(request):
 
 def submitEditedProfile(request):
     if request.method == 'POST':
-        if request.POST.get('studentComputingID') and request.POST.get('studentYear'):
+        if request.POST.get('studentName') and request.POST.get('studentComputingID') and request.POST.get('studentYear'):
             request.user.profile.computing_id=request.POST.get('studentComputingID')
+            request.user.profile.name=request.POST.get('studentName')
             request.user.profile.year=request.POST.get('studentYear')
             request.user.profile.save()
             messages.success(request, "Successfully Submitted!")
