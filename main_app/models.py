@@ -28,7 +28,7 @@ class Profile(models.Model):
     year = models.IntegerField(default=0)
     classes = models.ManyToManyField('Class', related_name='profiles')
     def __str__(self):
-        return f'{self.name} Profile'
+        return f'{self.user} Profile'
 
 class Assignment(models.Model):
     id = models.BigAutoField(primary_key=True, serialize=False, verbose_name='ID')
