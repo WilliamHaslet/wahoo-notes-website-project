@@ -42,10 +42,10 @@ SESSION_COOKIE_SECURE = True
 
 CSRF_COOKIE_SECURE = True
 
-CSP_DEFAULT_SRC = ("'none'",)
-CSP_STYLE_SRC = ("'self'", 'fonts.googleapis.com')
-CSP_SCRIPT_SRC = ("'self'",)
-CSP_FONT_SRC = ("'self'", 'fonts.gstatic.com')
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", "fonts.googleapis.com", "stackpath.bootstrapcdn.com")
+CSP_SCRIPT_SRC = ("'self'", "www.google-analytics.com",)
+CSP_FONT_SRC = ("'self'", "fonts.gstatic.com")
 CSP_IMG_SRC = ("'self'",)
 
 ALLOWED_HOSTS = ['127.0.0.1', 'wahoo-notes.herokuapp.com']
