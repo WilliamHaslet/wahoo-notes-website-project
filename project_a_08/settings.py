@@ -211,5 +211,8 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 #File upload
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_ROOT=os.path.join(BASE_DIR,'mediafiles')
 MEDIA_URL='/media/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "media"),
+]
