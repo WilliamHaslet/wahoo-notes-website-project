@@ -116,6 +116,9 @@ def filterClasses(request):
         if searched == '': 
             messages.error(request, "Blank query!")
             return HttpResponseRedirect('/addClasses')
+        if searchType =='':
+            messages.error(request, "Blank filter!")
+            return HttpResponseRedirect('/addClasses')
         elif searchType == 'name': courses = Class.objects.filter(name__icontains=searched)
         elif searchType == 'id': courses = Class.objects.filter(id__icontains=searched)
         elif searchType == 'professor': courses = Class.objects.filter(professor__icontains=searched)
