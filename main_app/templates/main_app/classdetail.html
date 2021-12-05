@@ -55,13 +55,8 @@
                         <p>Section: {{class_detail.section}}</p>
                         <p>Size: {{class_detail.size}}</p>
                         <br>
-                        <h4 class="card-subtitle mb-2 text-muted">Students:</h4>
-                        {% for student in class_detail.profiles.all %}
-                            <li>{{student.computing_id}} - {{student.user.username}}</li>
-                        {% endfor %}
-                        <br>
-                        <a href="/">Return to Profile</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/addClasses">Return to Class Selection</a>
+                        <a href="/addClasses">Return to Class Selection</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/">Return to Profile</a>
                     </p>
                 </div>
         </div></center>
