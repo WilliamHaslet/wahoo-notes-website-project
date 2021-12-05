@@ -28,25 +28,26 @@ SECRET_KEY = '%%r-2ct19)+kdn9+3s*735s@!f9f1ox+#%%1uoj#vvl+d^2(pn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-SECURE_SSL_REDIRECT = True
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
 
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
-SECURE_HSTS_PRELOAD = True
+    SECURE_HSTS_PRELOAD = True
 
-SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_SECONDS = 31536000
 
-SECURE_BROWSER_XSS_FILTER = True
+    SECURE_BROWSER_XSS_FILTER = True
 
-SESSION_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
 
-CSRF_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "cdn.jsdelivr.net", "fonts.googleapis.com", "maxcdn.bootstrapcdn.com",)
-CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "cdn.jsdelivr.net", "code.jquery.com", "ajax.googleapis.com",)
-CSP_FONT_SRC = ("'self'", "cdn.jsdelivr.net", "fonts.gstatic.com", "maxcdn.bootstrapcdn.com",)
-CSP_IMG_SRC = ("'self'", "icon-library.com", "w3.org",)
+    CSP_DEFAULT_SRC = ("'self'",)
+    CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "cdn.jsdelivr.net", "fonts.googleapis.com", "maxcdn.bootstrapcdn.com",)
+    CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "cdn.jsdelivr.net", "code.jquery.com", "ajax.googleapis.com",)
+    CSP_FONT_SRC = ("'self'", "cdn.jsdelivr.net", "fonts.gstatic.com", "maxcdn.bootstrapcdn.com",)
+    CSP_IMG_SRC = ("'self'", "icon-library.com", "w3.org",)
 
 ALLOWED_HOSTS = ['127.0.0.1', 'wahoo-notes.herokuapp.com']
 
@@ -80,8 +81,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'csp.middleware.CSPMiddleware',
 ]
+
+if not DEBUG:
+    MIDDLEWARE.append('csp.middleware.CSPMiddleware')
 
 ROOT_URLCONF = 'project_a_08.urls'
 
@@ -112,10 +115,11 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
 
 DATABASES = {'default': dj_database_url.config()}
 
-'''DATABASES['default'] = {
-    'ENGINE': 'django.db.backends.sqlite3',
-    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-}'''
+if DEBUG:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 
 if 'test' in sys.argv:
     DATABASES['default'] = {

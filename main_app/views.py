@@ -97,14 +97,26 @@ def addAssignment(request):
 
 def submitEditedProfile(request):
     if request.method == 'POST':
-        if request.POST.get('studentName') and request.POST.get('studentComputingID') and request.POST.get('studentYear'):
-            request.user.profile.computing_id=request.POST.get('studentComputingID')
-            request.user.profile.name=request.POST.get('studentName')
-            request.user.profile.year=request.POST.get('studentYear')
+        if request.POST.get('studentName') or request.POST.get('studentComputingID') or request.POST.get('studentYear'):
+            computing_id = request.POST.get('studentComputingID')
+            name = request.POST.get('studentName')
+            year = request.POST.get('studentYear')
+            if len(computing_id) > 30:
+                messages.error(request, "Error: computing id must be less than or equal to 30 characters")
+                return HttpResponseRedirect('/')
+            if len(name) > 30:
+                messages.error(request, "Error: name must be less than or equal to 30 characters")
+                return HttpResponseRedirect('/')
+            if (not year.isdigit() or len(year) != 4) and year:
+                messages.error(request, "Error: graduation year must be a 4 digit number")
+                return HttpResponseRedirect('/')
+            if computing_id: request.user.profile.computing_id = computing_id
+            if name: request.user.profile.name = name
+            if year: request.user.profile.year = year
             request.user.profile.save()
             messages.success(request, "Successfully Submitted!")
         else:
-            messages.error(request, "Blank Submission! You must submit all fields.")
+            messages.error(request, "Blank Submission!")
     return HttpResponseRedirect('/')
 
 def filterClasses(request):
