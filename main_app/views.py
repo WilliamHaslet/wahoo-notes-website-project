@@ -131,7 +131,7 @@ def filterClasses(request):
             courses = courses.filter(code__icontains=vals[1])
         elif searchType == 'professor': courses = Class.objects.filter(professor__icontains=searched)
         elif searchType == 'subject': courses = Class.objects.filter(subject__icontains=searched)
-    return render(request, template_name, {'courses':courses})
+    return render(request, template_name, {'courses':courses, 'filter':searchType})
 
 def addCourse(request, pk):
     if request.method == 'POST':

@@ -36,13 +36,13 @@
                     </div>
                 </div>
                 <div class="form-group mb-2">
-                    <input type="radio" id="code" name="queryType" value="code" checked {% if queryType == "id" %}checked="checked"{% endif %}>
+                    <input type="radio" id="code" name="queryType" value="code" {% if filter == "code" %}checked{% endif %}>
                     <label for="id">Course Code (e.g. "CS 3240")</label>
-                    <input type="radio" id="name" name="queryType" value="name" {% if queryType == "name" %}checked="checked"{% endif %}>
+                    <input type="radio" id="name" name="queryType" value="name" {% if filter == "name" %}checked{% endif %}>
                     <label for="name">Course Name (e.g. "Advanced Software Development")</label>
-                    <input type="radio" id="professor" name="queryType" value="professor" {% if queryType == "professor" %}checked="checked"{% endif %}>
+                    <input type="radio" id="professor" name="queryType" value="professor" {% if filter == "professor" %}checked{% endif %}>
                     <label for="professor">Professor (e.g "Sherriff,Mark")</label>
-                    <input type="radio" id="subject" name="queryType" value="subject" {% if queryType == "subject" %}checked="checked"{% endif %}>
+                    <input type="radio" id="subject" name="queryType" value="subject" {% if filter == "subject" %}checked{% endif %}>
                     <label for="subject">Subject (e.g. "CS")</label>
                 </div>
             </form>
