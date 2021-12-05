@@ -43,9 +43,9 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 CSP_DEFAULT_SRC = ("'self'",)
-CSP_STYLE_SRC = ("'self'", "cdn.jsdelivr.net", "fonts.googleapis.com", "'unsafe-inline'",)
-CSP_SCRIPT_SRC = ("'self'", "cdn.jsdelivr.net",)
-CSP_FONT_SRC = ("'self'", "cdn.jsdelivr.net",)
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "cdn.jsdelivr.net", "fonts.googleapis.com", "maxcdn.bootstrapcdn.com",)
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "cdn.jsdelivr.net", "code.jquery.com", "ajax.googleapis.com")
+CSP_FONT_SRC = ("'self'", "cdn.jsdelivr.net", "fonts.gstatic.com",)
 CSP_IMG_SRC = ("'self'", "icon-library.com",)
 
 ALLOWED_HOSTS = ['127.0.0.1', 'wahoo-notes.herokuapp.com']
