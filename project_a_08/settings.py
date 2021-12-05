@@ -23,10 +23,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ihv)^epo0-m@qp#6y_(f&_%$8e9o&*e))3%n34kk#()1jxm_p!'
+SECRET_KEY = '%%r-2ct19)+kdn9+3s*735s@!f9f1ox+#%%1uoj#vvl+d^2(pn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+SECURE_SSL_REDIRECT = True
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+SECURE_HSTS_PRELOAD = True
+
+SECURE_HSTS_SECONDS = 120
+
+SECURE_BROWSER_XSS_FILTER = True
+
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True
+
+CSP_DEFAULT_SRC = ("'none'",)
+CSP_STYLE_SRC = ("'self'", 'fonts.googleapis.com')
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_FONT_SRC = ("'self'", 'fonts.gstatic.com')
+CSP_IMG_SRC = ("'self'",)
 
 ALLOWED_HOSTS = ['127.0.0.1', 'wahoo-notes.herokuapp.com']
 
@@ -60,6 +80,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'project_a_08.urls'
@@ -87,13 +108,14 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
+
+
+DATABASES = {'default': dj_database_url.config()}
+
 '''DATABASES['default'] = {
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-}
-'''
-DATABASES = {'default': dj_database_url.config()}
-
+}'''
 
 if 'test' in sys.argv:
     DATABASES['default'] = {

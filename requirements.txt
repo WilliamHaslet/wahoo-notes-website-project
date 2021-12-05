@@ -8,3 +8,4 @@ whitenoise
 dj-database-url
 python-decouple
 django-crispy-forms
+django-csp
