@@ -125,8 +125,10 @@ def filterClasses(request):
             if len(vals) != 2:
                 messages.error(request, "Invalid course code!")
                 return HttpResponseRedirect('/addClasses')
+            print("subject", vals[0], "\n")
+            print("code", vals[1], "\n")
             courses = Class.objects.filter(subject__icontains=vals[0])
-            courses = courses.objects.filter(code__icontains=vals[1])
+            courses = courses.filter(code__icontains=vals[1])
         elif searchType == 'professor': courses = Class.objects.filter(professor__icontains=searched)
         elif searchType == 'subject': courses = Class.objects.filter(subject__icontains=searched)
     return render(request, template_name, {'courses':courses})

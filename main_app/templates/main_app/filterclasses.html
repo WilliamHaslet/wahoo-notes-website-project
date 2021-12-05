@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="form-group mb-2">
-                    <input type="radio" id="name" name="queryType" value="name" {% if queryType == "name" %}checked="checked"{% endif %}>
+                    <input type="radio" id="name" name="queryType" value="name" checked {% if queryType == "name" %}checked="checked"{% endif %}>
                     <label for="name">Course Title (e.g. "Advanced Software Development")</label>
                     <input type="radio" id="code" name="queryType" value="code" {% if queryType == "id" %}checked="checked"{% endif %}>
                     <label for="id">Course Code (e.g. "CS 3240")</label>
