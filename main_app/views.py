@@ -120,7 +120,13 @@ def filterClasses(request):
             messages.error(request, "Blank filter!")
             return HttpResponseRedirect('/addClasses')
         elif searchType == 'name': courses = Class.objects.filter(name__icontains=searched)
-        elif searchType == 'id': courses = Class.objects.filter(id__icontains=searched)
+        elif searchType == 'code':
+            vals = searched.split(' ') # vals = [course subject, course code]
+            if len(vals) != 2:
+                messages.error(request, "Invalid course code!")
+                return HttpResponseRedirect('/addClasses')
+            courses = Class.objects.filter(subject__icontains=vals[0])
+            courses = courses.objects.filter(code__icontains=vals[1])
         elif searchType == 'professor': courses = Class.objects.filter(professor__icontains=searched)
         elif searchType == 'subject': courses = Class.objects.filter(subject__icontains=searched)
     return render(request, template_name, {'courses':courses})
