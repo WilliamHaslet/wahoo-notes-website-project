@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    #'django.contrib.staticfiles',
+    'django.contrib.staticfiles',
     'django.contrib.sites',
     'project_a_08',
     'allauth',
@@ -174,7 +174,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 try:
     if 'HEROKU' in os.environ:
         import django_heroku
-        django_heroku.settings(locals())
+        django_heroku.settings(locals(), staticfiles=False)
 except ImportError:
     found = False
 
