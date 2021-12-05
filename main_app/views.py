@@ -84,11 +84,27 @@ def addAssignment(request):
     template_name = 'main_app/filterclasses.html'
     if request.method == 'POST':
         if request.POST.get('assignment_name') and request.POST.get('class_name') and request.POST.get('description') and request.POST.get('due_date'):
+            class_name = request.POST.get('class_name')
+            name = request.POST.get('assignment_name')
+            due_date = request.POST.get('due_date')
+            description = request.POST.get('description')
+            if len(class_name) > 30:
+                messages.error(request, "Error: Class name must be less than or equal to 30 characters")
+                return HttpResponseRedirect('/assignments')
+            if len(name) > 30:
+                messages.error(request, "Error: Assignment name must be less than or equal to 30 characters")
+                return HttpResponseRedirect('/assignments')
+            if len(due_date) > 30:
+                messages.error(request, "Error: Due date must be less than or equal to 30 characters")
+                return HttpResponseRedirect('/assignments')
+            if len(description) > 200:
+                messages.error(request, "Error: Description must be less than or equal to 200 characters")
+                return HttpResponseRedirect('/assignments')
             new_assignment = Assignment()
-            new_assignment.name = request.POST.get('assignment_name')
-            new_assignment.class_name = request.POST.get('class_name')
-            new_assignment.description = request.POST.get('description')
-            new_assignment.due_date = request.POST.get('due_date')
+            new_assignment.class_name = class_name
+            new_assignment.name = name
+            new_assignment.due_date = due_date
+            new_assignment.description = description
             new_assignment.profile = request.user.profile
             new_assignment.save()
         else:
@@ -98,20 +114,20 @@ def addAssignment(request):
 def submitEditedProfile(request):
     if request.method == 'POST':
         if request.POST.get('studentName') or request.POST.get('studentComputingID') or request.POST.get('studentYear'):
-            computing_id = request.POST.get('studentComputingID')
             name = request.POST.get('studentName')
+            computing_id = request.POST.get('studentComputingID')
             year = request.POST.get('studentYear')
-            if len(computing_id) > 30:
-                messages.error(request, "Error: computing id must be less than or equal to 30 characters")
-                return HttpResponseRedirect('/')
             if len(name) > 30:
                 messages.error(request, "Error: name must be less than or equal to 30 characters")
+                return HttpResponseRedirect('/')
+            if len(computing_id) > 30:
+                messages.error(request, "Error: computing id must be less than or equal to 30 characters")
                 return HttpResponseRedirect('/')
             if (not year.isdigit() or len(year) != 4) and year:
                 messages.error(request, "Error: graduation year must be a 4 digit number")
                 return HttpResponseRedirect('/')
-            if computing_id: request.user.profile.computing_id = computing_id
             if name: request.user.profile.name = name
+            if computing_id: request.user.profile.computing_id = computing_id
             if year: request.user.profile.year = year
             request.user.profile.save()
             messages.success(request, "Successfully Submitted!")
