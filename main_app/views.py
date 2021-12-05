@@ -83,15 +83,16 @@ def removeAssignment(request, pk):
 def addAssignment(request):
     template_name = 'main_app/filterclasses.html'
     if request.method == 'POST':
-        new_assignment = Assignment()
-        new_assignment.name = request.POST.get('assignment_name')
-        new_assignment.class_name = request.POST.get('class_name')
-        new_assignment.description = request.POST.get('description')
-        new_assignment.due_date = request.POST.get('due_date')
-        new_assignment.profile = request.user.profile
-        new_assignment.save()
-        #request.user.profile.assignments.add(new_assignment)
-        #request.user.profile.save()
+        if request.POST.get('assignment_name') and request.POST.get('class_name') and request.POST.get('description') and request.POST.get('due_date'):
+            new_assignment = Assignment()
+            new_assignment.name = request.POST.get('assignment_name')
+            new_assignment.class_name = request.POST.get('class_name')
+            new_assignment.description = request.POST.get('description')
+            new_assignment.due_date = request.POST.get('due_date')
+            new_assignment.profile = request.user.profile
+            new_assignment.save()
+        else:
+            messages.error(request, "Blank Submission! You must submit all fields.")
     return HttpResponseRedirect('/assignments')
 
 def submitEditedProfile(request):
