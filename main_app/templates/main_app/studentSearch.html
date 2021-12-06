@@ -18,27 +18,33 @@
 <center>
 <body style= "background-color: #ebecf1; color: #1a202c;">
 <div class="accordion px-5" id="accordionExample">
-    {% for class in classes %}
-    <div class="card">
-      <div class="card-header rounded" id="heading{{ class.class.id }}">
-        <h2 class="mb-0">
-          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ class.class.id }}" aria-expanded="true" aria-controls="collapse{{ class.class.id }}">
-            <strong>{{ class.class.name }}</strong>
-          </button>
-        </h2>
-      </div>
-    </div>
-    <div id="collapse{{ class.class.id }}" class="collapse" aria-labelledby="heading{{ class.class.id }}" data-parent="#accordionExample">
-        <div class="card-body">
-            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-            <ul class="no-bullets">
-                {% for student in class.students %}
-                    <li>{{student.computing_id}} - {{ student.user }}</li>
-                {% endfor %}
-            </ul>
+    {% if classes %}
+      {% for class in classes %}
+      <div class="card">
+        <div class="card-header rounded" id="heading{{ class.class.id }}">
+          <h2 class="mb-0">
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ class.class.id }}" aria-expanded="true" aria-controls="collapse{{ class.class.id }}">
+              <strong>{{ class.class.name }}</strong>
+            </button>
+          </h2>
         </div>
       </div>
-    {% endfor %}
+      <div id="collapse{{ class.class.id }}" class="collapse" aria-labelledby="heading{{ class.class.id }}" data-parent="#accordionExample">
+          <div class="card-body">
+              {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+              <ul class="no-bullets">
+                  {% for student in class.students %}
+                      <li>{{student.computing_id}} - {{ student.user }}</li>
+                  {% endfor %}
+              </ul>
+          </div>
+        </div>
+      {% endfor %}
+    <!-- No classes message -->
+    {% else %}
+      <br>
+      <center><p style = "font-size: 19px">You currently have no classes.</p></center>
+      {% endif %}
     </div>
 </body>
 </center>
