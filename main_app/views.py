@@ -253,7 +253,7 @@ def classTestView(request):
             newClass.delete()'''
 
     # Add all classes with class number below 8000 from json to database
-    '''fallClasses = json.load(open("fallClasses.txt"))
+    fallClasses = json.load(open("fallClasses.txt"))
     fallClassCount = len(fallClasses)
 
     for i in range(fallClassCount):
@@ -269,7 +269,7 @@ def classTestView(request):
             newClass.start_time = fallClasses[i][ClassData.meetingTimeStart]
             newClass.end_time = fallClasses[i][ClassData.meetingTimeEnd]
             newClass.semester = fallClasses[i][ClassData.term][:30]
-            newClass.save()'''
+            newClass.save()
     return None
 
 def document_list(request):
