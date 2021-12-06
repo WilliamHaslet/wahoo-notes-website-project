@@ -150,6 +150,7 @@ def filterClasses(request):
         elif searchType == 'name': courses = Class.objects.filter(name__icontains=searched)
         elif searchType == 'code':
             vals = searched.split(' ') # vals = [course subject, course code]
+            # if len is not 2, course code is invalid
             if len(vals) != 2:
                 messages.error(request, "Invalid course code!")
                 return HttpResponseRedirect('/addClasses')
