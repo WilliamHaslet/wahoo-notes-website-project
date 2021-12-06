@@ -4,8 +4,8 @@ from django.urls import reverse
 from django.http import HttpRequest
 from django.template.loader import render_to_string
 
-from main_app.models import Class, Assignment
-from main_app.forms import ProfileUpdateForm
+from main_app.models import Class, Assignment, Document
+from main_app.forms import ProfileUpdateForm, DocumentForm
 from main_app.views import ListClassesView
 
 #Login and logout
@@ -212,3 +212,54 @@ class EditProfileTest(TestCase):
         form.save()
         self.assertTrue(testUser.profile.computing_id == "tes7er")
         self.assertTrue(testUser.profile.year == 2021)
+
+#Add document test
+class AddDocument(TestCase):
+    def setUp(self):
+        User = get_user_model()
+        user = User.objects.create(username='user1')
+        user.set_password('password')
+        user.save()
+
+    def test_editprofile(self):
+        User = get_user_model()
+        testUser = User.objects.get(username='user1')
+        
+        documentClass = createClass(300)
+
+        doc = Document.objects.create()
+        doc.title = 'testDoc'
+        doc.document_class = documentClass
+        doc.profile = testUser.profile
+        doc.save()
+
+        self.assertTrue(doc.title == "testDoc")
+        self.assertTrue(doc.document_class == documentClass)
+
+#Delete document test
+class RemoveDocument(TestCase):
+    def setUp(self):
+        User = get_user_model()
+        user = User.objects.create(username='user1')
+        user.set_password('password')
+        user.save()
+
+    def test_editprofile(self):
+        User = get_user_model()
+        testUser = User.objects.get(username='user1')
+        
+        documentClass = createClass(300)
+
+        doc = Document.objects.create()
+        doc.title = 'testDoc'
+        doc.document_class = documentClass
+        doc.profile = testUser.profile
+        doc.save()
+
+        doc = Document.objects.get(title='testDoc')
+        doc.title = 'testDoc'
+        doc.document_class = documentClass
+        doc.delete()
+
+        self.assertTrue(len(Document.objects.all()) == 0)
+        

@@ -26,3 +26,4 @@ class DocumentForm(forms.ModelForm):
         super(DocumentForm, self).__init__(*args, **kwargs)
         if user:
             self.fields['document_class'].queryset = user.profile.classes.all()
+            
