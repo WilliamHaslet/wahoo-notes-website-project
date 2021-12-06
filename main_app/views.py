@@ -67,6 +67,10 @@ class ClassDetailView(generic.DetailView):
     model = Class
     template_name = 'main_app/classdetail.html'
     context_object_name = 'class_detail'
+    def get_context_data(self, **kwargs):
+        context = super(ClassDetailView, self).get_context_data(**kwargs)
+        context['classdocs'] = Document.objects.filter(document_class=self.kwargs['pk'])
+        return context
 
 class AssignmentsView(generic.ListView):
     template_name = 'main_app/assignments.html'
@@ -269,7 +273,12 @@ def classTestView(request):
     return None
 
 def document_list(request):
-    alldocs = Document.objects.all()
+    user_classes = request.user.profile.classes.all()
+    #classDocs = {}
+    #for user_class in user_classes:
+        #classDocs[user_class] = Document.objects.filter(document_class=user_class)
+    #userdocs_byClass = Document.objects.filter(document_class=request.user.profile.classes.all())  
+    #alldocs = Document.objects.all()
     userdocs = Document.objects.filter(profile=request.user.profile)
     return render(request, 'main_app/documents.html', {'documents': userdocs})
 
@@ -293,4 +302,5 @@ def document_delete(request, pk):
         form.delete()
     documents = Document.objects.all()
     form = DocumentForm()
-    return render(request, 'main_app/documents.html', {'documents': documents, 'form': form})
+    return HttpResponseRedirect('/documents')
+    #return render(request, 'main_app/documents.html', {'documents': documents, 'form': form})

@@ -43,8 +43,10 @@ class Assignment(models.Model):
         return f'{self.name}'
 
 class Document(models.Model):
-    title = models.CharField(max_length=50, blank=True)
+    title = models.CharField(max_length=50)
     document = models.FileField(upload_to='documents/')
     profile = models.ForeignKey(Profile, related_name='document_profile', on_delete=models.CASCADE, null=True)
     document_class = models.ForeignKey(Class, related_name='document_class', on_delete=models.CASCADE, null=True)
-    #upload date?
+    #make new model to deal with dropdown menu and pass values to document_class
+    date = models.DateTimeField(auto_now_add=True)
+    

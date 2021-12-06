@@ -112,7 +112,6 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
 
 
 
-
 DATABASES = {'default': dj_database_url.config()}
 
 if DEBUG:
