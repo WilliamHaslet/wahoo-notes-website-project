@@ -49,4 +49,6 @@ class Document(models.Model):
     document_class = models.ForeignKey(Class, related_name='document_class', on_delete=models.CASCADE, null=True)
     #make new model to deal with dropdown menu and pass values to document_class
     date = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return f'{self.title}'
     
