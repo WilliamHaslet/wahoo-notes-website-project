@@ -19,6 +19,10 @@ class DocumentForm(forms.ModelForm):
 
     class Meta:
         model = Document
-        #document_classes = forms.ModelChoiceField(queryset=request.user.profile.classes.all())
         fields = ('title', 'document', 'document_class', )
         exclude = ('profile', )
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(DocumentForm, self).__init__(*args, **kwargs)
+        if user:
+            self.fields['document_class'].queryset = user.profile.classes.all()

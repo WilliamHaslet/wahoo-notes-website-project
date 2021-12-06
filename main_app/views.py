@@ -213,25 +213,19 @@ def studentSearchView(request):
     return HttpResponse(template.render(context, request))
     
 def document_list(request):
-    user_classes = request.user.profile.classes.all()
-    #classDocs = {}
-    #for user_class in user_classes:
-        #classDocs[user_class] = Document.objects.filter(document_class=user_class)
-    #userdocs_byClass = Document.objects.filter(document_class=request.user.profile.classes.all())  
-    #alldocs = Document.objects.all()
     userdocs = Document.objects.filter(profile=request.user.profile)
     return render(request, 'main_app/documents.html', {'documents': userdocs})
 
 def document_upload(request):
+    user = {'user': request.user}
+    form = DocumentForm(**user)
     if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
+        form = DocumentForm(request.POST, request.FILES, **user)
         if form.is_valid():
             doc = form.save(commit=False)
             doc.profile = request.user.profile
             doc.save()
             return HttpResponseRedirect('/documents')
-    else:
-        form = DocumentForm()
     documents = Document.objects.all()
     return render(request, 'main_app/document_upload.html', {'documents': documents, 'form': form})
 
