@@ -23,10 +23,31 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ihv)^epo0-m@qp#6y_(f&_%$8e9o&*e))3%n34kk#()1jxm_p!'
+SECRET_KEY = '%%r-2ct19)+kdn9+3s*735s@!f9f1ox+#%%1uoj#vvl+d^2(pn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+    SECURE_HSTS_PRELOAD = True
+
+    SECURE_HSTS_SECONDS = 31536000
+
+    SECURE_BROWSER_XSS_FILTER = True
+
+    SESSION_COOKIE_SECURE = True
+
+    CSRF_COOKIE_SECURE = True
+
+    CSP_DEFAULT_SRC = ("'self'",)
+    CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "cdn.jsdelivr.net", "fonts.googleapis.com", "maxcdn.bootstrapcdn.com",)
+    CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "cdn.jsdelivr.net", "code.jquery.com", "ajax.googleapis.com",)
+    CSP_FONT_SRC = ("'self'", "cdn.jsdelivr.net", "fonts.gstatic.com", "maxcdn.bootstrapcdn.com",)
+    CSP_IMG_SRC = ("'self'", "icon-library.com", "w3.org",)
 
 ALLOWED_HOSTS = ['127.0.0.1', 'wahoo-notes.herokuapp.com']
 
@@ -53,14 +74,17 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
+if not DEBUG:
+    MIDDLEWARE.append('csp.middleware.CSPMiddleware')
 
 ROOT_URLCONF = 'project_a_08.urls'
 
@@ -90,11 +114,11 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
 
 DATABASES = {'default': dj_database_url.config()}
 
-DATABASES['default'] = {
-    'ENGINE': 'django.db.backends.sqlite3',
-    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-}
-
+if DEBUG:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 
 if 'test' in sys.argv:
     DATABASES['default'] = {
@@ -141,7 +165,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
@@ -186,6 +214,8 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 #File upload
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_ROOT=os.path.join(BASE_DIR,'mediafiles')
 MEDIA_URL='/media/'
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "media"),
+]

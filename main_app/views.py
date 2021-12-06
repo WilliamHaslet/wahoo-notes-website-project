@@ -87,27 +87,56 @@ def removeAssignment(request, pk):
 def addAssignment(request):
     template_name = 'main_app/filterclasses.html'
     if request.method == 'POST':
-        new_assignment = Assignment()
-        new_assignment.name = request.POST.get('assignment_name')
-        new_assignment.class_name = request.POST.get('class_name')
-        new_assignment.description = request.POST.get('description')
-        new_assignment.due_date = request.POST.get('due_date')
-        new_assignment.profile = request.user.profile
-        new_assignment.save()
-        #request.user.profile.assignments.add(new_assignment)
-        #request.user.profile.save()
+        if request.POST.get('assignment_name') and request.POST.get('class_name') and request.POST.get('description') and request.POST.get('due_date'):
+            class_name = request.POST.get('class_name')
+            name = request.POST.get('assignment_name')
+            due_date = request.POST.get('due_date')
+            description = request.POST.get('description')
+            if len(class_name) > 30:
+                messages.error(request, "Error: Class name must be less than or equal to 30 characters")
+                return HttpResponseRedirect('/assignments')
+            if len(name) > 30:
+                messages.error(request, "Error: Assignment name must be less than or equal to 30 characters")
+                return HttpResponseRedirect('/assignments')
+            if len(due_date) > 30:
+                messages.error(request, "Error: Due date must be less than or equal to 30 characters")
+                return HttpResponseRedirect('/assignments')
+            if len(description) > 200:
+                messages.error(request, "Error: Description must be less than or equal to 200 characters")
+                return HttpResponseRedirect('/assignments')
+            new_assignment = Assignment()
+            new_assignment.class_name = class_name
+            new_assignment.name = name
+            new_assignment.due_date = due_date
+            new_assignment.description = description
+            new_assignment.profile = request.user.profile
+            new_assignment.save()
+        else:
+            messages.error(request, "Blank Submission! You must submit all fields.")
     return HttpResponseRedirect('/assignments')
 
 def submitEditedProfile(request):
     if request.method == 'POST':
-        if request.POST.get('studentName') and request.POST.get('studentComputingID') and request.POST.get('studentYear'):
-            request.user.profile.computing_id=request.POST.get('studentComputingID')
-            request.user.profile.name=request.POST.get('studentName')
-            request.user.profile.year=request.POST.get('studentYear')
+        if request.POST.get('studentName') or request.POST.get('studentComputingID') or request.POST.get('studentYear'):
+            name = request.POST.get('studentName')
+            computing_id = request.POST.get('studentComputingID')
+            year = request.POST.get('studentYear')
+            if len(name) > 30:
+                messages.error(request, "Error: name must be less than or equal to 30 characters")
+                return HttpResponseRedirect('/')
+            if len(computing_id) > 30:
+                messages.error(request, "Error: computing id must be less than or equal to 30 characters")
+                return HttpResponseRedirect('/')
+            if (not year.isdigit() or len(year) != 4) and year:
+                messages.error(request, "Error: graduation year must be a 4 digit number")
+                return HttpResponseRedirect('/')
+            if name: request.user.profile.name = name
+            if computing_id: request.user.profile.computing_id = computing_id
+            if year: request.user.profile.year = year
             request.user.profile.save()
             messages.success(request, "Successfully Submitted!")
         else:
-            messages.error(request, "Blank Submission! You must submit all fields.")
+            messages.error(request, "Blank Submission!")
     return HttpResponseRedirect('/')
 
 def filterClasses(request):
@@ -119,11 +148,24 @@ def filterClasses(request):
         if searched == '': 
             messages.error(request, "Blank query!")
             return HttpResponseRedirect('/addClasses')
+        if searchType =='':
+            messages.error(request, "Blank filter!")
+            return HttpResponseRedirect('/addClasses')
         elif searchType == 'name': courses = Class.objects.filter(name__icontains=searched)
-        elif searchType == 'id': courses = Class.objects.filter(id__icontains=searched)
+        elif searchType == 'code':
+            vals = searched.split(' ') # vals = [course subject, course code]
+            # if len is not 2, course code is invalid
+            if len(vals) != 2:
+                messages.error(request, "Invalid course code!")
+                return HttpResponseRedirect('/addClasses')
+            # filter twice
+            print("subject", vals[0], "\n")
+            print("code", vals[1], "\n")
+            courses = Class.objects.filter(subject__icontains=vals[0])
+            courses = courses.filter(code__icontains=vals[1])
         elif searchType == 'professor': courses = Class.objects.filter(professor__icontains=searched)
         elif searchType == 'subject': courses = Class.objects.filter(subject__icontains=searched)
-    return render(request, template_name, {'courses':courses})
+    return render(request, template_name, {'courses':courses, 'filter':searchType})
 
 def addCourse(request, pk):
     if request.method == 'POST':
