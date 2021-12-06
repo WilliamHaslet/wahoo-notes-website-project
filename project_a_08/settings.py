@@ -126,7 +126,16 @@ if 'test' in sys.argv:
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 
-
+'''DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'db8v7ufuhkthg1',
+        'USER': 'yztdwudtcmtldx',
+        'PASSWORD': '3c312affe2beb4ad1b0d9f8eba1cff9eece2a9d172e6702e0ceb2cae633dea9e',
+        'HOST': 'ec2-3-230-149-158.compute-1.amazonaws.com',
+        'PORT':  '5432',
+    }
+}'''
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
