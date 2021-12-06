@@ -37,13 +37,13 @@
                 </div>
                 <div class="form-group mb-2">
                     <input type="radio" id="code" name="queryType" value="code" {% if filter == "code" %}checked{% endif %}>
-                    <label for="id">Course Code (e.g. "CS 3240")</label>
+                    <label for="id">Course Code <em>(e.g. "CS 3240")</em>&nbsp;&nbsp;&nbsp;</label>
                     <input type="radio" id="name" name="queryType" value="name" {% if filter == "name" %}checked{% endif %}>
-                    <label for="name">Course Name (e.g. "Advanced Software Development")</label>
+                    <label for="name">Course Name <em>(e.g. "Advanced Software Development")</em>&nbsp;&nbsp;&nbsp;</label>
                     <input type="radio" id="professor" name="queryType" value="professor" {% if filter == "professor" %}checked{% endif %}>
-                    <label for="professor">Professor (e.g "Sherriff,Mark")</label>
+                    <label for="professor">Professor <em>(e.g "Sherriff,Mark")</em>&nbsp;&nbsp;&nbsp;</label>
                     <input type="radio" id="subject" name="queryType" value="subject" {% if filter == "subject" %}checked{% endif %}>
-                    <label for="subject">Subject (e.g. "CS")</label>
+                    <label for="subject">Subject <em>(e.g. "CS")</em></label>
                 </div>
             </form>
         </center>
