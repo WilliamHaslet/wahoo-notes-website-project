@@ -252,7 +252,7 @@ ul.no-bullets {
             {% else %}
               {% for course in user.profile.classes.all %}
                 <ul class= "no-bullets" style= "font-family:'Verdana'">
-                  <li><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}{{course.code}}: {{course.section}} - {{course.name}}</a>
+                  <li><a href="{% url 'main_app:classdetail' course.id %}">{{course.subject}}{{course.code}}: {{course.name}} - Section {{course.section}}</a>
                   </li>
                 </ul>
               {% endfor %}
