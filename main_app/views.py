@@ -232,17 +232,12 @@ def classTestView(request):
 
 def document_list(request):
     user_classes = request.user.profile.classes.all()
-    classDocs = {}
-    for user_class in user_classes:
-        classDocs[user_class] = Document.objects.filter(document_class=user_class)
+    #classDocs = {}
+    #for user_class in user_classes:
+        #classDocs[user_class] = Document.objects.filter(document_class=user_class)
     #userdocs_byClass = Document.objects.filter(document_class=request.user.profile.classes.all())  
     #alldocs = Document.objects.all()
     userdocs = Document.objects.filter(profile=request.user.profile)
-    # classDocs = []
-    # for user_class in user_classes:
-    #     classDocs[user_class] = Document.objects.filter(document_class=user_class)
-    # #userdocs_byClass = Document.objects.filter(document_class=request.user.profile.classes.all())  
-    # userdocs = Document.objects.filter(profile=request.user.profile)
     return render(request, 'main_app/documents.html', {'documents': userdocs})
 
 def document_upload(request):
