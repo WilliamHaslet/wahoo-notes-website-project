@@ -33,9 +33,6 @@
 
 <div class = "container">
   <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col-sm-4">
-      <input type="search" placeholder="Search......" name="search" class="searchbox-input" onkeyup="buttonUp();" required>
-    </div>
     {% for document in documents %}
     <div class="col">
       <div class="card h-100">
@@ -95,20 +92,4 @@ body{
     background-color: #5374b6;
 }
 </style>
-
-<script>
-var buttonUp = () => {
-  const input = document.querySelector(".searchbox-input");
-  const cards = document.getElementsByClassName("card");
-  let filter = input.value
-  for (let i = 0; i < cards.length; i++) {
-      let title = cards[i].querySelector(".card-body");
-      if (title.innerText.indexOf(filter) > -1) {
-          cards[i].classList.remove("d-none")
-      } else {
-          cards[i].classList.add("d-none")
-      }
-  }
-}
-</script>
 {% endblock %}
