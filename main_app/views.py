@@ -214,6 +214,12 @@ def studentSearchView(request):
     
     return HttpResponse(template.render(context, request))
     
+
+# Document uploads
+# https://docs.djangoproject.com/en/3.2/topics/http/file-uploads/
+# https://simpleisbetterthancomplex.com/tutorial/2016/08/01/how-to-upload-files-with-django.html
+# https://www.youtube.com/watch?v=nzLMA9WZqMM
+
 def document_list(request):
     userdocs = Document.objects.filter(profile=request.user.profile)
     return render(request, 'main_app/documents.html', {'documents': userdocs})
@@ -239,4 +245,3 @@ def document_delete(request, pk):
     documents = Document.objects.all()
     form = DocumentForm()
     return HttpResponseRedirect('/documents')
-    #return render(request, 'main_app/documents.html', {'documents': documents, 'form': form})
