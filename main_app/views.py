@@ -227,9 +227,8 @@ def classTestView(request):
     return None
 
 def document_list(request):
-    #alldocs = Document.objects.all()
     user_classes = request.user.profile.classes.all()
-    classDocs = []
+    classDocs = {}
     for user_class in user_classes:
         classDocs[user_class] = Document.objects.filter(document_class=user_class)
     #userdocs_byClass = Document.objects.filter(document_class=request.user.profile.classes.all())  
