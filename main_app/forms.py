@@ -19,5 +19,5 @@ class DocumentForm(forms.ModelForm):
         model = Document
         #document_class = forms.ModelChoiceField(queryset=Profile.classes.all())
         #document_class = forms.ModelChoiceField(queryset=Class.objects.all())
-        fields = ('title', 'document', )
-        exclude = ('profile', 'document_class', )
+        fields = ('title', 'document', 'document_class',)
+        exclude = ('profile', )
