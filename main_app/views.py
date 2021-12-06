@@ -154,6 +154,7 @@ def filterClasses(request):
             if len(vals) != 2:
                 messages.error(request, "Invalid course code!")
                 return HttpResponseRedirect('/addClasses')
+            # filter twice
             print("subject", vals[0], "\n")
             print("code", vals[1], "\n")
             courses = Class.objects.filter(subject__icontains=vals[0])
