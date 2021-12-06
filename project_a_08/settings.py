@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '%%r-2ct19)+kdn9+3s*735s@!f9f1ox+#%%1uoj#vvl+d^2(pn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
@@ -114,11 +114,11 @@ WSGI_APPLICATION = 'project_a_08.wsgi.application'
 
 DATABASES = {'default': dj_database_url.config()}
 
-if DEBUG:
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+# if DEBUG:
+#     DATABASES['default'] = {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
 
 if 'test' in sys.argv:
     DATABASES['default'] = {
@@ -126,7 +126,16 @@ if 'test' in sys.argv:
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 
-
+'''DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'db8v7ufuhkthg1',
+        'USER': 'yztdwudtcmtldx',
+        'PASSWORD': '3c312affe2beb4ad1b0d9f8eba1cff9eece2a9d172e6702e0ceb2cae633dea9e',
+        'HOST': 'ec2-3-230-149-158.compute-1.amazonaws.com',
+        'PORT':  '5432',
+    }
+}'''
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -226,3 +235,4 @@ AWS_ACCESS_KEY_ID = 'AKIA5PB2YJ5VTSVQHRAU'
 AWS_S3_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = '3240documents'
 AWS_QUERYSTRING_AUTH = False
+
